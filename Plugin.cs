@@ -17,7 +17,7 @@ namespace ACTAP
     {
         private void Awake()
         {
-            SceneManager.sceneLoaded += DebugLogger;
+            //SceneManager.sceneLoaded += DebugLogger;
 
             // Plugin startup logic
             Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");

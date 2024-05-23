@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACTAP.csproj": {}
+    "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACT AP Client Plugin\\ACTAP.csproj": {}
   },
   "projects": {
-    "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACTAP.csproj": {
+    "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACT AP Client Plugin\\ACTAP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACTAP.csproj",
+        "projectUniqueName": "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACT AP Client Plugin\\ACTAP.csproj",
         "projectName": "ACTAP",
-        "projectPath": "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACTAP.csproj",
+        "projectPath": "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACT AP Client Plugin\\ACTAP.csproj",
         "packagesPath": "C:\\Users\\Devin\\.nuget\\packages\\",
-        "outputPath": "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\obj\\",
+        "outputPath": "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\ACTAP\\ACT AP Client Plugin\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Devin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "D:\\UnityModding\\Another Crabs Treasure\\Plugins\\lib": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://nuget.bepinex.dev/v3/index.json": {},
@@ -48,17 +49,18 @@
               "version": "[5.0.6, )"
             },
             "BepInEx.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[1.*, )"
+              "version": "[1.0.8, )"
             },
             "BepInEx.Core": {
               "target": "Package",
-              "version": "[5.*, )"
+              "version": "[5.4.21, )"
             },
             "BepInEx.PluginInfoProps": {
               "target": "Package",
-              "version": "[2.*, )"
+              "version": "[2.1.0, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -78,11 +80,12 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.417\\RuntimeIdentifierGraph.json"
         }
       }
     }

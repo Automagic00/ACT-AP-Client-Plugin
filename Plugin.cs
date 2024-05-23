@@ -4,7 +4,11 @@ using Archipelago.MultiClient.Net.Packets;
 using HarmonyLib;
 using System;
 using System.Threading.Tasks;
+using System.Reflection;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json.Linq;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +21,7 @@ namespace ACTAP
     {
         private void Awake()
         {
-            //SceneManager.sceneLoaded += DebugLogger;
+            SceneManager.sceneLoaded += DebugLogger;
 
             // Plugin startup logic
             Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
@@ -25,9 +29,67 @@ namespace ACTAP
             harmony.PatchAll();
         }
 
-        public static void DebugLogger(Scene s, LoadSceneMode m)
+        MethodInfo method = AccessTools.Method(typeof(Item), "ObtainItem");
+        public void DebugLogger(Scene s, LoadSceneMode m)
         {
-            Debug.Log("");
+            //object = GameObject.Find("")
+            //Debug.Log(ToString( method.Invoke()));
+            string json = JsonUtility.ToJson(CrabFile.current.inventoryData);
+            using (StreamWriter writeText = new StreamWriter("outInv.txt"))
+            {
+                writeText.WriteLine(json);
+            }
+
+            json = JsonUtility.ToJson(CrabFile.current.progressData);
+            using (StreamWriter writeText = new StreamWriter("outProg.txt"))
+            {
+                writeText.WriteLine(json);
+            }
+
+            json = JsonUtility.ToJson(CrabFile.current.locationData);
+            using (StreamWriter writeText = new StreamWriter("outLoc.txt"))
+            {
+                writeText.WriteLine(json);
+            }
+
+            json = JsonUtility.ToJson(CrabFile.current.storeData);
+            using (StreamWriter writeText = new StreamWriter("outStore.txt"))
+            {
+                writeText.WriteLine(json);
+            }
+
+            json = JsonUtility.ToJson(CrabFile.current.unlocks);
+            using (StreamWriter writeText = new StreamWriter("outUnlock.txt"))
+            {
+                writeText.WriteLine(json);
+            }
+        }
+
+        [HarmonyPatch(typeof(Player), "Update")]
+        class PlayerPatch
+        {
+            [HarmonyPrefix]
+            public static void updatePatch()
+            {
+                //Debug.Log("We in it");
+                if (Input.GetKeyDown(KeyCode.F3))
+                {
+                    Debug.Log("F3 Pressed");
+                    string json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
+                    Item item = new Item();
+                    JsonUtility.FromJsonOverwrite(json, item);
+
+                    item.ObtainItem();
+                    /*string json = File.ReadAllText("outInv.txt");
+                    JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json) as JObject;
+                    JToken jsonToken = jsonObj.SelectToken("inventory[18].amount");
+                    jsonToken.Replace(400);
+
+                    string updatedJson = jsonObj.ToString();
+                    File.WriteAllText("outInv.txt", updatedJson);
+                    JsonUtility.FromJsonOverwrite(updatedJson, CrabFile.current.storeData);*/
+                }
+            }
         }
 
         public static class ArchipelagoConnection

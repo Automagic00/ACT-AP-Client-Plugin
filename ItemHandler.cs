@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace ACTAP
 {
@@ -29,9 +31,9 @@ namespace ACTAP
     [HarmonyPatch(typeof(Boss), "TestEnemyDied")]
     class BossKillLocations
     {
-        FieldInfo enemy = AccessTools.Field(typeof(Boss), "enemy");
+        //FieldInfo enemy = AccessTools.Field(typeof(Boss), "enemy");
         [HarmonyPrefix]
-        private void TestEnemyDiedPatch(HitEvent killEvent, Boss __instance)
+        private static void TestEnemyDiedPatch(HitEvent killEvent, Boss __instance)
         {
                 
             if (killEvent.target == __instance.GetEnemy())
@@ -41,13 +43,27 @@ namespace ACTAP
         }
     }
 
-    [HarmonyPatch(typeof(InventoryData), "OnInventoryUpdated")]
+    [HarmonyPatch(typeof(Item), nameof(Item.ObtainItem))]
     class InvUpdate
     {
         [HarmonyPrefix]
-        private void LogItemsPatch(InventoryData __instance)
+        private static void LogItemsPatch(Item __instance)
         {
-            Debug.Log(__instance.GetUmamiAttackNames());
+            //Create a JSON for Item Pickups
+            string json = JsonUtility.ToJson(__instance);
+            using (StreamWriter writeText = new StreamWriter("items/" + __instance.item + ".txt"))
+            {
+                writeText.WriteLine(json);
+            }
+
+            //Read from JSON to swap items
+            /*json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
+            JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json) as JObject;
+            
+            JsonUtility.FromJsonOverwrite(json, __instance);*/
+
+            Debug.Log(__instance.item + ", " + __instance.amount);
+
         }
 
     }

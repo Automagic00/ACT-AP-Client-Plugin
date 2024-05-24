@@ -35,34 +35,18 @@ namespace ACTAP
             //object = GameObject.Find("")
             //Debug.Log(ToString( method.Invoke()));
             string json = JsonUtility.ToJson(CrabFile.current.inventoryData);
-            using (StreamWriter writeText = new StreamWriter("outInv.txt"))
-            {
-                writeText.WriteLine(json);
-            }
 
-            json = JsonUtility.ToJson(CrabFile.current.progressData);
-            using (StreamWriter writeText = new StreamWriter("outProg.txt"))
+            List<string> namelist = new List<string>();
+            foreach (var item in InventoryMasterList.staticList )
             {
-                writeText.WriteLine(json);
+                json = JsonUtility.ToJson(item);
+                using (StreamWriter writeText = new StreamWriter("namelist/" + item.name + ".txt"))
+                {
+                    writeText.WriteLine(json);
+                }
             }
+            
 
-            json = JsonUtility.ToJson(CrabFile.current.locationData);
-            using (StreamWriter writeText = new StreamWriter("outLoc.txt"))
-            {
-                writeText.WriteLine(json);
-            }
-
-            json = JsonUtility.ToJson(CrabFile.current.storeData);
-            using (StreamWriter writeText = new StreamWriter("outStore.txt"))
-            {
-                writeText.WriteLine(json);
-            }
-
-            json = JsonUtility.ToJson(CrabFile.current.unlocks);
-            using (StreamWriter writeText = new StreamWriter("outUnlock.txt"))
-            {
-                writeText.WriteLine(json);
-            }
         }
 
         [HarmonyPatch(typeof(Player), "Update")]
@@ -75,11 +59,13 @@ namespace ACTAP
                 if (Input.GetKeyDown(KeyCode.F3))
                 {
                     Debug.Log("F3 Pressed");
-                    string json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
-                    Item item = new Item();
-                    JsonUtility.FromJsonOverwrite(json, item);
+                    //string json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
+                    //Item item = new Item();
+                    //item = ItemSwapData.GetItem(ItemSwapData.ItemEnum.BloodStarLimb);
+                    ItemSwapData.GetItem(ItemSwapData.AdaptationEnum.SpectralTentacle);
+                    //JsonUtility.FromJsonOverwrite(json, item);
 
-                    item.ObtainItem();
+                    //item.ObtainItem();
                     /*string json = File.ReadAllText("outInv.txt");
                     JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json) as JObject;
                     JToken jsonToken = jsonObj.SelectToken("inventory[18].amount");
@@ -88,6 +74,15 @@ namespace ACTAP
                     string updatedJson = jsonObj.ToString();
                     File.WriteAllText("outInv.txt", updatedJson);
                     JsonUtility.FromJsonOverwrite(updatedJson, CrabFile.current.storeData);*/
+                }
+
+                if (Input.GetKeyDown(KeyCode.F4))
+                {
+                    Debug.Log("F4 Pressed");
+
+                    SkillTreeData skillTree = new SkillTreeData();
+                    
+                    skillTree.SetSkill(SkillTreeUnlocks.Skedaddle, true, false);
                 }
             }
         }

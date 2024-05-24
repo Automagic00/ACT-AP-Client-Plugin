@@ -16,7 +16,7 @@ namespace ACTAP
     //public class ItemHandler : BaseUnityPlugin
     //{
 
-    [HarmonyPatch(typeof(Nephro), nameof(Nephro.Die))]
+    /*[HarmonyPatch(typeof(Nephro), nameof(Nephro.Die))]
     class NephroKillLocation
     {
         [HarmonyPrefix]
@@ -26,7 +26,7 @@ namespace ACTAP
             Plugin.ArchipelagoConnection.ReportLocation(0);
                 
         }
-    }
+    }*/
 
     [HarmonyPatch(typeof(Boss), "TestEnemyDied")]
     class BossKillLocations
@@ -66,6 +66,59 @@ namespace ACTAP
 
         }
 
+    }
+    [HarmonyPatch(typeof(UnlockItem), nameof(Item.ObtainItem))]
+    class UnlockInvUpdate
+    {
+        [HarmonyPrefix]
+        private static void LogUnlockItemsPatch(UnlockItem __instance)
+        {
+            //Create a JSON for Item Pickups
+            string json = JsonUtility.ToJson(__instance);
+            using (StreamWriter writeText = new StreamWriter("unlocks/" + __instance.choiceItem + ".txt"))
+            {
+                writeText.WriteLine(json);
+            }
+
+            //Read from JSON to swap items
+            /*json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
+            JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json) as JObject;
+            
+            JsonUtility.FromJsonOverwrite(json, __instance);*/
+
+            //Debug.Log(__instance.item + ", " + __instance.amount);
+
+        }
+
+    }
+
+    [HarmonyPatch(typeof (ShopButtonFlag), nameof (ShopButtonFlag.TryPurchase))]
+    class ShopLog
+    {
+        [HarmonyPrefix]
+        public static void LogShopItemPatch(ShopButtonFlag __instance)
+        {
+            string json = JsonUtility.ToJson(__instance.shopItemData.item);
+            using (StreamWriter writeText = new StreamWriter("items/" + __instance.shopItemData.item + ".txt"))
+            {
+                writeText.WriteLine(json);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(SkillTreeButtonFlag), nameof(SkillTreeButtonFlag.OnClick))]
+    class SkillLog
+    {
+        [HarmonyPrefix]
+        public static void LogShopItemPatch(SkillTreeButtonFlag __instance)
+        {
+            Debug.Log("SkillTreeTEST");
+            string json = JsonUtility.ToJson(__instance.selectedData[0]);
+            using (StreamWriter writeText = new StreamWriter("skills/" + __instance.selectedData[0].skill + ".txt"))
+            {
+                writeText.WriteLine(json);
+            }
+        }
     }
 
     //}

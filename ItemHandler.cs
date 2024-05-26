@@ -12,21 +12,6 @@ using Newtonsoft.Json.Linq;
 
 namespace ACTAP
 {
-    //[BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.0.0")]
-    //public class ItemHandler : BaseUnityPlugin
-    //{
-
-    /*[HarmonyPatch(typeof(Nephro), nameof(Nephro.Die))]
-    class NephroKillLocation
-    {
-        [HarmonyPrefix]
-        public static void DiePatch(Nephro __instance)
-        {
-            Debug.Log(__instance.transform.name);
-            Plugin.ArchipelagoConnection.ReportLocation(0);
-                
-        }
-    }*/
 
     [HarmonyPatch(typeof(Boss), "TestEnemyDied")]
     class BossKillLocations
@@ -43,54 +28,34 @@ namespace ACTAP
         }
     }
 
-    [HarmonyPatch(typeof(Item), nameof(Item.ObtainItem))]
+    //Log Location Paths
+    [HarmonyPatch(typeof(Item), "Awake")]
     class InvUpdate
     {
         [HarmonyPrefix]
         private static void LogItemsPatch(Item __instance)
         {
-            //Create a JSON for Item Pickups
-            string json = JsonUtility.ToJson(__instance);
-            using (StreamWriter writeText = new StreamWriter("items/" + __instance.item + ".txt"))
-            {
-                writeText.WriteLine(json);
-            }
-
-            //Read from JSON to swap items
-            /*json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
-            JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json) as JObject;
-            
-            JsonUtility.FromJsonOverwrite(json, __instance);*/
-
-            Debug.Log(__instance.item + ", " + __instance.amount);
-
+            LocationSwapData.LogLocation(__instance);
         }
 
     }
-    [HarmonyPatch(typeof(UnlockItem), nameof(Item.ObtainItem))]
-    class UnlockInvUpdate
+
+    //Hook into item pickups
+    [HarmonyPatch(typeof(Item), nameof(Item.Interact))]
+    class PickupLocations
     {
         [HarmonyPrefix]
-        private static void LogUnlockItemsPatch(UnlockItem __instance)
+        private static bool PickupItemPatch(Item __instance)
         {
-            //Create a JSON for Item Pickups
-            string json = JsonUtility.ToJson(__instance);
-            using (StreamWriter writeText = new StreamWriter("unlocks/" + __instance.choiceItem + ".txt"))
-            {
-                writeText.WriteLine(json);
-            }
-
-            //Read from JSON to swap items
-            /*json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
-            JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json) as JObject;
-            
-            JsonUtility.FromJsonOverwrite(json, __instance);*/
-
-            //Debug.Log(__instance.item + ", " + __instance.amount);
-
+            __instance.ObtainItem();
+            __instance.PickupVisually(0f);
+            UnityEngine.Object.Destroy(__instance.gameObject, 0.2f);
+            return false;
         }
-
     }
+
+    //Fake Pickup Visuals
+
 
     [HarmonyPatch(typeof (ShopButtonFlag), nameof (ShopButtonFlag.TryPurchase))]
     class ShopLog

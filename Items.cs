@@ -14,12 +14,27 @@ namespace ACTAP
 {
     class ItemSwapData
     {
+        public static void RecieveItemVisual(Item item)
+        {
+            item.PickupVisually();
+        }
         public static void GetItem(ItemEnum itemToGet)
         {
             Item item = new Item();
             item.item = ScriptableObject.CreateInstance<CollectableItemData>();
             item.item.name = GetItemJson(itemToGet);
+            
+            //Replace all item data with masterlist item that matches name
+            foreach (var listItem in InventoryMasterList.staticList)
+            {
+                if (listItem.name == item.item.name)
+                {
+                    item.item = listItem;
+                }
+            }
+
             CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
+            RecieveItemVisual(item);
         }
 
         public static void GetItem(StowawayEnum itemToGet)
@@ -27,8 +42,18 @@ namespace ACTAP
             Item item = new Item();
             item.item = ScriptableObject.CreateInstance<CollectableItemData>();
             item.item.name = GetItemJson(itemToGet);
-            CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
 
+            //Replace all item data with masterlist item that matches name
+            foreach (var listItem in InventoryMasterList.staticList)
+            {
+                if (listItem.name == item.item.name)
+                {
+                    item.item = listItem;
+                }
+            }
+
+            CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
+            RecieveItemVisual(item);
         }
 
         public static void GetItem(AdaptationEnum itemToGet)
@@ -36,7 +61,37 @@ namespace ACTAP
             Item item = new Item();
             item.item = ScriptableObject.CreateInstance<CollectableItemData>();
             item.item.name = GetItemJson(itemToGet);
+
+            //Replace all item data with masterlist item that matches name
+            foreach (var listItem in InventoryMasterList.staticList)
+            {
+                if (listItem.name == item.item.name)
+                {
+                    item.item = listItem;
+                }
+            }
+
             CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
+            RecieveItemVisual(item);
+        }
+
+        public static void GetItem(CostumeEnum itemToGet)
+        {
+            Item item = new Item();
+            item.item = ScriptableObject.CreateInstance<CollectableItemData>();
+            item.item.name = GetItemJson(itemToGet);
+
+            //Replace all item data with masterlist item that matches name
+            foreach (var listItem in InventoryMasterList.staticList)
+            {
+                if (listItem.name == item.item.name)
+                {
+                    item.item = listItem;
+                }
+            }
+
+            CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
+            RecieveItemVisual(item);
         }
 
         public static string GetItemJson(ItemEnum itemName)
@@ -166,6 +221,30 @@ namespace ACTAP
 
             }
         }
+        public static string GetItemJson(CostumeEnum itemName)
+        {
+            switch (itemName)
+            {
+                case CostumeEnum.BlueCollar: return "Inv_Costume_BlueCollar";
+                case CostumeEnum.Boss: return "Inv_Costume_Boss";
+                case CostumeEnum.Clown: return "Inv_Costume_Clown";
+                case CostumeEnum.Cowboy: return "Inv_Costume_Cowboy";
+                case CostumeEnum.CultLeader: return "Inv_Costume_CultLeader";
+                case CostumeEnum.Default: return "Inv_Costume_Default";
+                case CostumeEnum.Doctor: return "Inv_Costume_Doctor";
+                case CostumeEnum.Forsburn: return "Inv_Costume_Forsburn";
+                case CostumeEnum.GarbageBag_Black: return "Inv_Costume_GarbageBag-Black";
+                case CostumeEnum.GarbageBag_White: return "Inv_Costume_GarbageBag-White";
+                case CostumeEnum.Jackie: return "Inv_Costume_Jackie";
+                case CostumeEnum.Knight: return "Inv_Costume_Knight";
+                case CostumeEnum.Krillionaire: return "Inv_Costume_Krillionaire";
+                case CostumeEnum.Lizz: return "Inv_Costume_Lizz";
+                case CostumeEnum.Maid: return "Inv_Costume_Maid";
+                case CostumeEnum.Nephro: return "Inv_Costume_Nephro";
+                case CostumeEnum.PrideGay: return "Inv_Costume_PrideGay";
+                default: return "Inv_Costume_Default";
+            }
+        }
 
 
         public enum AdaptationEnum
@@ -282,5 +361,25 @@ namespace ACTAP
 
         }
 
+        public enum CostumeEnum
+        { 
+            BlueCollar,
+            Boss,
+            Clown,
+            Cowboy,
+            CultLeader,
+            Default,
+            Doctor,
+            Forsburn,
+            GarbageBag_Black,
+            GarbageBag_White,
+            Jackie,
+            Knight,
+            Krillionaire,
+            Lizz,
+            Maid,
+            Nephro,
+            PrideGay
+        }
     }
 }

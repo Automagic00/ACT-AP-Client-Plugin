@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
+using System.Collections;
 using Newtonsoft.Json.Linq;
 
 using UnityEngine;
@@ -32,9 +33,7 @@ namespace ACTAP
         MethodInfo method = AccessTools.Method(typeof(Item), "ObtainItem");
         public void DebugLogger(Scene s, LoadSceneMode m)
         {
-            //object = GameObject.Find("")
-            //Debug.Log(ToString( method.Invoke()));
-            string json = JsonUtility.ToJson(CrabFile.current.inventoryData);
+            /*string json = JsonUtility.ToJson(CrabFile.current.inventoryData);
 
             List<string> namelist = new List<string>();
             foreach (var item in InventoryMasterList.staticList )
@@ -44,36 +43,23 @@ namespace ACTAP
                 {
                     writeText.WriteLine(json);
                 }
-            }
+            }*/
+            Debug.Log(s.name);
             
 
         }
 
+        //DEBUG CONTROLS
         [HarmonyPatch(typeof(Player), "Update")]
         class PlayerPatch
         {
             [HarmonyPrefix]
             public static void updatePatch()
             {
-                //Debug.Log("We in it");
                 if (Input.GetKeyDown(KeyCode.F3))
                 {
                     Debug.Log("F3 Pressed");
-                    //string json = File.ReadAllText("items/00_BreadClaw (JunkCollectable).txt");
-                    //Item item = new Item();
-                    //item = ItemSwapData.GetItem(ItemSwapData.ItemEnum.BloodStarLimb);
-                    ItemSwapData.GetItem(ItemSwapData.AdaptationEnum.SpectralTentacle);
-                    //JsonUtility.FromJsonOverwrite(json, item);
-
-                    //item.ObtainItem();
-                    /*string json = File.ReadAllText("outInv.txt");
-                    JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json) as JObject;
-                    JToken jsonToken = jsonObj.SelectToken("inventory[18].amount");
-                    jsonToken.Replace(400);
-
-                    string updatedJson = jsonObj.ToString();
-                    File.WriteAllText("outInv.txt", updatedJson);
-                    JsonUtility.FromJsonOverwrite(updatedJson, CrabFile.current.storeData);*/
+                    ItemSwapData.GetItem(ItemSwapData.CostumeEnum.Clown);
                 }
 
                 if (Input.GetKeyDown(KeyCode.F4))

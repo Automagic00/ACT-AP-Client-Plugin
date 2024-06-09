@@ -9,14 +9,133 @@ using UnityEngine;
 using System.Reflection;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using Archipelago.MultiClient.Net.Models;
 
 namespace ACTAP
 {
     class ItemSwapData
     {
+        static Sprite apSprite;
+
+        public static void setAPSprite(Sprite sprite)
+        {
+            apSprite = sprite;
+        }
+
         public static void RecieveItemVisual(Item item)
         {
             item.PickupVisually();
+        }
+        public static void CustomItemVisual(NetworkItem networkItem)
+        {
+            ArchipelagoSession session = Plugin.GetConnection().session;
+            var playerName = session.Players.GetPlayerName(networkItem.Player);
+
+
+            Debug.Log("CustomVis");
+            GUIManager.instance.HUD.itemNotification.Play(playerName + "'s Item", false, apSprite, "test", 0);
+        }
+        public static void GetItem(string name)
+        {
+            ItemEnum itemToGet = ItemEnum.NULL;
+            StowawayEnum stowawayToGet = StowawayEnum.NULL;
+            CostumeEnum costumeToGet = CostumeEnum.NULL;
+
+            switch (name)
+            {
+                case "Fishing Line (Grapple)": itemToGet = ItemEnum.FishingLine; break;
+                case "Pristine Pearl": itemToGet = ItemEnum.DuchessPearl; break;
+                case "Bloodstar Limb": itemToGet = ItemEnum.BloodStarLimb; break;
+                case "Heartkelp Sprout": itemToGet = ItemEnum.HeartkelpSprout; break;
+                case "Siphonophore": stowawayToGet = StowawayEnum.Siphonophore; break;
+                case "Seastar": stowawayToGet = StowawayEnum.SeaStar; break;
+                case "Sponge": stowawayToGet = StowawayEnum.Sponge; break;
+                case "Another Crab": stowawayToGet = StowawayEnum.AnotherCrab; break;
+                case "Sand Dollar": stowawayToGet = StowawayEnum.SandDollar; break;
+                case "Limpet": stowawayToGet = StowawayEnum.Limpet; break;
+                case "Barnacle": stowawayToGet = StowawayEnum.Barnacle; break;
+                case "Mussel": stowawayToGet = StowawayEnum.Mussel; break;
+                case "Anemone": stowawayToGet = StowawayEnum.Anemone; break;
+                case "Whelk": stowawayToGet = StowawayEnum.Whelk; break;
+                case "Breadclaw": itemToGet = ItemEnum.BreadClaw; break;
+                case "Chipclaw": itemToGet = ItemEnum.ChipClaw; break;
+                case "Hairclaw": itemToGet = ItemEnum.HairClaw; break;
+                case "Clothesclaw": itemToGet = ItemEnum.ClothesClaw; break;
+                case "Captain": costumeToGet = CostumeEnum.Nephro; break;
+                default: Debug.Log("could not get item " + name); break;
+            }
+
+            if (itemToGet != ItemEnum.NULL)
+            {
+                GetItem(itemToGet);
+            }
+            if (stowawayToGet != StowawayEnum.NULL)
+            {
+                GetItem(stowawayToGet);
+            }
+            if (costumeToGet != CostumeEnum.NULL)
+            {
+                GetItem(costumeToGet);
+            }
+        }
+        public static void GetItem(long id)
+        {
+            ItemEnum itemToGet = ItemEnum.NULL;
+            StowawayEnum stowawayToGet = StowawayEnum.NULL;
+            CostumeEnum costumeToGet = CostumeEnum.NULL;
+            AdaptationEnum adaptationToGet = AdaptationEnum.NULL;
+            id = id - 483021700;
+
+            switch (id)
+            {
+                case 0: itemToGet = ItemEnum.NULL; break;
+                case 1: itemToGet = ItemEnum.NULL; break; //Fork
+                case 2: itemToGet = ItemEnum.NULL; break; //Heart Kelp Pod
+                case 3: itemToGet = ItemEnum.FishingLine; break;
+                case 4: itemToGet = ItemEnum.DuchessPearl; break;
+                case 5: itemToGet = ItemEnum.MapPiece1; break;
+                case 6: itemToGet = ItemEnum.MapPiece2; break;
+                case 7: itemToGet = ItemEnum.MapPiece3; break;
+                case 8: itemToGet = ItemEnum.BloodStarLimb; break;
+                case 9: itemToGet = ItemEnum.HeartkelpSprout; break;
+                case 10: itemToGet = ItemEnum.OldWorldWhorl; break;
+                case 11: itemToGet = ItemEnum.StainlessRelic; break;
+                case 12: itemToGet = ItemEnum.LurePouch; break;
+                case 13: stowawayToGet = StowawayEnum.Siphonophore; break;
+                case 14: stowawayToGet = StowawayEnum.SeaStar; break;
+                case 15: stowawayToGet = StowawayEnum.Sponge; break;
+                case 16: stowawayToGet = StowawayEnum.AnotherCrab; break;
+                case 17: stowawayToGet = StowawayEnum.SandDollar; break;
+                case 18: stowawayToGet = StowawayEnum.Limpet; break;
+                case 19: stowawayToGet = StowawayEnum.Barnacle; break;
+                case 20: stowawayToGet = StowawayEnum.Mussel; break;
+                case 21: stowawayToGet = StowawayEnum.Anemone; break;
+                case 22: stowawayToGet = StowawayEnum.Whelk; break;
+                case 49: itemToGet = ItemEnum.BreadClaw; break;
+                case 50: itemToGet = ItemEnum.ChipClaw; break;
+                case 51: itemToGet = ItemEnum.HairClaw; break;
+                case 52: itemToGet = ItemEnum.ClothesClaw; break;
+                case 58: costumeToGet = CostumeEnum.Nephro; break;
+                case 73: adaptationToGet = AdaptationEnum.RoyalWave; break;
+                default: Debug.Log("could not get item " + id); break;
+            }
+
+            if(itemToGet != ItemEnum.NULL)
+            {
+                GetItem(itemToGet);
+            }
+            if(stowawayToGet != StowawayEnum.NULL)
+            {
+                GetItem(stowawayToGet);
+            }
+            if(costumeToGet != CostumeEnum.NULL)
+            {
+                GetItem(costumeToGet);
+            }
+            if(adaptationToGet != AdaptationEnum.NULL)
+            {
+                GetItem(adaptationToGet);
+            }
         }
         public static void GetItem(ItemEnum itemToGet)
         {
@@ -34,6 +153,11 @@ namespace ACTAP
             }
 
             CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
+            if (itemToGet == ItemEnum.FishingLine)
+            {
+                CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
+            }
+
             RecieveItemVisual(item);
         }
 
@@ -256,7 +380,8 @@ namespace ACTAP
             RoyalWave,
             SnailSanctum,
             SpectralTentacle,
-            UrchinToss
+            UrchinToss,
+            NULL
         }
 
         public enum ItemEnum
@@ -282,7 +407,8 @@ namespace ACTAP
             MapPiece2,
             MapPiece3,
             OldWorldWhorl,
-            StainlessRelic
+            StainlessRelic,
+            NULL
         }
 
         public enum StowawayEnum
@@ -357,7 +483,8 @@ namespace ACTAP
             WhelkPlus,
             WhelkPlusPlus,
             Zooplankton,
-            ZooplanktonPlus
+            ZooplanktonPlus,
+            NULL
 
         }
 
@@ -379,7 +506,8 @@ namespace ACTAP
             Lizz,
             Maid,
             Nephro,
-            PrideGay
+            PrideGay,
+            NULL
         }
     }
 }

@@ -119,7 +119,7 @@ namespace ACTAP
             Debug.Log(s.name);
 
             //Load AP 
-            var texFile = File.ReadAllBytes("AP.png");
+            var texFile = File.ReadAllBytes("BepInEx/plugins/Archipelago/assets/AP.png");
             Texture2D tex = new Texture2D(2, 2);
             tex.LoadImage(texFile);
             Sprite apSprite = Sprite.Create(tex, new Rect(0, 0, 2034, 2112), new Vector2(0, 0));
@@ -148,7 +148,7 @@ namespace ACTAP
                 if (Input.GetKeyDown(KeyCode.F3))
                 {
                     Debug.Log("F3 Pressed");
-                    ItemSwapData.GetItem(ItemSwapData.ItemEnum.DuchessPearl);
+                    //ItemSwapData.CustomItemVisual()
                 }
 
                 if (Input.GetKeyDown(KeyCode.F4))

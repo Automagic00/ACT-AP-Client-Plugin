@@ -30,6 +30,12 @@ namespace ACTAP
                 long apid = LocationSwapData.BossPathToAPID(__instance.bossName);
                 Debug.Log(__instance.bossName);
                 Debug.Log("Assigned Location ID: " + (apid - 483021700));
+
+                if (Plugin.debugMode == true)
+                {
+                    return;
+                }
+
                 if (apid - 483021700 != -1)
                 {
                     Plugin.GetConnection().ActivateCheck(apid);
@@ -70,7 +76,7 @@ namespace ACTAP
         [HarmonyPostfix]
         private static void LogItemsPatch(SaveStateKillableEntity __instance)
         {
-            if (__instance.GetComponent<Item>() != null && __instance.GetComponent<Item>().name != "ForkUnlock(1)" && __instance.GetComponent<Item>().name != "ForkUnlock(1)")
+            if (__instance.GetComponent<Item>() != null && __instance.GetComponent<Item>().name != "ForkUnlock(1)" && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
             {
                 if (Plugin.debugMode && Plugin.removePickups)
                 {

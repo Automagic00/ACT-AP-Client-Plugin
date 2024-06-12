@@ -59,8 +59,8 @@ namespace ACTAP
                 //case "": return baseid + 1; //
 
                 //ShallowsTidePools
-                case "950e628c-f657-48d4-b93b-f8717627f6b3-2_A-ShallowsTidePools": return baseid +  0; //heartkelp_inital
                 case "": return baseid - 1; //empty pickup
+                case "950e628c-f657-48d4-b93b-f8717627f6b3-2_A-ShallowsTidePools": return baseid +  0; //heartkelp_inital
                 case "73329d8e-7c96-4e82-9d3c-e57cc61b46b4-2_A-ShallowsTidePools": return baseid + 4; //breadclaw_caveofrespite_ledge
                 case "0171a152-809a-47cf-9fcc-60ddb61511bb-2_B-ShallowsBigSand": return baseid + 5; //breadclaw_shallows_southsandal
                 case "ae27274c-c3f7-4721-9ddb-7c5a880578a4-2_B-ShallowsBigSand": return baseid + 6; //breadclaw_shallows_westwall
@@ -103,6 +103,18 @@ namespace ACTAP
                 case "7c307763-a7b4-4e81-88d6-e1baf1b04608-2_B-ShallowsBigSand": return baseid + 43; //captain_costume_pickup
                 //case "": return baseid + 44; //royal_wave_reward
                 case "e13e2c76-a638-4023-aa84-f6f29fd7bf65-2_B-ShallowsBigSand": return baseid + 45; //clothesclaw_shallows_southwestfort
+                    //more bosses
+                case "e9bf56b8-1362-42a9-87a2-00bed3a6f5d2-2_A-NCTradeRoute": return baseid + 63; //chipclaw_reefsedge_brokenbridge
+                case "d8433d6b-5400-4dec-aad0-032e27babdeb-2_A-NCTradeRoute": return baseid + 64; //stainlessrelic_reefsedge_coral
+                case "c44729ce-4c25-4059-8432-212381ca6835-2_A-NCTradeRoute": return baseid + 65; //barbedhook_reefsedge_undercoral
+                case "08434b00-0100-4ea1-8f2a-f1567b84bdf2-2_A-NCTradeRoute": return baseid + 66; //barbedhook_reefsedge_seahorses
+                case "1f5a8d6b-10ab-4e4e-b240-284e2ec2c77a-2_A-NCTradeRoute": return baseid + 67; //breadclaw_reefsedge_thimblecrab
+                case "d93f0715-7c15-4f74-b376-34468705093c-2_A-NCTradeRoute": return baseid + 68; //seastar_reefsedge_crabs
+                case "2b4849b0-2798-4600-8db1-c5d6bf6952b1-2_A-NCTradeRoute": return baseid + 69; //barbedhook_reefsedge_shortcut
+                case "3473ed8f-db06-4bb7-9932-862f92258542-2_A-NCTradeRoute": return baseid + 70; //seastarplus_reefsedge_pole
+                case "b478df52-084c-4c14-8a55-215fdbaeaffe-2_A-NCTradeRoute": return baseid + 71; //hairclaw_reefsedge_sign
+                case "76ad26b0-4305-498c-8510-4940ad569210-2_A-NCTradeRoute": return baseid + 72; //barbedhook_reefsedge_cliff
+                case "5e8a3fb6-f3b1-42a0-a8b8-10b57b340138-2_A-NCTradeRoute": return baseid + 73; //whelkplus_reefsedge_sponge
 
                 default: return baseid -1;
 
@@ -114,9 +126,26 @@ namespace ACTAP
             long baseid = 483021700;
             switch (path)
             {
-                case "Boss_RoyalShellsplitter": return baseid -1;
-                case "Boss_Bruiser": return baseid + 3;
+                case "": return baseid -1;
+                case "Boss_Nephro": return baseid + 3;
                 case "Boss_Duchess": return baseid + 44;
+                case "Boss_Bruiser": return baseid + 46; //
+                case "Boss_RoyalShellsplitter": return baseid + 47; //
+                /*case "": return baseid + 48; //Pagurus
+                case "": return baseid + 49; //lycanthrope
+                case "": return baseid + 50; //carbonara_connessuer
+                case "": return baseid + 51; //heikea
+                case "": return baseid + 52; //topoda
+                case "": return baseid + 53; //consortium
+                case "": return baseid + 54; //sludge_steamroller
+                case "": return baseid + 55; //ceviche_sisters
+                case "": return baseid + 56; //voltai
+                case "": return baseid + 57; //roland
+                case "": return baseid + 58; //petroch
+                case "": return baseid + 59; //inkerton
+                case "": return baseid + 60; //camtscha
+                case "": return baseid + 61; //praya_dubia
+                case "": return baseid + 62;*/ //firth
                 default: return -1;
             }
         }

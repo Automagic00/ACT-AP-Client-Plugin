@@ -116,7 +116,7 @@ namespace ACTAP
                 case "76ad26b0-4305-498c-8510-4940ad569210-2_A-NCTradeRoute": return baseid + 72; //barbedhook_reefsedge_cliff
                 case "5e8a3fb6-f3b1-42a0-a8b8-10b57b340138-2_A-NCTradeRoute": return baseid + 73; //whelkplus_reefsedge_sponge
 
-                default: return baseid -1;
+                default: return baseid - 1;
 
             }
         }
@@ -127,7 +127,7 @@ namespace ACTAP
             switch (path)
             {
                 case "": return baseid -1;
-                case "Boss_Lobster_Nephro": return baseid + 3;
+                case "Boss_NephroCaptainoftheGuard": return baseid + 3;
                 case "Boss_Duchess": return baseid + 44;
                 case "Boss_Bruiser": return baseid + 46; //
                 case "Boss_RoyalShellsplitter": return baseid + 47; //

@@ -36,10 +36,10 @@ namespace ACTAP
                     return;
                 }
 
-                if (apid - 483021700 != -1)
+                if (apid != -1)
                 {
                     Plugin.GetConnection().ActivateCheck(apid);
-                    if (apid - 483021700 == 44)
+                    if (apid == 44)
                     {
                         Plugin.GetConnection().SendCompletion();
                     }
@@ -80,18 +80,21 @@ namespace ACTAP
             {
                 if (Plugin.debugMode && Plugin.removePickups)
                 {
-                    if (LocationSwapData.ItemPickupUUIDToAPID(__instance.GetComponent<Item>()) != -1)
+                    long testid = LocationSwapData.ItemPickupUUIDToAPID(__instance.GetComponent<Item>()) - 483021700;
+                    if (testid != -1)
                     {
-                        //Aggro.LogError(__instance.gameObject.name + " Already killed: deleting.", null);
+                        Debug.Log(__instance.gameObject.name + " Already killed: deleting. ID: " + testid);
                         Entity component = __instance.GetComponent<Entity>();
                         if (component)
                         {
                             GameManager.events.TriggerEntityDestroyedFromSave(component);
                         }
                         GameObject.Destroy(__instance.gameObject);
+                        
                     }
                 }
             }
+            
             /*FieldInfo field = AccessTools.Field(typeof(Item), "save");
             SaveStateKillableEntity save =  new SaveStateKillableEntity();
             save = (SaveStateKillableEntity)field.GetValue(__instance);

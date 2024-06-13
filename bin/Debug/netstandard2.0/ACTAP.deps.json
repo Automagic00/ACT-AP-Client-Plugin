@@ -13,9 +13,13 @@
           "BepInEx.Analyzers": "1.0.8",
           "BepInEx.Core": "5.4.21",
           "BepInEx.PluginInfoProps": "2.1.0",
+          "ILRepack.Lib.MSBuild": "2.1.18",
           "NETStandard.Library": "2.0.3",
           "UnityEngine.Modules": "2020.3.48",
-          "Assembly-CSharp": "0.0.0.0"
+          "0Harmony": "2.9.0.0",
+          "Assembly-CSharp": "0.0.0.0",
+          "BepInEx": "5.4.23.2",
+          "Newtonsoft.Json": "13.0.0.0"
         },
         "runtime": {
           "ACTAP.dll": {}
@@ -26,22 +30,11 @@
           "lib/netstandard2.0/Archipelago.MultiClient.Net.dll": {
             "assemblyVersion": "5.0.6.0",
             "fileVersion": "5.0.6.0"
-          },
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.0.1.0"
           }
         }
       },
       "BepInEx.Analyzers/1.0.8": {},
-      "BepInEx.BaseLib/5.4.20": {
-        "runtime": {
-          "lib/netstandard2.0/BepInEx.dll": {
-            "assemblyVersion": "5.4.20.0",
-            "fileVersion": "5.4.20.0"
-          }
-        }
-      },
+      "BepInEx.BaseLib/5.4.20": {},
       "BepInEx.Core/5.4.21": {
         "dependencies": {
           "BepInEx.BaseLib": "5.4.20",
@@ -53,14 +46,9 @@
         "dependencies": {
           "MonoMod.RuntimeDetour": "21.12.13.1",
           "System.Reflection.Emit": "4.7.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/0Harmony.dll": {
-            "assemblyVersion": "2.7.0.0",
-            "fileVersion": "2.7.0.0"
-          }
         }
       },
+      "ILRepack.Lib.MSBuild/2.1.18": {},
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
       "Mono.Cecil/0.11.4": {
@@ -399,11 +387,35 @@
         }
       },
       "UnityEngine.Modules/2020.3.48": {},
+      "0Harmony/2.9.0.0": {
+        "runtime": {
+          "0Harmony.dll": {
+            "assemblyVersion": "2.9.0.0",
+            "fileVersion": "2.9.0.0"
+          }
+        }
+      },
       "Assembly-CSharp/0.0.0.0": {
         "runtime": {
           "Assembly-CSharp.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "BepInEx/5.4.23.2": {
+        "runtime": {
+          "BepInEx.dll": {
+            "assemblyVersion": "5.4.23.2",
+            "fileVersion": "5.4.23.2"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.0.0": {
+        "runtime": {
+          "Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.2.0"
           }
         }
       },
@@ -665,6 +677,13 @@
       "path": "harmonyx/2.7.0",
       "hashPath": "harmonyx.2.7.0.nupkg.sha512"
     },
+    "ILRepack.Lib.MSBuild/2.1.18": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CkJ5v0PVZ8k3XXYLR9B99dOX7hGdK4cPMAaICoGlPJTgHRwVqMHC0zsUbiWedSfUqf9sdXlXUDnG9HMMhzynFg==",
+      "path": "ilrepack.lib.msbuild/2.1.18",
+      "hashPath": "ilrepack.lib.msbuild.2.1.18.nupkg.sha512"
+    },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
       "serviceable": true,
@@ -903,7 +922,22 @@
       "path": "unityengine.modules/2020.3.48",
       "hashPath": "unityengine.modules.2020.3.48.nupkg.sha512"
     },
+    "0Harmony/2.9.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Assembly-CSharp/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BepInEx/5.4.23.2": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Newtonsoft.Json/13.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

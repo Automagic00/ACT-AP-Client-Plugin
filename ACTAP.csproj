@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <ACT>D:\SteamLibrary\steamapps\common\Another Crab's Treasure</ACT>
+    <BepinCore>$(ACT)\BepInEx\core</BepinCore>
+    <Managed>$(ACT)\AnotherCrabsTreasure_Data\Managed</Managed>
+    <OutputFolder>$(ACT)\BepInEx\plugins</OutputFolder>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>ACTAP</AssemblyName>
     <Description>My first plugin</Description>
@@ -13,16 +20,13 @@
       https://nuget.samboy.dev/v3/index.json;
     </RestoreAdditionalProjectSources>
     <RootNamespace>ACTAP</RootNamespace>
+    <DoILRepack>false</DoILRepack>
   </PropertyGroup>
 
-
-  
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
 
-
-  
   <ItemGroup>
     <PackageReference Include="Archipelago.MultiClient.Net" Version="5.0.6" />
     <PackageReference Include="BepInEx.Analyzers" Version="1.0.8">
@@ -33,11 +37,15 @@
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
 
     <PackageReference Include="UnityEngine.Modules" Version="2020.3.48" IncludeAssets="compile" />
+    <PackageReference Include="ILRepack.Lib.MSBuild" Version="2.1.18" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\lib\Assembly-CSharp.dll</HintPath>
+    <Reference Include="$(Managed)\Assembly-CSharp.dll">
     </Reference>
+    <Reference Include="$(BepinCore)\0Harmony.dll"></Reference>
+    <Reference Include="$(BepinCore)\BepInEx.dll"></Reference>
+    <Reference Include="$(BepinCore)\BepInEx.dll"></Reference>
+    <Reference Include="$(Managed)\Newtonsoft.Json.dll"></Reference>
   </ItemGroup>
 </Project>

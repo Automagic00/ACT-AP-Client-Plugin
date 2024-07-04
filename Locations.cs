@@ -115,6 +115,19 @@ namespace ACTAP
                 case "b478df52-084c-4c14-8a55-215fdbaeaffe-2_A-NCTradeRoute": return baseid + 71; //hairclaw_reefsedge_sign
                 case "76ad26b0-4305-498c-8510-4940ad569210-2_A-NCTradeRoute": return baseid + 72; //barbedhook_reefsedge_cliff
                 case "5e8a3fb6-f3b1-42a0-a8b8-10b57b340138-2_A-NCTradeRoute": return baseid + 73; //whelkplus_reefsedge_sponge
+                case "fb5e2e88-b498-4af4-b7a6-4f176eb4016c-2_B-NCCity": return baseid + 74; //breadclaw_newcarcinia_entrance
+                case "e7b4c4fc-6208-4326-847e-ee34113f7fe0-2_B-NCCity": return baseid + 75; //limpet_newcarcinia_entrance
+                case "e26a7cee-15af-4f6c-b6fb-253f8dfac6e4-2_B-NCCity": return baseid + 76; //breadclaw_newcarcinia_hammerhead
+                case "f2105767-2544-4acc-9703-a47fbe97c3dc-2_B-NCCity": return baseid + 77; //rustynail_newcarcinia_hammerhead
+                case "c3b90e59-5289-4ca3-8639-a5c90d656403-2_B-NCCity": return baseid + 78; //barbedhook_newcarcinia_citycenter
+                case "4058fdd6-84f5-4f1e-b8f1-3dcccb288aa2-2_B-NCCity": return baseid + 79; //breadclaw_newcarcinia_bottomalley
+                case "d538af5f-81e0-452c-8800-756bb635a16b-2_B-NCCity": return baseid + 80; //breadclaw_newcarcinia_prawnalley
+                case "4f62e34e-df79-4e33-99bb-b65844e50304-2_B-NCCity": return baseid + 81; //chipclaw_newcarcinia_leg
+                case "0e59ec85-36b5-4750-baf4-cc9899525ca6-2_B-NCCity": return baseid + 82; //breadclaw_newcarcinia_tallbuilding
+                case "c91a3fa0-f774-4e5f-a43e-90dd9a1d5e3a-2_B-NCCity": return baseid + 83; //breadclaw_newcarcinia_shortbuilding
+                case "d2b95a55-ec16-48cc-bce4-c7e39a16a78a-2_B-NCCity": return baseid + 84; //chipclaw_newcarcinia_prawnshop
+                //case "": return baseid + 85; //Urchin Quest
+                case "a1194e18-4659-4ac9-aa73-744a6df42fe3-2_B-NCCity": return baseid + 86; //sanddollar_newcarcinia_hammerhead
 
                 default: return baseid - 1;
 

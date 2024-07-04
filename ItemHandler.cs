@@ -94,19 +94,6 @@ namespace ACTAP
                     }
                 }
             }
-            
-            /*FieldInfo field = AccessTools.Field(typeof(Item), "save");
-            SaveStateKillableEntity save =  new SaveStateKillableEntity();
-            save = (SaveStateKillableEntity)field.GetValue(__instance);
-            save.LoadFromFile();
-
-
-
-            string json = JsonUtility.ToJson(save.UUID);
-            
-
-            int apLocationID = 0;
-            Debug.Log("Field: " + json);*/
         }
     }
 

@@ -34,6 +34,7 @@ namespace ACTAP
         string apSlot = "";
         public static bool removePickups = false;
         public static bool debugMode = false;
+        public static float microplasticMult = 1.0f;
 
  
 

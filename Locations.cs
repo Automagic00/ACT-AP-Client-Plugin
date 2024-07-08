@@ -293,10 +293,7 @@ namespace ACTAP
                 case "bc18b92b-a6c6-420c-9095-e15c34c2f921-2_B-GroveForestHigh": return baseid + 249; //breadclaw_lowergrove_oilgrapple
                 case "3a1e7a2c-5111-4360-b168-cc5e84088b6a-2_B-GroveForestHigh": return baseid + 250; //barbedhook_lowergrove_drumtop
                 case "8e34f6a5-5844-4767-ab15-4fbaf6c147dc-2_B-GroveForestHigh": return baseid + 251; //sharktooth_lowergrove_pizza
-                case "": return baseid + 252; //
-                case "": return baseid + 253; //
-                case "": return baseid + 254; //
-                case "": return baseid + 255; //
+
 
                 default: return baseid - 1;
 

@@ -32,6 +32,9 @@ namespace ACTAP
         string apPort = "";
         string apPassword = "";
         string apSlot = "";
+        string xCoord = "";
+        string yCoord = "";
+        string zCoord = "";
         public static bool removePickups = false;
         public static bool debugMode = false;
         public static float microplasticMult = 1.0f;
@@ -477,14 +480,14 @@ namespace ACTAP
             if (showMenu && SceneManager.GetActiveScene().name == "Title")
             {
                 GUI.backgroundColor = backgroundColor;
-
-                windowRect = GUI.Window(0, windowRect, APConnectMenu, "ACT AP Debug");
+                windowRect = new Rect(0, 0, 200, 150);
+                windowRect = GUI.Window(0, windowRect, APConnectMenu, "Archipelago");
             }
             else if (showMenu && debugMode && _player != null)
             {
                 GUI.backgroundColor = backgroundColor;
-
-                windowRect = GUI.Window(0, windowRect, DebugMenu, "ACT AP Debug");
+                windowRect = new Rect(0, 0, 200, 250);
+                windowRect = GUI.Window(0, windowRect, DebugMenu, "Debug");
             }
         }
         void APConnectMenu(int windowID)
@@ -539,14 +542,16 @@ namespace ACTAP
         {
             if (debugMode == true && _player != null)
             {
-                GUILayout.BeginHorizontal();
+                GUILayout.BeginHorizontal(GUILayout.Height(200));
                 GUILayout.BeginVertical(GUILayout.Width(160));
+                GUILayout.Label("Press [Insert] to toggle menu.");
                 GUILayout.Label(_player.transform.position.ToString());
 
                 
                 if (GUILayout.Button("Give Useful Items"))
                 {
                     CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
+                    
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.FishingLine);
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.LurePouch);
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.BarbedHood_Bundle10);
@@ -562,6 +567,10 @@ namespace ACTAP
                     ItemSwapData.GetItem(ItemSwapData.AdaptationEnum.UrchinToss);
 
                     ItemSwapData.GetItem(ItemSwapData.StowawayEnum.RazorBlade);
+
+                    ItemSwapData.GetItem(ItemSwapData.ItemEnum.MapPiece1);
+                    ItemSwapData.GetItem(ItemSwapData.ItemEnum.MapPiece2);
+                    ItemSwapData.GetItem(ItemSwapData.ItemEnum.MapPiece3);
 
                     SkillTreeData skillTree = new SkillTreeData();
                     skillTree.SetSkill(SkillTreeUnlocks.Aggravation, true, false);
@@ -592,21 +601,30 @@ namespace ACTAP
                 }
 
                 removePickups = GUILayout.Toggle(removePickups, "Remove Known Pickups");
-                
 
-                /*if (GUILayout.Button("Remove Known Pickups"))
+                xCoord = GUILayout.TextField(xCoord);
+                yCoord = GUILayout.TextField(yCoord);
+                zCoord = GUILayout.TextField(zCoord);
+                if (GUILayout.Button("Teleport Player"))
                 {
-                    foreach (var item in GameObject.FindObjectsOfType<Item>())
-                    {
-                        if (LocationSwapData.ItemPickupUUIDToAPID(item) != -1)
-                        {
-                            Destroy(item.gameObject);
-                        }
-                    }
-                }*/
-                
+                    _player.transform.position = new Vector3(float.Parse(xCoord), float.Parse(yCoord), float.Parse(zCoord));
+                }
 
-                GUILayout.EndVertical();
+
+
+                    /*if (GUILayout.Button("Remove Known Pickups"))
+                    {
+                        foreach (var item in GameObject.FindObjectsOfType<Item>())
+                        {
+                            if (LocationSwapData.ItemPickupUUIDToAPID(item) != -1)
+                            {
+                                Destroy(item.gameObject);
+                            }
+                        }
+                    }*/
+
+
+                    GUILayout.EndVertical();
                 GUILayout.EndHorizontal();
                 GUI.DragWindow();
             }

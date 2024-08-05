@@ -10,12 +10,15 @@ using System.Reflection;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using UnityEngine.SceneManagement;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace ACTAP
 {
 
     static class LocationSwapData
     {
+        
         public static void LogLocation(Item itemPickup)
         {
             FieldInfo field = AccessTools.Field(typeof(Item), "save");
@@ -293,6 +296,7 @@ namespace ACTAP
                 case "bc18b92b-a6c6-420c-9095-e15c34c2f921-2_B-GroveForestHigh": return baseid + 249; //breadclaw_lowergrove_oilgrapple
                 case "3a1e7a2c-5111-4360-b168-cc5e84088b6a-2_B-GroveForestHigh": return baseid + 250; //barbedhook_lowergrove_drumtop
                 case "8e34f6a5-5844-4767-ab15-4fbaf6c147dc-2_B-GroveForestHigh": return baseid + 251; //sharktooth_lowergrove_pizza
+                case "7f311dc9-3acc-4c14-8866-e8dfd4a3abfb-2_C-Village": return baseid + 252; //Map Piece (Heikea Arena)
 
 
                 default: return baseid - 1;

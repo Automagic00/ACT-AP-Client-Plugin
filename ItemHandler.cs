@@ -177,6 +177,159 @@ namespace ACTAP
         }
     }
 
+    /// <summary>
+    /// Output save file
+    /// </summary>
+    [HarmonyPatch(typeof (Player), "Start")]
+    class progressLog
+    {
+        [HarmonyPrefix]
+        private static void Start()
+        {
+            CrabFile crabFile = GameManager.instance.activeCrabfile;
+            
+            string json = JsonUtility.ToJson(crabFile.progressData);
+            using (StreamWriter writeText = new StreamWriter("crabfile/progressdata.json"))
+            {
+                writeText.WriteLine(json);
+            }
+            json = JsonUtility.ToJson(crabFile.locationData);
+            using (StreamWriter writeText = new StreamWriter("crabfile/locationdata.json"))
+            {
+                writeText.WriteLine(json);
+            }
+            json = JsonUtility.ToJson(crabFile.storeData);
+            using (StreamWriter writeText = new StreamWriter("crabfile/storedata.json"))
+            {
+                writeText.WriteLine(json);
+            }
+            json = JsonUtility.ToJson(crabFile.valueTable);
+            using (StreamWriter writeText = new StreamWriter("crabfile/valuetable.json"))
+            {
+                writeText.WriteLine(json);
+            }
+            json = JsonUtility.ToJson(crabFile.assistTable);
+            using (StreamWriter writeText = new StreamWriter("crabfile/assisttable.json"))
+            {
+                writeText.WriteLine(json);
+            }
+            json = JsonUtility.ToJson(crabFile.inventoryData);
+            using (StreamWriter writeText = new StreamWriter("crabfile/inventorydata.json"))
+            {
+                writeText.WriteLine(json);
+            }
+            json = JsonUtility.ToJson(crabFile.unlocks);
+            using (StreamWriter writeText = new StreamWriter("crabfile/unlocks.json"))
+            {
+                writeText.WriteLine(json);
+            }
+            json = JsonUtility.ToJson(crabFile);
+            using (StreamWriter writeText = new StreamWriter("crabfile/wholefile.json"))
+            {
+                writeText.WriteLine(json);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Output Bools Set to Save
+    /// </summary>
+    [HarmonyPatch(typeof(CrabFile),"SetBool")]
+    class BoolOutput
+    {
+        [HarmonyPrefix]
+        public static bool SetBoolPatch(ref string index, bool value)
+        {
+            
+            Debug.Log("[Bool] " + index + " : " + value);
+            return true;
+        }
+    }
+    /// <summary>
+    /// Output Ints Set to Save
+    /// </summary>
+    [HarmonyPatch(typeof(CrabFile), "SetInt")]
+    class IntOutput
+    {
+        [HarmonyPrefix]
+        public static bool SetIntPatch(ref string index, int value)
+        {
+            
+            Debug.Log("[Int] " + index + " : " + value);
+            return true;
+        }
+    }
+    /// <summary>
+    /// Output Bools Set to Save
+    /// </summary>
+    [HarmonyPatch(typeof(CrabFile), "SetAssistBool")]
+    class AssistBoolOutput
+    {
+        [HarmonyPrefix]
+        public static bool SetAssistBoolPatch(ref string index, bool value)
+        {
+
+            Debug.Log("[AssistBool] " + index + " : " + value);
+            return true;
+        }
+    }
+    /// <summary>
+    /// Output Ints Set to Save
+    /// </summary>
+    [HarmonyPatch(typeof(CrabFile), "SetAssistInt")]
+    class AssistIntOutput
+    {
+        [HarmonyPrefix]
+        public static bool SetAssistIntPatch(ref string index, int value)
+        {
+
+            Debug.Log("[AssistInt] " + index + " : " + value);
+            return true;
+        }
+    }
+    /// <summary>
+    /// Output Ints Set to Save
+    /// </summary>
+    [HarmonyPatch(typeof(CrabFile), "SetString")]
+    class StringOutput
+    {
+        [HarmonyPrefix]
+        public static bool SetStringPatch(ref string index, ref string value)
+        {
+
+            Debug.Log("[String] " + index + " : " + value);
+            return true;
+        }
+    }
+    /// <summary>
+    /// Output Ints Set to Save
+    /// </summary>
+    [HarmonyPatch(typeof(CrabFile), "SetFloat")]
+    class FloatOutput
+    {
+        [HarmonyPrefix]
+        public static bool SetFloatPatch(ref string index, float value)
+        {
+
+            Debug.Log("[Float] " + index + " : " + value);
+            return true;
+        }
+    }
+    /// <summary>
+    /// Output Ints Set to Save
+    /// </summary>
+    [HarmonyPatch(typeof(CrabFile), "SetVector3")]
+    class Vector3Output
+    {
+        [HarmonyPrefix]
+        public static bool SetVector3Patch(ref string index, Vector3 value)
+        {
+
+            Debug.Log("[Int] " + index + " : " + value);
+            return true;
+        }
+    }
+
     [HarmonyPatch(typeof(SkillTreeButtonFlag), nameof(SkillTreeButtonFlag.OnClick))]
     class SkillLog
     {
@@ -191,8 +344,4 @@ namespace ACTAP
             }
         }
     }
-
-
-
-    //}
 }

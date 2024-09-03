@@ -47,5 +47,14 @@
     <Reference Include="$(BepinCore)\BepInEx.dll"></Reference>
     <Reference Include="$(BepinCore)\BepInEx.dll"></Reference>
     <Reference Include="$(Managed)\Newtonsoft.Json.dll"></Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\lib\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\lib\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\DeathMessagePlus\lib\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

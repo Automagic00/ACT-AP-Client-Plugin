@@ -27,7 +27,7 @@ namespace ACTAP
             if (killEvent.target == __instance.GetEnemy())
             {
 
-                long apid = LocationSwapData.BossPathToAPID(__instance.bossName);
+                long apid = LocationDataTable.BossPathToAPID(__instance.bossName);
                 Debug.Log(__instance.bossName);
                 Debug.Log("Assigned Location ID: " + (apid - 483021700));
 
@@ -39,10 +39,10 @@ namespace ACTAP
                 if (apid != -1)
                 {
                     Plugin.GetConnection().ActivateCheck(apid);
-                    if (apid == 44)
+                    /*if (apid == 44)
                     {
                         Plugin.GetConnection().SendCompletion();
-                    }
+                    }*/
                 }
             }
         }
@@ -66,6 +66,19 @@ namespace ACTAP
     
     }
 
+    [HarmonyPatch(typeof(Shell),"Interact")]
+    class HomeShellCompletion
+    {
+        [HarmonyPrefix]
+        public static void InteractPatch(Shell __instance)
+        {
+            Debug.Log(__instance.name);
+            if (__instance.name == "Shell_HomeShell_1" && Plugin.connection != null)
+            {
+                Plugin.GetConnection().SendCompletion();
+            }
+        }
+    }
 
     /// <summary>
     /// Log Location Paths
@@ -80,7 +93,8 @@ namespace ACTAP
             {
                 if (Plugin.debugMode && Plugin.removePickups)
                 {
-                    long testid = LocationSwapData.ItemPickupUUIDToAPID(__instance.GetComponent<Item>()) - 483021700;
+                    //long testid = LocationSwapData.ItemPickupUUIDToAPID(__instance.GetComponent<Item>()) - 483021700;
+                    long testid = LocationDataTable.FindPickupAPID(__instance.GetComponent<Item>()) - 483021700;
                     if (testid != -1)
                     {
                         Debug.Log(__instance.gameObject.name + " Already killed: deleting. ID: " + testid);
@@ -119,12 +133,12 @@ namespace ACTAP
             {
                 return true;
             }
-            
-            
 
-            long idToTest = LocationSwapData.ItemPickupUUIDToAPID(__instance);
 
-            
+
+            //long idToTest = LocationSwapData.ItemPickupUUIDToAPID(__instance);
+            long idToTest = LocationDataTable.FindPickupAPID(__instance);
+
 
             if (idToTest - 483021700 == -1 || idToTest - 483021700 == 0)
             {
@@ -304,7 +318,7 @@ namespace ACTAP
     /// <summary>
     /// Output Ints Set to Save
     /// </summary>
-    [HarmonyPatch(typeof(CrabFile), "SetFloat")]
+    /*[HarmonyPatch(typeof(CrabFile), nameof(CrabFile.)]
     class FloatOutput
     {
         [HarmonyPrefix]
@@ -314,7 +328,7 @@ namespace ACTAP
             Debug.Log("[Float] " + index + " : " + value);
             return true;
         }
-    }
+    }*/
     /// <summary>
     /// Output Ints Set to Save
     /// </summary>

@@ -49,7 +49,8 @@ namespace ACTAP
 
         private void Awake()
         {
-            
+            //Generate Location Data
+            LocationDataTable.GenerateTable();
 
             //Debug on Scene Load
             SceneManager.sceneLoaded += DebugLogger;
@@ -170,7 +171,10 @@ namespace ACTAP
                     CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
                 }
                 if (Input.GetKeyDown(KeyCode.Insert))
-                { showMenu = !showMenu; }
+                { 
+                    showMenu = !showMenu;
+                    Debug.Log("Toggle Menu");
+                }
             }
         }
 

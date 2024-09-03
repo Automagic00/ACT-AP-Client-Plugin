@@ -22,6 +22,8 @@ namespace ACTAP
             apSprite = sprite;
         }
 
+        public static Sprite getAPSprite() => apSprite;
+
         public static void RecieveItemVisual(Item item)
         {
             item.PickupVisually();

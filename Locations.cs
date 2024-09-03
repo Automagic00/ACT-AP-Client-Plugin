@@ -25,7 +25,8 @@ namespace ACTAP
             SaveStateKillableEntity save = new SaveStateKillableEntity();
             save = (SaveStateKillableEntity)field.GetValue(itemPickup);
 
-            long test = LocationSwapData.ItemPickupUUIDToAPID(itemPickup) - 483021700;
+            //long test = LocationSwapData.ItemPickupUUIDToAPID(itemPickup) - 483021700;
+            long test = LocationDataTable.FindPickupAPID(itemPickup) - 483021700;
             Debug.Log(save.UUID);
 
             if (test == -1)
@@ -47,7 +48,7 @@ namespace ACTAP
             }
             return GetPath(current.parent) + "/" + current.name;
         }
-
+        /*
         public static long ItemPickupUUIDToAPID(Item item)
         {
             //Get UUID
@@ -303,7 +304,7 @@ namespace ACTAP
 
             }
         }
-
+        */
         public static long BossPathToAPID(string path)
         {
             long baseid = 483021700;

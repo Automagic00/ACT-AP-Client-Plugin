@@ -122,10 +122,16 @@ namespace ACTAP
         private static bool PickupItemPatch(Item __instance)
         {
             Debug.Log(__instance.name);
-            if (__instance.name == "ForkUnlock (1)" || __instance.name == "Item_HeartkelpPodsUnlock" || __instance.name == "Item_HeartkelpPod(Clone)")
+            if (/*__instance.name == "ForkUnlock (1)" ||*/ __instance.name == "Item_HeartkelpPodsUnlock" || __instance.name == "Item_HeartkelpPod(Clone)")
             {
                 return true;
             }
+            if (__instance.name == "ForkUnlock (1)")
+            {
+                CompleteCheck.CheckCoroutine(__instance, 483021701);
+                return false;
+            }
+
 
             LocationSwapData.LogLocation(__instance);
 
@@ -161,8 +167,13 @@ namespace ACTAP
             __instance.hideNotification = true;
             ArchipelagoSession session = Plugin.GetConnection().session;
 
-            LocationInfoPacket locPack = await session.Locations.ScoutLocationsAsync(idToTest);
-            NetworkItem testNetItem = locPack.Locations[0];
+            //LocationInfoPacket locPack = await session.Locations.ScoutLocationsAsync(idToTest);
+            
+            ScoutedItemInfo locPack;
+            Dictionary<long, ScoutedItemInfo> test = await session.Locations.ScoutLocationsAsync(idToTest);
+            test.TryGetValue(idToTest, out locPack);
+
+            ItemInfo testNetItem = locPack;
 
             //Custom Visual if item is not for crabgame
             if (testNetItem.Player != session.ConnectionInfo.Slot)
@@ -172,7 +183,11 @@ namespace ACTAP
             }
             //__instance.PickupVisually(0f);
             UnityEngine.Object.Destroy(__instance.gameObject, 0.2f);
-            Plugin.GetConnection().ActivateCheck(idToTest);
+
+            if (CrabFile.current.GetInt("LocationChecked-" + idToTest) != 1)
+            {
+                Plugin.GetConnection().ActivateCheck(idToTest);
+            }
         }
     }
 

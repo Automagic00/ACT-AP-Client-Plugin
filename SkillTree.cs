@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using System.Reflection;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace ACTAP
@@ -15,16 +16,24 @@ namespace ACTAP
             bool purchased = false;
             if (__instance.transform.parent.parent.parent.parent.name == "Window" || __instance.transform.parent.parent.parent.parent.name == "Pause Canvas")
             {
-
+                
             }
             else
             {
+                
                 for (int i = 0; i < __instance.purchaseImages.Length; i++)
                 {
                     Debug.Log("Skilltreedataname Disp: " + __instance.selectedData[0].name);
                      purchased = CrabFile.current.GetBool("APSkillPurchase_" + __instance.selectedData[0].name);
                     __instance.purchaseImages[i].color = (purchased ? __instance.purchasedColor : __instance.unpurchasedColor);
                 }
+
+
+                bool preReqPurchased = __instance.selectedData[0].name == "Skill_Shelleport" ? true : CrabFile.current.GetBool("APSkillPurchase_" + __instance.preReq.selectedData[0].name);
+
+                __instance.activeObject.SetActive(preReqPurchased);
+                __instance.inactiveObject.SetActive(!preReqPurchased);
+
                 __instance.costObject.SetActive(!purchased);
                 __instance.icon.sprite = ItemSwapData.getAPSprite();
             }
@@ -46,12 +55,14 @@ namespace ACTAP
     [HarmonyPatch(typeof(SkillTreeButtonFlag), "Select")]
     public class Select
     {
-        public static PropertyInfo prev = AccessTools.Property(typeof(SkillTreeButtonFlag), "meetsPreviewPrerequisites");
+        //public static PropertyInfo prev = AccessTools.Property(typeof(SkillTreeButtonFlag), "meetsPreviewPrerequisites");
+        
         public static PropertyInfo purchasable = AccessTools.Property(typeof(SkillTreeButtonFlag), "meetsPurchasablePrereqs");
 
         [HarmonyPrefix]
         public static bool SelectPatch(SkillTreeButtonFlag __instance)
         {
+            bool prev = __instance.selectedData[0].name == "Skill_Shelleport" ? true : CrabFile.current.GetBool("APSkillPurchase_" + __instance.preReq.selectedData[0].name);
             if (Plugin.debugMode == false && Plugin.connection == null)
             {
                 return true;
@@ -67,14 +78,26 @@ namespace ACTAP
             //replace.name = __instance.selectedData[0].name;
             replace.skill = __instance.selectedData[0].skill;
             replace.afterUnlockDialogue = __instance.selectedData[0].afterUnlockDialogue;
-            replace.displayTitle = "AP Test Description";
-            replace.buttonLabel = "Archipelago Item";
+
+            if (Plugin.debugMode)
+            {
+                replace.displayTitle = "AP Test Description";
+                replace.buttonLabel = "Archipelago Item";
+            }
+
+            else if (Plugin.connection != null)
+            {
+                string apItemName = CrabFile.current.GetString(Plugin.connection.GetLocationName(LocationDataTable.FindSkillAPID(__instance.selectedData[0].name)) + "ItemName");
+                string apPlayerName = CrabFile.current.GetString(Plugin.connection.GetLocationName(LocationDataTable.FindSkillAPID(__instance.selectedData[0].name)) + "PlayerName");
+                replace.displayTitle = apItemName;
+                replace.buttonLabel = "AP Item for " + apPlayerName +"'s world";
+            }
             
             replace.displayImage = ItemSwapData.getAPSprite();
 
             bool purchased = false;
 
-            __instance.skillTreePanel.SetThumbnail((bool)prev.GetValue(__instance)? replace : __instance.lockedData, (bool)purchasable.GetValue(__instance));
+            __instance.skillTreePanel.SetThumbnail(prev? replace : __instance.lockedData, (bool)purchasable.GetValue(__instance));
             __instance.skillTreePanel.thumbnail.icon.color = (purchased? __instance.purchasedColor : __instance.unpurchasedColor);
             return false;
         }

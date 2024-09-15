@@ -192,8 +192,8 @@ namespace ACTAP
             public Dictionary<string, object> slotData;
             DeathLinkService deathLinkService;
             public int ItemIndex = 0;
-            private ConcurrentQueue<(NetworkItem NetworkItem, int index)> incomingItems;
-            private ConcurrentQueue<NetworkItem> outgoingItems;
+            private ConcurrentQueue<(ItemInfo NetworkItem, int index)> incomingItems;
+            private ConcurrentQueue<ItemInfo> outgoingItems;
             public bool connected
             {
                 get { return session != null ? session.Socket.Connected : false; }
@@ -230,8 +230,8 @@ namespace ACTAP
                 incomingItemHandler = IncomingItemHandler();
                 outgoingItemHandler = OutgoingItemHandler();
                 checkItemsReceived = CheckItemsReceived();
-                incomingItems = new ConcurrentQueue<(NetworkItem NetworkItem, int index)>();
-                outgoingItems = new ConcurrentQueue<NetworkItem>();
+                incomingItems = new ConcurrentQueue<(ItemInfo NetworkItem, int index)>();
+                outgoingItems = new ConcurrentQueue<ItemInfo>();
 
 
                 try
@@ -260,6 +260,7 @@ namespace ACTAP
                         }
                     };
 
+                    
                     /*if (TunicRandomizer.Settings.DeathLinkEnabled)
                     {
                         deathLinkService.EnableDeathLink();
@@ -299,8 +300,8 @@ namespace ACTAP
                     //incomingItemHandler = null;
                     //outgoingItemHandler = null;
                     //checkItemsReceived = null;
-                    incomingItems = new ConcurrentQueue<(NetworkItem NetworkItem, int ItemIndex)>();
-                    outgoingItems = new ConcurrentQueue<NetworkItem>();
+                    incomingItems = new ConcurrentQueue<(ItemInfo NetworkItem, int ItemIndex)>();
+                    outgoingItems = new ConcurrentQueue<ItemInfo>();
                     deathLinkService = null;
                     slotData = null;
                     ItemIndex = 0;
@@ -325,7 +326,13 @@ namespace ACTAP
                 CrabFile.current.SetInt("LocationChecked-" + locationID, 1);
 
                 session.Locations.ScoutLocationsAsync(locationID)
-                    .ContinueWith(locationInfoPacket => outgoingItems.Enqueue(locationInfoPacket.Result.Locations[0]));
+                    .ContinueWith(locationInfoPacket =>
+                    {
+                        foreach (ItemInfo itemInfo in locationInfoPacket.Result.Values)
+                        {
+                            outgoingItems.Enqueue(itemInfo);
+                        }
+                    });
             }
 
             public void ScoutLocation(long id)
@@ -360,8 +367,9 @@ namespace ACTAP
                 {
                     if (session.Items.AllItemsReceived.Count > ItemIndex)
                     {
-                        NetworkItem Item = session.Items.AllItemsReceived[ItemIndex];
-                        string ItemReceivedName = session.Items.GetItemName(Item.Item);
+                        //NetworkItem Item = session.Items.AllItemsReceived[ItemIndex];
+                        ItemInfo Item = session.Items.AllItemsReceived[ItemIndex];
+                        string ItemReceivedName = Item.ItemName;
                         Debug.Log("Placing item " + ItemReceivedName + " with index " + ItemIndex + " in queue.");
                         incomingItems.Enqueue((Item, ItemIndex));
                         ItemIndex++;
@@ -384,8 +392,8 @@ namespace ACTAP
                         continue;
                     }
 
-                    var itemName = session.Items.GetItemName(networkItem.Item);
-                    var location = session.Locations.GetLocationNameFromId(networkItem.Location);
+                    var itemName = networkItem.ItemName;
+                    var location = networkItem.LocationName;
                     var receiver = session.Players.GetPlayerName(networkItem.Player);
 
                     Debug.Log("Sent " + itemName + " at " + location + " for " + receiver);
@@ -413,9 +421,9 @@ namespace ACTAP
                     }
 
                     var networkItem = pendingItem.NetworkItem;
-                    var itemName = session.Items.GetItemName(networkItem.Item);
+                    var itemName = networkItem.ItemName;
 
-                    var itemDisplayName = itemName + " (" + networkItem.Item + ") at index " + pendingItem.index;
+                    var itemDisplayName = itemName + " (" + networkItem.ItemName + ") at index " + pendingItem.index;
 
                     if (CrabFile.current.GetInt($"randomizer processed item index {pendingItem.index}") == 1)
                     {
@@ -427,10 +435,8 @@ namespace ACTAP
                     }
 
                     CrabFile.current.SetInt($"randomizer processed item index {pendingItem.index}", 1);
-                    ItemSwapData.GetItem(networkItem.Item);
+                    ItemSwapData.GetItem(networkItem.ItemId);
                     incomingItems.TryDequeue(out _);
-                    
-
 
                     yield return true;
                 }

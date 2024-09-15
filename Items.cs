@@ -28,7 +28,7 @@ namespace ACTAP
         {
             item.PickupVisually();
         }
-        public static void CustomItemVisual(NetworkItem networkItem)
+        public static void CustomItemVisual(ItemInfo networkItem)
         {
             ArchipelagoSession session = Plugin.GetConnection().session;
             var playerName = session.Players.GetPlayerName(networkItem.Player);
@@ -86,6 +86,7 @@ namespace ACTAP
             StowawayEnum stowawayToGet = StowawayEnum.NULL;
             CostumeEnum costumeToGet = CostumeEnum.NULL;
             AdaptationEnum adaptationToGet = AdaptationEnum.NULL;
+            SkillEnum skillToGet = SkillEnum.NULL;
             id = id - 483021700;
 
             switch (id)
@@ -209,6 +210,30 @@ namespace ACTAP
                 case 110: adaptationToGet = AdaptationEnum.SnailSanctum; break;
                 case 111: adaptationToGet = AdaptationEnum.SpectralTentacle; break;
                 case 112: adaptationToGet = AdaptationEnum.UrchinToss; break;
+                //case 113: break; //Overlapped
+                //case 114: break; //Overlapped
+                case 115: skillToGet = SkillEnum.NaturalDefenses; break;
+                case 116: skillToGet = SkillEnum.Aggravation; break;
+                case 117: skillToGet = SkillEnum.SelfRepair; break;
+                case 118: skillToGet = SkillEnum.Kintsugi; break;
+                case 119: skillToGet = SkillEnum.Skewer; break;
+                case 120: skillToGet = SkillEnum.Plunge; break;
+                case 121: skillToGet = SkillEnum.ScrapHammer; break;
+                case 122: skillToGet = SkillEnum.Dispatch; break;
+                case 123: skillToGet = SkillEnum.Spearfishing; break;
+                case 124: skillToGet = SkillEnum.WaveBreaker; break;
+                case 125: skillToGet = SkillEnum.Streamline; break;
+                case 126: skillToGet = SkillEnum.Housewarming; break;
+                case 127: skillToGet = SkillEnum.CircleOfLife; break;
+                case 128: skillToGet = SkillEnum.ElusivePrey; break;
+                case 129: skillToGet = SkillEnum.EbbAndFlow; break;
+                case 130: skillToGet = SkillEnum.Umami1; break;
+                case 131: skillToGet = SkillEnum.Umami2; break;
+                case 132: skillToGet = SkillEnum.Umami3; break;
+                case 133: skillToGet = SkillEnum.Shelleport; break;
+                case 134: skillToGet = SkillEnum.Skeddadle; break;
+                case 136: skillToGet = SkillEnum.Parry; break;
+                case 137: skillToGet = SkillEnum.Riposte; break;
                 default: Debug.Log("could not get item " + id); break;
             }
 
@@ -227,6 +252,10 @@ namespace ACTAP
             if(adaptationToGet != AdaptationEnum.NULL)
             {
                 GetItem(adaptationToGet);
+            }
+            if(skillToGet != SkillEnum.NULL)
+            {
+                GetItem(skillToGet);
             }
         }
         public static void GetItem(ItemEnum itemToGet)
@@ -308,6 +337,44 @@ namespace ACTAP
 
             CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
             RecieveItemVisual(item);
+        }
+
+        public static void GetItem(SkillEnum skillToGet)
+        {
+            SkillTreeData skillTree = new SkillTreeData();
+            SkillTreeUnlocks skill = GetSkillTreeUnlock(skillToGet);
+            skillTree.SetSkill(skill, true, false);
+        }
+
+        public static SkillTreeUnlocks GetSkillTreeUnlock(SkillEnum skillEnum)
+        {
+            switch (skillEnum)
+            {
+                case SkillEnum.Shelleport: return SkillTreeUnlocks.Sheleport;
+                case SkillEnum.Parry: return SkillTreeUnlocks.Parries;
+                case SkillEnum.Riposte: return SkillTreeUnlocks.Riposte;
+                case SkillEnum.NaturalDefenses: return SkillTreeUnlocks.NakedParries;
+                case SkillEnum.Aggravation: return SkillTreeUnlocks.Aggravation;
+                case SkillEnum.SelfRepair: return SkillTreeUnlocks.SelfRepair;
+                case SkillEnum.Kintsugi: return SkillTreeUnlocks.Kintsugi;
+                case SkillEnum.Skewer: return SkillTreeUnlocks.Skewer;
+                case SkillEnum.Plunge: return SkillTreeUnlocks.Plunge;
+                case SkillEnum.ScrapHammer: return SkillTreeUnlocks.ScrapHammer;
+                case SkillEnum.Dispatch: return SkillTreeUnlocks.Dispatch;
+                case SkillEnum.Spearfishing: return SkillTreeUnlocks.Fishing;
+                case SkillEnum.WaveBreaker: return SkillTreeUnlocks.WaveBreaker;
+                case SkillEnum.Streamline: return SkillTreeUnlocks.AirDodge;
+                case SkillEnum.Housewarming: return SkillTreeUnlocks.Housewarming;
+                case SkillEnum.CircleOfLife: return SkillTreeUnlocks.ChumInTheWater;
+                case SkillEnum.ElusivePrey: return SkillTreeUnlocks.ElusivePrey;
+                case SkillEnum.Skeddadle: return SkillTreeUnlocks.Skedaddle;
+                case SkillEnum.EbbAndFlow: return SkillTreeUnlocks.EbbAndFlow;
+                case SkillEnum.Umami1: return SkillTreeUnlocks.UmamiTrainingA;
+                case SkillEnum.Umami2: return SkillTreeUnlocks.UmamiTrainingB;
+                case SkillEnum.Umami3: return SkillTreeUnlocks.UmamiTrainingC;
+
+                default: return SkillTreeUnlocks.Sheleport;
+            }
         }
 
         public static string GetItemJson(ItemEnum itemName)
@@ -599,6 +666,33 @@ namespace ACTAP
             Maid,
             Nephro,
             PrideGay,
+            NULL
+        }
+
+        public enum SkillEnum
+        {
+            Shelleport,
+            Parry,
+            Riposte,
+            NaturalDefenses,
+            Aggravation,
+            SelfRepair,
+            Kintsugi,
+            Skewer,
+            Plunge,
+            ScrapHammer,
+            Dispatch,
+            Spearfishing,
+            WaveBreaker,
+            Streamline,
+            Housewarming,
+            CircleOfLife,
+            ElusivePrey,
+            Skeddadle,
+            EbbAndFlow,
+            Umami1,
+            Umami2,
+            Umami3,
             NULL
         }
     }

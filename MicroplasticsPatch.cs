@@ -17,9 +17,17 @@ namespace ACTAP
                 int player = Plugin.connection.session.ConnectionInfo.Slot;
                 Dictionary<string, object> slotData = Plugin.connection.slotData;
                 object value;
+
+                Debug.Log("slotdata" + Plugin.connection.slotData.Keys);
+
                 slotData.TryGetValue("Microplastic Multiplier", out value);
 
-                float microplaticMod = (float)value;
+                float microplaticMod = 1;
+
+                if (value != null)
+                {
+                    microplaticMod = (float)value;
+                }
 
                 Debug.Log("AddCurr");
                 if (c == InventoryData.CURRENCY.Clips && amt > 0)

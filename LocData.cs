@@ -18,7 +18,7 @@ namespace ACTAP
         public int apid { get; set; }
         public string bossname { get; set; }
         public string itemAtLocationName { get; set; }
-        public string skillName { get; set; }
+        public string skillName = "";
         //public bool shopIsPurchased { get; set; }
         //public bool shopIsObtained { get; set; }
     }
@@ -273,8 +273,8 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid =  "8e34f6a5-5844-4767-ab15-4fbaf6c147dc-2_B-GroveForestHigh", apid =  baseid + 251}); //sharktooth_lowergrove_pizza
             pickupTable.Add(new LocationData() { uuid =  "7f311dc9-3acc-4c14-8866-e8dfd4a3abfb-2_C-Village", apid =  baseid + 252}); //Map Piece (Heikea Arena)
             pickupTable.Add(new LocationData() { uuid = "df0386e0-99ee-478a-873d-b40e973fc16b-2_D-Caves", apid = baseid + 253});//
-            pickupTable.Add(new LocationData() { skillName = "Skill_Shelleport", apid = baseid + 254 });//Unused
-            pickupTable.Add(new LocationData() { skillName = "Skill_Skedaddle", apid = baseid + 255 });//Unused
+            pickupTable.Add(new LocationData() { skillName = "Skill_Shelleport", apid = baseid + 254 });//
+            pickupTable.Add(new LocationData() { skillName = "Skill_Skedaddle", apid = baseid + 255 });//
             pickupTable.Add(new LocationData() { uuid = "048736b5-59c1-4dd2-b36a-e11b6bd9304f-2_A-GroveForestLow", apid = baseid + 256 });//
             pickupTable.Add(new LocationData() { uuid = "23907bde-1820-4c4d-9c59-aab72c64139a-2_A-GroveForestLow", apid = baseid + 257 });//
             pickupTable.Add(new LocationData() { uuid = "ebad553d-fbff-441e-8c1d-0ccc65fe81ae-2_A-GroveForestLow", apid = baseid + 258 });//
@@ -649,6 +649,31 @@ namespace ACTAP
             {
                 Debug.Log("UUID found");
                 return pickupTable.Find(x => x.uuid.Contains(UUID)).apid;
+            }
+        }
+
+        public static long FindSkillAPID(String skillname)
+        {
+            Debug.Log("Finding Skill APID");
+            //Get UUID
+            /*FieldInfo field = AccessTools.Field(typeof(Item), "save");
+            SaveStateKillableEntity save = new SaveStateKillableEntity();
+            save = (SaveStateKillableEntity)field.GetValue(item);*/
+
+            //string UUID = save.UUID;
+            long baseid = 483021700;
+
+            //If there isnt a match return -1
+            if (!pickupTable.Exists((x => x.skillName.Contains(skillname))))
+            {
+                Debug.Log("UUID not found");
+                return baseid - 1;
+            }
+            //Otherwise return apid
+            else
+            {
+                Debug.Log("UUID found");
+                return pickupTable.Find(x => x.skillName.Contains(skillname)).apid;
             }
         }
 

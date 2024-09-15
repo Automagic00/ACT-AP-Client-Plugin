@@ -92,7 +92,7 @@ namespace ACTAP
             switch (id)
             {
                 case 0: itemToGet = ItemEnum.NULL; break;
-                case 1: itemToGet = ItemEnum.NULL; break; //Fork
+                case 1: itemToGet = ItemEnum.Fork; break; //Fork
                 case 2: itemToGet = ItemEnum.NULL; break; //Heart Kelp Pod
                 case 3: itemToGet = ItemEnum.FishingLine; break;
                 case 4: itemToGet = ItemEnum.DuchessPearl; break;
@@ -261,40 +261,53 @@ namespace ACTAP
         public static void GetItem(ItemEnum itemToGet)
         {
             Item item = new Item();
-            item.item = ScriptableObject.CreateInstance<CollectableItemData>();
-            item.item.name = GetItemJson(itemToGet);
-            
-            //Replace all item data with masterlist item that matches name
-            foreach (var listItem in InventoryMasterList.staticList)
+            if (itemToGet == ItemEnum.Fork)
             {
-                if (listItem.name == item.item.name)
+                //MethodInfo method = AccessTools.Method(typeof(ForkItem), "Unlocked");
+                CrabFile.current.unlocks[SkillWorldUnlocks.BasicFork].unlocked = true;
+                GameManager.instance.StartCoroutine(Player.singlePlayer.view.ObtainForkRoutine(true, Player.singlePlayer.transform.position));
+                
+            }
+            else
+            {
+                
+                item.item = ScriptableObject.CreateInstance<CollectableItemData>();
+                item.item.name = GetItemJson(itemToGet);
+
+                //Replace all item data with masterlist item that matches name
+                foreach (var listItem in InventoryMasterList.staticList)
                 {
-                    item.item = listItem;
+                    if (listItem.name == item.item.name)
+                    {
+                        item.item = listItem;
+                    }
                 }
+
+                CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
+                if (itemToGet == ItemEnum.FishingLine)
+                {
+                    CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
+                }
+                else if (itemToGet == ItemEnum.MapPiece1)
+                {
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotExpiredGroveMap].unlocked = true;
+                }
+                else if (itemToGet == ItemEnum.MapPiece2)
+                {
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotFlotsamValeMap].unlocked = true;
+                }
+                else if (itemToGet == ItemEnum.MapPiece3)
+                {
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotPagurusMap].unlocked = true;
+                }
+                RecieveItemVisual(item);
             }
 
-            CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
-            if (itemToGet == ItemEnum.FishingLine)
-            {
-                CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
-            }
-            else if (itemToGet == ItemEnum.MapPiece1)
-            {
-                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
-                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotExpiredGroveMap].unlocked = true;
-            }
-            else if (itemToGet == ItemEnum.MapPiece2)
-            {
-                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
-                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotFlotsamValeMap].unlocked = true;
-            }
-            else if (itemToGet == ItemEnum.MapPiece3)
-            {
-                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
-                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotPagurusMap].unlocked = true;
-            }
 
-            RecieveItemVisual(item);
+            
         }
 
         public static void GetItem(StowawayEnum itemToGet)
@@ -418,7 +431,9 @@ namespace ACTAP
                 case ItemEnum.MapPiece3:return "MapPiece3";
                 case ItemEnum.OldWorldWhorl: return "OldWorldWhorl";
                 case ItemEnum.StainlessRelic:return "StainlessRelic";
-            
+                case ItemEnum.Fork: return "ForkUnlock (1)";
+
+
                 default: return "00_BreadClaw";
                     
             }    
@@ -582,6 +597,7 @@ namespace ACTAP
             MapPiece3,
             OldWorldWhorl,
             StainlessRelic,
+            Fork,
             NULL
         }
 

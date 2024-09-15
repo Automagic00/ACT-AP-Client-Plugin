@@ -26,6 +26,7 @@ namespace ACTAP
 
                 if (value != null)
                 {
+                    Debug.Log("Multiplying MicroPlastics by " + value);
                     microplaticMod = (float)value;
                 }
 

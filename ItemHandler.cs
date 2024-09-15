@@ -89,7 +89,7 @@ namespace ACTAP
         [HarmonyPostfix]
         private static void LogItemsPatch(SaveStateKillableEntity __instance)
         {
-            if (__instance.GetComponent<Item>() != null && __instance.GetComponent<Item>().name != "ForkUnlock(1)" && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
+            if (__instance.GetComponent<Item>() != null /*&& __instance.GetComponent<Item>().name != "ForkUnlock(1)" &&*/ && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
             {
                 if (Plugin.debugMode && Plugin.removePickups)
                 {
@@ -107,6 +107,20 @@ namespace ACTAP
                         
                     }
                 }
+                else if (Plugin.connection.session != null)
+                {
+                    long testid = LocationDataTable.FindPickupAPID(__instance.GetComponent<Item>());
+                    if (CrabFile.current.GetInt("LocationChecked-" + testid) == 1)
+                    {
+                        Debug.Log(__instance.gameObject.name + " Already killed: deleting. ID: " + testid);
+                        Entity component = __instance.GetComponent<Entity>();
+                        if (component)
+                        {
+                            GameManager.events.TriggerEntityDestroyedFromSave(component);
+                        }
+                        GameObject.Destroy(__instance.gameObject);
+                    }
+                }
             }
         }
     }
@@ -121,11 +135,18 @@ namespace ACTAP
         [HarmonyPrefix]
         private static bool PickupItemPatch(Item __instance)
         {
+
             Debug.Log(__instance.name);
             if (/*__instance.name == "ForkUnlock (1)" ||*/ __instance.name == "Item_HeartkelpPodsUnlock" || __instance.name == "Item_HeartkelpPod(Clone)")
             {
                 return true;
             }
+            if (Plugin.debugMode == true)
+            {
+                return true;
+            }
+
+
             if (__instance.name == "ForkUnlock (1)")
             {
                 CompleteCheck.CheckCoroutine(__instance, 483021701);
@@ -135,11 +156,7 @@ namespace ACTAP
 
             LocationSwapData.LogLocation(__instance);
 
-            if (Plugin.debugMode == true)
-            {
-                return true;
-            }
-
+            
 
 
             //long idToTest = LocationSwapData.ItemPickupUUIDToAPID(__instance);
@@ -192,7 +209,7 @@ namespace ACTAP
     }
 
 
-    [HarmonyPatch(typeof (ShopButtonFlag), nameof (ShopButtonFlag.TryPurchase))]
+    /*[HarmonyPatch(typeof (ShopButtonFlag), nameof (ShopButtonFlag.TryPurchase))]
     class ShopLog
     {
         [HarmonyPrefix]
@@ -204,7 +221,7 @@ namespace ACTAP
                 writeText.WriteLine(json);
             }
         }
-    }
+    }*/
 
     /// <summary>
     /// Output save file
@@ -215,47 +232,50 @@ namespace ACTAP
         [HarmonyPrefix]
         private static void Start()
         {
-            CrabFile crabFile = GameManager.instance.activeCrabfile;
-            
-            string json = JsonUtility.ToJson(crabFile.progressData);
-            using (StreamWriter writeText = new StreamWriter("crabfile/progressdata.json"))
+            if (Plugin.debugMode)
             {
-                writeText.WriteLine(json);
-            }
-            json = JsonUtility.ToJson(crabFile.locationData);
-            using (StreamWriter writeText = new StreamWriter("crabfile/locationdata.json"))
-            {
-                writeText.WriteLine(json);
-            }
-            json = JsonUtility.ToJson(crabFile.storeData);
-            using (StreamWriter writeText = new StreamWriter("crabfile/storedata.json"))
-            {
-                writeText.WriteLine(json);
-            }
-            json = JsonUtility.ToJson(crabFile.valueTable);
-            using (StreamWriter writeText = new StreamWriter("crabfile/valuetable.json"))
-            {
-                writeText.WriteLine(json);
-            }
-            json = JsonUtility.ToJson(crabFile.assistTable);
-            using (StreamWriter writeText = new StreamWriter("crabfile/assisttable.json"))
-            {
-                writeText.WriteLine(json);
-            }
-            json = JsonUtility.ToJson(crabFile.inventoryData);
-            using (StreamWriter writeText = new StreamWriter("crabfile/inventorydata.json"))
-            {
-                writeText.WriteLine(json);
-            }
-            json = JsonUtility.ToJson(crabFile.unlocks);
-            using (StreamWriter writeText = new StreamWriter("crabfile/unlocks.json"))
-            {
-                writeText.WriteLine(json);
-            }
-            json = JsonUtility.ToJson(crabFile);
-            using (StreamWriter writeText = new StreamWriter("crabfile/wholefile.json"))
-            {
-                writeText.WriteLine(json);
+                CrabFile crabFile = GameManager.instance.activeCrabfile;
+
+                string json = JsonUtility.ToJson(crabFile.progressData);
+                using (StreamWriter writeText = new StreamWriter("crabfile/progressdata.json"))
+                {
+                    writeText.WriteLine(json);
+                }
+                json = JsonUtility.ToJson(crabFile.locationData);
+                using (StreamWriter writeText = new StreamWriter("crabfile/locationdata.json"))
+                {
+                    writeText.WriteLine(json);
+                }
+                json = JsonUtility.ToJson(crabFile.storeData);
+                using (StreamWriter writeText = new StreamWriter("crabfile/storedata.json"))
+                {
+                    writeText.WriteLine(json);
+                }
+                json = JsonUtility.ToJson(crabFile.valueTable);
+                using (StreamWriter writeText = new StreamWriter("crabfile/valuetable.json"))
+                {
+                    writeText.WriteLine(json);
+                }
+                json = JsonUtility.ToJson(crabFile.assistTable);
+                using (StreamWriter writeText = new StreamWriter("crabfile/assisttable.json"))
+                {
+                    writeText.WriteLine(json);
+                }
+                json = JsonUtility.ToJson(crabFile.inventoryData);
+                using (StreamWriter writeText = new StreamWriter("crabfile/inventorydata.json"))
+                {
+                    writeText.WriteLine(json);
+                }
+                json = JsonUtility.ToJson(crabFile.unlocks);
+                using (StreamWriter writeText = new StreamWriter("crabfile/unlocks.json"))
+                {
+                    writeText.WriteLine(json);
+                }
+                json = JsonUtility.ToJson(crabFile);
+                using (StreamWriter writeText = new StreamWriter("crabfile/wholefile.json"))
+                {
+                    writeText.WriteLine(json);
+                }
             }
         }
     }

@@ -561,7 +561,11 @@ namespace ACTAP
                 if (GUILayout.Button("Give Useful Items"))
                 {
                     CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
-                    
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotExpiredGroveMap].unlocked = true;
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotFlotsamValeMap].unlocked = true;
+                    CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotPagurusMap].unlocked = true;
+
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.FishingLine);
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.LurePouch);
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.BarbedHood_Bundle10);
@@ -579,6 +583,7 @@ namespace ACTAP
                     ItemSwapData.GetItem(ItemSwapData.StowawayEnum.RazorBlade);
 
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.MapPiece1);
+                    
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.MapPiece2);
                     ItemSwapData.GetItem(ItemSwapData.ItemEnum.MapPiece3);
 

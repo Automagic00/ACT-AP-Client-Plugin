@@ -278,6 +278,21 @@ namespace ACTAP
             {
                 CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
             }
+            else if (itemToGet == ItemEnum.MapPiece1)
+            {
+                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
+                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotExpiredGroveMap].unlocked = true;
+            }
+            else if (itemToGet == ItemEnum.MapPiece2)
+            {
+                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
+                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotFlotsamValeMap].unlocked = true;
+            }
+            else if (itemToGet == ItemEnum.MapPiece3)
+            {
+                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
+                CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotPagurusMap].unlocked = true;
+            }
 
             RecieveItemVisual(item);
         }

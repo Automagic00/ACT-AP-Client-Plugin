@@ -15,8 +15,12 @@
 - Currency Pickups (i.e. Breadclaws)
 - Stowaways
 - Upgrade Pickups (i.e. Bloodstar Limbs)
+- Map Pieces
+- Fork (Optional)
+- Grapple (Optional)
 
 #### Randomized Locations
 - Defeating Bosses
 - All Pickups (Including fishing spots and quest items)
 - Moon Snail Skill Purchases
+- Map Pieces

@@ -336,7 +336,7 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "3bd305d9-8d6b-43c4-99c7-1f2be904de06-2_E-Cliffs", apid = baseid + 314 });//
             pickupTable.Add(new LocationData() { uuid = "2601baa3-999e-443b-ae33-ea619346413b-2_E-Cliffs", apid = baseid + 315 });//
             pickupTable.Add(new LocationData() { uuid = "8b9b3b77-b95f-46a2-adfd-ca962e8f0cef-2_E-Cliffs", apid = baseid + 316 });//
-            pickupTable.Add(new LocationData() { uuid = "", apid = baseid + 317 });//
+            pickupTable.Add(new LocationData() { uuid = "87e60901-5489-437e-82c2-d70ca2390364-2_B-ShallowsBigSand", apid = baseid + 317 });//
             pickupTable.Add(new LocationData() { skillName = "Skill_Parries", apid = baseid + 318 });//
             pickupTable.Add(new LocationData() { skillName = "Skill_Riposte", apid = baseid + 319 });//
             pickupTable.Add(new LocationData() { skillName = "Skill_NakedParry", apid = baseid + 320 });//
@@ -623,8 +623,21 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "b373a831-6880-4823-9ba4-c69a72c6e01f-2_B-GrandCourtyard", apid = baseid + 602 });//
             pickupTable.Add(new LocationData() { uuid = "d2452d82-3625-483d-a93e-401ce4745bbb-2_B-GrandCourtyard", apid = baseid + 603 });//
             pickupTable.Add(new LocationData() { uuid = "21387127-4e04-4017-bb58-3aafb9537876-2_B-GrandCourtyard", apid = baseid + 604 });//
-
-
+            pickupTable.Add(new LocationData() { uuid = "5b786881-414b-41d4-97ea-b3a850d3633a-2_A-HighSwamp", apid = baseid + 605 });//
+            pickupTable.Add(new LocationData() { uuid = "99e59ba9-3c41-4133-bf7e-d09bc1957f04-2_A-HighSwamp", apid = baseid + 606 });//
+            pickupTable.Add(new LocationData() { uuid = "", apid = baseid + 607 });//
+            pickupTable.Add(new LocationData() { uuid = "669e8494-68f1-4de8-8814-6b41a0a69d18-2_A-HighSwamp", apid = baseid + 608 });//
+            pickupTable.Add(new LocationData() { uuid = "584ec079-5ecc-409b-bcac-7197b1d04a1c-2_A-HighSwamp", apid = baseid + 609 });//
+            pickupTable.Add(new LocationData() { uuid = "b4a9c83a-b0c6-4606-a785-16f4ff33d66e-2_A-HighSwamp", apid = baseid + 610 });//
+            pickupTable.Add(new LocationData() { uuid = "3b49cdc6-b609-49b0-a1c2-57307a398920-2_A-HighSwamp", apid = baseid + 611 });//
+            pickupTable.Add(new LocationData() { uuid = "a6a69a65-21fa-4bdd-8940-e1f1f6c226a0-2_A-HighSwamp", apid = baseid + 612 });//
+            pickupTable.Add(new LocationData() { uuid = "6709552a-af26-4b87-a69e-97830fd645be-2_A-HighSwamp", apid = baseid + 613 });//
+            pickupTable.Add(new LocationData() { uuid = "6db7743b-1b30-49c4-983a-bb8256959022-2_A-HighSwamp", apid = baseid + 614 });//
+            pickupTable.Add(new LocationData() { uuid = "70b7c84e-2c02-47c4-9e49-a58c78856f9d-2_C-Facilities", apid = baseid + 615 });//
+            pickupTable.Add(new LocationData() { uuid = "fa0535e3-55e1-4879-ac12-9327d5858b1a-2_C-Facilities", apid = baseid + 616 });//
+            pickupTable.Add(new LocationData() { uuid = "c376ad88-aa83-4923-9652-13fd98a67a19-2_C-Facilities", apid = baseid + 617 });//
+            pickupTable.Add(new LocationData() { uuid = "", apid = baseid + 618 });//
+            
         }
 
         public static long FindPickupAPID(Item item)

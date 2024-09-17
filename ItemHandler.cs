@@ -89,7 +89,7 @@ namespace ACTAP
         [HarmonyPostfix]
         private static void LogItemsPatch(SaveStateKillableEntity __instance)
         {
-            if (__instance.GetComponent<Item>() != null /*&& __instance.GetComponent<Item>().name != "ForkUnlock(1)" &&*/ && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
+            if (__instance.GetComponent<Item>() != null && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
             {
                 if (Plugin.debugMode && Plugin.removePickups)
                 {
@@ -137,7 +137,7 @@ namespace ACTAP
         {
 
             Debug.Log(__instance.name);
-            if (/*__instance.name == "ForkUnlock (1)" ||*/ __instance.name == "Item_HeartkelpPodsUnlock" || __instance.name == "Item_HeartkelpPod(Clone)")
+            if ( __instance.name == "Item_HeartkelpPodsUnlock" || __instance.name == "Item_HeartkelpPod(Clone)")
             {
                 return true;
             }
@@ -150,6 +150,12 @@ namespace ACTAP
             if (__instance.name == "ForkUnlock (1)")
             {
                 CompleteCheck.CheckCoroutine(__instance, 483021701);
+                return false;
+            }
+            else if (__instance.name == "FishingLineUnlock")
+            {
+                Debug.Log("Pickup Fishing Line Location");
+                CompleteCheck.CheckCoroutine(__instance, 483021702);
                 return false;
             }
 
@@ -379,7 +385,7 @@ namespace ACTAP
         }
     }
 
-    [HarmonyPatch(typeof(SkillTreeButtonFlag), nameof(SkillTreeButtonFlag.OnClick))]
+    /*[HarmonyPatch(typeof(SkillTreeButtonFlag), nameof(SkillTreeButtonFlag.OnClick))]
     class SkillLog
     {
         [HarmonyPrefix]
@@ -392,5 +398,5 @@ namespace ACTAP
                 writeText.WriteLine(json);
             }
         }
-    }
+    }*/
 }

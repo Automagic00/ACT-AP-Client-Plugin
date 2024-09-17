@@ -153,22 +153,17 @@ namespace ACTAP
                 if (Input.GetKeyDown(KeyCode.F3))
                 {
                     Debug.Log("F3 Pressed");
-                    //ItemSwapData.CustomItemVisual()
+                    CrabFile.current.SetInt("LocationChecked-483021702",0);
                 }
 
                 if (Input.GetKeyDown(KeyCode.F4))
                 {
                     Debug.Log("F4 Pressed");
-
-                    SkillTreeData skillTree = new SkillTreeData();
-
-                    skillTree.SetSkill(SkillTreeUnlocks.Skedaddle, true, false);
                 }
 
                 if (Input.GetKeyDown(KeyCode.F5))
                 {
                     Debug.Log("F5 Pressed");
-                    CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
                 }
                 if (Input.GetKeyDown(KeyCode.Insert))
                 { 
@@ -335,6 +330,24 @@ namespace ACTAP
                     });
             }
 
+            public void SyncLocations()
+            {
+                int serverLocCount = session.Locations.AllLocationsChecked.Count;
+                int clientLocCount = CrabFile.current.GetInt("archipelago items sent to other players");
+                
+                if (serverLocCount != clientLocCount)
+                {
+                    Debug.Log("Locations Unsynced, resyncing...");
+                    string[] clientLocs = CrabFile.current.GetString("Locations Obtained").Split(',');
+                    Debug.Log("Server: " + serverLocCount + "\nClient Count: " + clientLocCount + "\nClient Raw: " + clientLocs.Length);
+
+                    foreach (string location in clientLocs)
+                    {
+                        ActivateCheck(long.Parse(location));
+                    }
+                }
+            }
+
             public void ScoutLocation(long id)
             {
                 if (session != null)
@@ -394,6 +407,7 @@ namespace ACTAP
 
                     var itemName = networkItem.ItemName;
                     var location = networkItem.LocationName;
+                    var locID = networkItem.LocationId;
                     var receiver = session.Players.GetPlayerName(networkItem.Player);
 
                     Debug.Log("Sent " + itemName + " at " + location + " for " + receiver);
@@ -401,6 +415,7 @@ namespace ACTAP
                     if (networkItem.Player != session.ConnectionInfo.Slot)
                     {
                         CrabFile.current.SetInt("archipelago items sent to other players", CrabFile.current.GetInt("archipelago items sent to other players") + 1);
+                        CrabFile.current.SetString("Locations Obtained", CrabFile.current.GetString("Locations Obtained") + locID + ",");
                         //Notifications.Show($"yoo sehnt  {(TextBuilderPatches.ItemNameToAbbreviation.ContainsKey(itemName) && Archipelago.instance.IsTunicPlayer(networkItem.Player) ? TextBuilderPatches.ItemNameToAbbreviation[itemName] : "[archipelago]")}  \"{itemName.Replace("_", " ")}\" too \"{receiver}!\"", $"hOp #A lIk it!");
                     }
 

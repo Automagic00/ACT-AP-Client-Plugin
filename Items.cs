@@ -232,6 +232,7 @@ namespace ACTAP
                 case 132: skillToGet = SkillEnum.Umami3; break;
                 case 133: skillToGet = SkillEnum.Shelleport; break;
                 case 134: skillToGet = SkillEnum.Skeddadle; break;
+                case 135: itemToGet = ItemEnum.LevelRespec; break;
                 case 136: skillToGet = SkillEnum.Parry; break;
                 case 137: skillToGet = SkillEnum.Riposte; break;
                 default: Debug.Log("could not get item " + id); break;
@@ -302,6 +303,11 @@ namespace ACTAP
                 {
                     CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotAnyMap].unlocked = true;
                     CrabFile.current.progressData[ProgressData.NewCarciniaProgress.GotPagurusMap].unlocked = true;
+                }
+                else if (itemToGet == ItemEnum.DuchessPearl)
+                {
+                    CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
+                    GameManager.events.CheckProgress();
                 }
                 RecieveItemVisual(item);
             }

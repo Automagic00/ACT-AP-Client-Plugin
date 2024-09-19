@@ -65,6 +65,20 @@ namespace ACTAP
         }
     
     }
+    [HarmonyPatch(typeof(Enemy), "PlaceDropsIntoData")]
+    class BossKillDropLocations2
+    {
+        [HarmonyPrefix]
+        private static bool BossDropPatch(Enemy __instance)
+        {
+            if (__instance.isBoss)
+            {
+                return false;
+            }
+            return true;
+        }
+
+    }
 
     [HarmonyPatch(typeof(Shell),"Interact")]
     class HomeShellCompletion

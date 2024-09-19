@@ -153,12 +153,14 @@ namespace ACTAP
                 if (Input.GetKeyDown(KeyCode.F3))
                 {
                     Debug.Log("F3 Pressed");
-                    CrabFile.current.SetInt("LocationChecked-483021702",0);
+                    //CrabFile.current.SetInt("LocationChecked-483021702",0);
                 }
 
                 if (Input.GetKeyDown(KeyCode.F4))
                 {
                     Debug.Log("F4 Pressed");
+                    //CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
+                    //GameManager.events.CheckProgress();
                 }
 
                 if (Input.GetKeyDown(KeyCode.F5))
@@ -514,6 +516,59 @@ namespace ACTAP
                 windowRect = new Rect(0, 0, 200, 250);
                 windowRect = GUI.Window(0, windowRect, DebugMenu, "Debug");
             }
+            else if (showMenu && !debugMode && connection.session != null && _player != null)
+            {
+                GUI.backgroundColor = backgroundColor;
+                windowRect = new Rect(0, 0, 200, 100);
+                windowRect = GUI.Window(0, windowRect, APClientMenu, "Archipelago");
+            }
+        }
+
+        void APClientMenu(int windowID)
+        {
+            
+            GUILayout.BeginHorizontal();
+            GUILayout.BeginVertical(GUILayout.Width(80));
+            GUILayout.Label("Press [Insert] to toggle menu.");
+
+            if (GUILayout.Button("Teleport to Start"))
+            {
+                TeleportPanel tele = new TeleportPanel();
+                MSSCollectable mss = tele.GetMss(TeleportPanel.ZoneSelection.TheShallows, 0);
+                MethodInfo method = AccessTools.Method(typeof(TeleportPanel), "WarpToShellRoutine");
+
+                StartCoroutine((IEnumerator)method.Invoke(tele, new object[] { mss } ));
+                //GameManager.instance.StartCoroutine(method.Invoke(tele,));
+                //tele.WarpToShellRoutine(mss)
+            }
+
+
+
+            GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
+            GUI.DragWindow();
+        }
+
+        IEnumerator TeleToStartRoutine()
+        {
+            TeleportPanel tele = new TeleportPanel();
+            GUIManager.instance.CloseAllWindows();
+            GameManager.events.TriggerShelleport();
+            /*if (!string.IsNullOrEmpty(TeleportPanel.queuedChatter))
+            {
+                DialogueManager.instance.StartChatter(TeleportPanel.queuedChatter, null);
+                TeleportPanel.queuedChatter = null;
+                yield return null;
+                while (DialogueManager.instance.playingScene)
+                {
+                    yield return null;
+                }
+            }*/
+            PlayerLocationData playerLocationData = ScriptableObject.CreateInstance<PlayerLocationData>();
+            playerLocationData.SetSpawnerMSS(Level.TheShallows, 0);
+            //GUIManager.instance.Load(GUIManager.instance.blackFadeLoaderIllustrated, tele.LoadWarpLocationRoutine(targetLocation), false, null, 0f);
+            AreaMap.RefreshDataMap(playerLocationData);
+            yield break;
         }
         void APConnectMenu(int windowID)
         {

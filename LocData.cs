@@ -636,6 +636,7 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "70b7c84e-2c02-47c4-9e49-a58c78856f9d-2_C-Facilities", apid = baseid + 615 });//
             pickupTable.Add(new LocationData() { uuid = "fa0535e3-55e1-4879-ac12-9327d5858b1a-2_C-Facilities", apid = baseid + 616 });//
             pickupTable.Add(new LocationData() { uuid = "c376ad88-aa83-4923-9652-13fd98a67a19-2_C-Facilities", apid = baseid + 617 });//
+            pickupTable.Add(new LocationData() { uuid = "8e4714bf-cc7f-4bde-9c88-7fcdbf8d0afe-2_A-GroveForestLow", apid = baseid + 619 });//
             pickupTable.Add(new LocationData() { uuid = "", apid = baseid + 618 });//
             
         }

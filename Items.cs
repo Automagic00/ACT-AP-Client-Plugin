@@ -284,7 +284,6 @@ namespace ACTAP
                     }
                 }
 
-                CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
                 if (itemToGet == ItemEnum.FishingLine)
                 {
                     CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
@@ -306,9 +305,17 @@ namespace ACTAP
                 }
                 else if (itemToGet == ItemEnum.DuchessPearl)
                 {
+                    UserSettings.SetBool("tutorialPopupsActive", true);
+
                     CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
+                    Debug.Log(item.item.summary);
+                    item.item.summary = "NOTICE: If playing the Archipelago players must save, quit to menu, then continue the file to enter Fallen Slacktide";
+                    //CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = true;
                     GameManager.events.CheckProgress();
                 }
+
+                CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
+                
                 RecieveItemVisual(item);
             }
 

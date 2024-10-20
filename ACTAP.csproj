@@ -41,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\AP.png" />
     <Reference Include="$(Managed)\Assembly-CSharp.dll">
     </Reference>
     <Reference Include="$(BepinCore)\0Harmony.dll"></Reference>

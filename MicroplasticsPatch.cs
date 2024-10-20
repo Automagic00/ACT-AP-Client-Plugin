@@ -16,11 +16,18 @@ namespace ACTAP
             {
                 int player = Plugin.connection.session.ConnectionInfo.Slot;
                 Dictionary<string, object> slotData = Plugin.connection.slotData;
-                object value;
+                //object value;
 
-                Debug.Log("slotdata" + Plugin.connection.slotData.Keys);
+                foreach(var key in Plugin.connection.slotData.Keys)
+                {
+                    Debug.Log("slotdata: " + key);
+                    Debug.Log("value: " + slotData[key]);
+                }
 
-                slotData.TryGetValue("Microplastic Multiplier", out value);
+                double value = (double)Plugin.connection.slotData["microplastic_multiplier"];
+                //slotData.
+
+                //slotData.TryGetValue("Microplastic Multiplier", out value);
 
                 float microplaticMod = 1;
 

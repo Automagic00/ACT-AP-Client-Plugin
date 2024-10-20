@@ -47,6 +47,30 @@ namespace ACTAP
             }
         }
     }
+    [HarmonyPatch(typeof(Boss), "TestEnemyDiedVisually")]
+    class BossKillLocationsBackup
+    {
+        [HarmonyPrefix]
+        private static void DieVisuallyPatch(Entity e,Boss __instance)
+        {
+            if (e == __instance.GetEnemy())
+            {
+                long apid = LocationDataTable.BossPathToAPID(__instance.bossName);
+                Debug.Log(__instance.bossName);
+                Debug.Log("Assigned Location ID: " + (apid - 483021700));
+
+                if (Plugin.debugMode == true)
+                {
+                    return;
+                }
+
+                if (apid != -1)
+                {
+                    Plugin.GetConnection().ActivateCheck(apid);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Prevents bosses from placing drop items in player inventory
@@ -87,7 +111,7 @@ namespace ACTAP
         public static void InteractPatch(Shell __instance)
         {
             Debug.Log(__instance.name);
-            if (__instance.name == "Shell_HomeShell_1" && Plugin.connection != null)
+            if (__instance.name == "Shell_HomeShell_1" && Plugin.connection.session != null)
             {
                 Plugin.GetConnection().SendCompletion();
             }
@@ -105,6 +129,13 @@ namespace ACTAP
         {
             if (__instance.GetComponent<Item>() != null && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
             {
+                if (Plugin.itemHolder == null)
+                {
+                    Plugin.itemHolder = GameObject.Instantiate( __instance.gameObject);
+                    Plugin.itemHolder.transform.position = new Vector3(0, -50, 0);
+                    Debug.Log("Item Held " + __instance.name);
+                }
+
                 if (Plugin.debugMode && Plugin.removePickups)
                 {
                     //long testid = LocationSwapData.ItemPickupUUIDToAPID(__instance.GetComponent<Item>()) - 483021700;
@@ -157,7 +188,11 @@ namespace ACTAP
             }
             if (Plugin.debugMode == true)
             {
-                return true;
+                if (__instance.name == "FishingLineUnlock")
+                {
+                    Debug.Log("Send Fishing Line Here");
+                }
+                    return true;
             }
 
 

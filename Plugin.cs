@@ -15,6 +15,7 @@ using Archipelago.MultiClient.Net.Models;
 using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using System.Collections.Concurrent;
 using Archipelago.MultiClient.Net.Packets;
+using UnityEngine.UI;
 
 namespace ACTAP
 {
@@ -39,8 +40,8 @@ namespace ACTAP
         public static bool debugMode = false;
         public static float microplasticMult = 1.0f;
 
- 
 
+        public static GameObject itemHolder;
         private Rect windowRect = new Rect(0, 0, 200, 150);
         private UnityEngine.Color backgroundColor = UnityEngine.Color.grey;
         private static bool showMenu = true;
@@ -108,14 +109,6 @@ namespace ACTAP
                 }
 
             }
-
-            /*if (SpeedrunData.gameComplete != 0 && !sentCompletion)
-            {
-                sentCompletion = true;
-                SendCompletion();
-            }*/
-
-
         }
 
         MethodInfo method = AccessTools.Method(typeof(Item), "ObtainItem");
@@ -124,10 +117,18 @@ namespace ACTAP
             Debug.Log(s.name);
 
             //Load AP 
-            var texFile = File.ReadAllBytes("BepInEx/plugins/Archipelago/assets/AP.png");
-            Texture2D tex = new Texture2D(2, 2);
-            tex.LoadImage(texFile);
-            Sprite apSprite = Sprite.Create(tex, new Rect(0, 0, 2034, 2112), new Vector2(0, 0));
+            Assembly _assembly = Assembly.GetExecutingAssembly();
+            Texture2D texFile = LoadTextureFromDLL("AP.png"); //File.ReadAllBytes("BepInEx/plugins/Archipelago/assets/AP.png");
+
+            Debug.Log("Resources in DLL");
+            string[] resNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+            foreach (string resName in resNames)
+            { 
+                Debug.Log(resName); 
+            }
+            //Texture2D tex = texFile;
+            //tex.LoadImage(texFile);
+            Sprite apSprite = Sprite.Create(texFile, new Rect(0, 0, 2034, 2112), new Vector2(0, 0));
             ItemSwapData.setAPSprite(apSprite);
         }
 
@@ -149,23 +150,64 @@ namespace ACTAP
             [HarmonyPrefix]
             public static void updatePatch()
             {
+                
                 _player = Player.singlePlayer;
-                if (Input.GetKeyDown(KeyCode.F3))
+                if (debugMode)
                 {
-                    Debug.Log("F3 Pressed");
-                    //CrabFile.current.SetInt("LocationChecked-483021702",0);
-                }
+                    if (Input.GetKeyDown(KeyCode.F3))
+                    {
+                        Debug.Log("F3 Pressed");
+                        CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = false;
+                        CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = false;
+                        //CrabFile.current.SetInt("LocationChecked-483021702",0);
+                    }
 
-                if (Input.GetKeyDown(KeyCode.F4))
-                {
-                    Debug.Log("F4 Pressed");
-                    //CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
-                    //GameManager.events.CheckProgress();
-                }
+                    if (Input.GetKeyDown(KeyCode.F4))
+                    {
+                        Debug.Log("F4 Pressed");
+                        CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
+                        CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = true;
+                        //GameManager.events.CheckProgress();
+                    }
 
-                if (Input.GetKeyDown(KeyCode.F5))
-                {
-                    Debug.Log("F5 Pressed");
+                    if (Input.GetKeyDown(KeyCode.F5))
+                    {
+                        Debug.Log("F5 Pressed");
+                        SkillTreeData skillTree = new SkillTreeData();
+
+                        skillTree.SetSkill(SkillTreeUnlocks.Sheleport, true, false);
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.F6))
+                    {
+                        Debug.Log("F6 Pressed");
+                        ItemSwapData.GetItem(ItemSwapData.ItemEnum.LevelRespec);
+                    }
+                    if (Input.GetKeyDown(KeyCode.F8))
+                    {
+                        Debug.Log("F8 Pressed");
+                        ItemSwapData.GetItem(ItemSwapData.ItemEnum.FishingLine);
+                        CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;
+                    }
+                    if (Input.GetKeyDown(KeyCode.F9))
+                    {
+                        Debug.Log("F9 Pressed");
+                        //ItemSwapData.GetItem(ItemSwapData.ItemEnum.FishingLine);
+                        CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = false;
+                    }
+                    if (Input.GetKeyDown(KeyCode.F10))
+                    {
+                        Debug.Log("F10 Pressed");
+                        CreateCustom.CreateItem(_player.transform.position, "TestCustomItem", ItemSwapData.ItemEnum.BreadClaw);
+                    }
+                    if (Input.GetKeyDown(KeyCode.F11))
+                    {
+                        DeathLinkPatch.RecieveDeathLink("Test");
+                        //DeathLinkPatch.deathMsg = "FortNite";
+                        //DeathLinkPatch.isDeathLink = true;
+                        //Player.singlePlayer.Die();
+                    }
+
                 }
                 if (Input.GetKeyDown(KeyCode.Insert))
                 { 
@@ -187,7 +229,7 @@ namespace ACTAP
             public bool sentCollect = false;
 
             public Dictionary<string, object> slotData;
-            DeathLinkService deathLinkService;
+            public DeathLinkService deathLinkService;
             public int ItemIndex = 0;
             private ConcurrentQueue<(ItemInfo NetworkItem, int index)> incomingItems;
             private ConcurrentQueue<ItemInfo> outgoingItems;
@@ -248,20 +290,26 @@ namespace ACTAP
 
                     deathLinkService = session.CreateDeathLinkService();
 
-                    deathLinkService.OnDeathLinkReceived += (deathLinkObject) => {
-                        if (SceneManager.GetActiveScene().name != "TitleScreen")
+                    deathLinkService.OnDeathLinkReceived += (deathLinkObject) =>
+                    {
+                        if (SceneManager.GetActiveScene().name != "TitleScreen" && _player != null && !_player.dead && !DeathLinkPatch.isDeathLink /*So rapid fires dont crash game*/)
                         {
-                            Debug.Log("Death link received");
+                            //Debug.Log("Death link received");
+                            DeathLinkPatch.deathMsg = deathLinkObject.Cause == null ? $"{deathLinkObject.Source} died. Point and laugh." : $"{deathLinkObject.Cause}";
+                            DeathLinkPatch.isDeathLink = true;
+                            //Player.singlePlayer.Die();
+                            //DeathLinkPatch.RecieveDeathLink(deathLinkObject.Cause == null ? $"\"{deathLinkObject.Source} died and took you with them.\"" : $"\"{deathLinkObject.Cause}\"");
+                            //DeathLinkPatch.RecieveDeathLink(deathLinkObject.Cause == null ? $"{deathLinkObject.Source} died." : $"{deathLinkObject.Cause}");
                             //PlayerCharacterPatches.DeathLinkMessage = deathLinkObject.Cause == null ? $"\"{deathLinkObject.Source} died and took you with them.\"" : $"\"{deathLinkObject.Cause}\"";
                             //PlayerCharacterPatches.DiedToDeathLink = true;
                         }
                     };
 
                     
-                    /*if (TunicRandomizer.Settings.DeathLinkEnabled)
+                    if ((bool)Plugin.connection.slotData["death_link"])
                     {
                         deathLinkService.EnableDeathLink();
-                    }*/
+                    }
 
                     //SetupDataStorage();
 
@@ -487,6 +535,14 @@ namespace ACTAP
                 }
             }
 
+            public void SendDeathLink()
+            {
+                if (connected)
+                {
+                    deathLinkService.SendDeathLink(new DeathLink(session.Players.ActivePlayer.Name));
+                }
+            }
+
         }
 
         public void OnGUI()
@@ -504,7 +560,7 @@ namespace ACTAP
                 showFadingLabel = false;
             }
 
-            if (showMenu && SceneManager.GetActiveScene().name == "Title")
+            if (showMenu && (SceneManager.GetActiveScene().name == "Title" || SceneManager.GetActiveScene().name == "Pretitle"))
             {
                 GUI.backgroundColor = backgroundColor;
                 windowRect = new Rect(0, 0, 200, 150);
@@ -531,15 +587,19 @@ namespace ACTAP
             GUILayout.BeginVertical(GUILayout.Width(80));
             GUILayout.Label("Press [Insert] to toggle menu.");
 
-            if (GUILayout.Button("Teleport to Start"))
+            if (CrabFile.current.inventoryData.HasItem("Shallows_0_ForkOverlook"))
             {
-                TeleportPanel tele = new TeleportPanel();
-                MSSCollectable mss = tele.GetMss(TeleportPanel.ZoneSelection.TheShallows, 0);
-                MethodInfo method = AccessTools.Method(typeof(TeleportPanel), "WarpToShellRoutine");
 
-                StartCoroutine((IEnumerator)method.Invoke(tele, new object[] { mss } ));
-                //GameManager.instance.StartCoroutine(method.Invoke(tele,));
-                //tele.WarpToShellRoutine(mss)
+                if (GUILayout.Button("Teleport to Start"))
+                {
+                    TeleportPanel tele = new TeleportPanel();
+                    MSSCollectable mss = tele.GetMss(TeleportPanel.ZoneSelection.TheShallows, 0);
+                    MethodInfo method = AccessTools.Method(typeof(TeleportPanel), "WarpToShellRoutine");
+
+                    StartCoroutine((IEnumerator)method.Invoke(tele, new object[] { mss }));
+                    //GameManager.instance.StartCoroutine(method.Invoke(tele,));
+                    //tele.WarpToShellRoutine(mss)
+                }
             }
 
 
@@ -575,7 +635,7 @@ namespace ACTAP
             if (debugMode == false && SceneManager.GetActiveScene().name == "Title")
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.BeginVertical(GUILayout.Width(80));
+                GUILayout.BeginVertical(GUILayout.Width(80), GUILayout.ExpandWidth(true));
                 GUILayout.Label("Address");
                 GUILayout.Label("Port");
                 GUILayout.Label("Password");
@@ -591,11 +651,11 @@ namespace ACTAP
                 }
 
                 GUILayout.EndVertical();
-                GUILayout.BeginVertical(GUILayout.Width(80));
-                apAdress = GUILayout.TextField(apAdress);
-                apPort = GUILayout.TextField(apPort);
-                apPassword = GUILayout.TextField(apPassword);
-                apSlot = GUILayout.TextField(apSlot);
+                GUILayout.BeginVertical(GUILayout.Width(80), GUILayout.ExpandWidth(true));
+                apAdress = GUILayout.TextField(apAdress, GUILayout.ExpandWidth(true));
+                apPort = GUILayout.TextField(apPort, GUILayout.ExpandWidth(true));
+                apPassword = GUILayout.TextField(apPassword, GUILayout.ExpandWidth(true));
+                apSlot = GUILayout.TextField(apSlot, GUILayout.ExpandWidth(true));
 
                 if (!connection.connected)
                 {
@@ -715,6 +775,65 @@ namespace ACTAP
             }
         }
 
-        
+        public static Texture2D LoadTextureFromDLL(string filename)
+        {
+            Texture2D newTex = new Texture2D(1, 1);
+            Assembly _assembly = Assembly.GetExecutingAssembly();
+
+            //if we get here, this is being called as a DLL, extract texture
+            Stream _imageStream = null;
+            try
+            {
+                _imageStream = _assembly.GetManifestResourceStream("ACTAP.Resources." + filename);// this is the namespace this function lives in.
+            }
+            catch
+            {
+                Debug.LogWarning("Unable to find " + filename + " resource in DLL " + _assembly.FullName);
+                return newTex;
+            }
+            if (_imageStream == null)//sanity check- should be "caught" above
+            {
+                Debug.LogWarning("Unable to find " + filename + " resource in DLL " + _assembly.FullName);
+                return newTex;
+            }
+            byte[] imageData = new byte[_imageStream.Length];
+            _imageStream.Read(imageData, 0, (int)_imageStream.Length);
+
+            if (!newTex.LoadImage(imageData))
+                Debug.LogWarning("Unable to Load " + filename + " resource from DLL" + _assembly.FullName);
+            return newTex;
+        }
+
+        /*public static IEnumerator LoadFromAssetBundle()
+        {
+            Shader newShader = new Shader();
+            Material newTex = new Material(newShader);
+            Assembly _assembly = Assembly.GetExecutingAssembly();
+
+            var assetBundleCreateRequest = AssetBundle.LoadFromFile(_assembly.Location + "Resources.apassets.itemmatsshader");
+
+            //if we get here, this is being called as a DLL, extract texture
+            Stream _assetStream = null;
+            try
+            {
+                _assetStream = _assembly.GetManifestResourceStream("ACTAP.Resources." + filename);// this is the namespace this function lives in.
+            }
+            catch
+            {
+                Debug.LogWarning("Unable to find " + filename + " resource in DLL " + _assembly.FullName);
+                return newTex;
+            }
+            if (_assetStream == null)//sanity check- should be "caught" above
+            {
+                Debug.LogWarning("Unable to find " + filename + " resource in DLL " + _assembly.FullName);
+                return newTex;
+            }
+            byte[] imageData = new byte[_assetStream.Length];
+            _assetStream.Read(imageData, 0, (int)_assetStream.Length);
+
+            if (!newTex.LoadImage(imageData))
+                Debug.LogWarning("Unable to Load " + filename + " resource from DLL" + _assembly.FullName);
+            return newTex;
+        }*/
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections;
 using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -148,6 +149,7 @@ namespace ACTAP
 
         public static FieldInfo dialogue = AccessTools.Field(typeof(SkillTreeButtonFlag), "skillUnlockDialogue");
         public static FieldInfo tut = AccessTools.Field(typeof(SkillTreeButtonFlag), "skillTutorialData");
+        public static MethodInfo dialogueRoutine = AccessTools.Method(typeof(SkillTreeButtonFlag), "PostUpgradeDialogueRoutine");
         //public static MethodInfo PostUp
 
         [HarmonyPrefix]
@@ -157,6 +159,7 @@ namespace ACTAP
             bool preReqPurchased = __instance.selectedData[0].name == "Skill_Shelleport" ? true : CrabFile.current.GetBool("APSkillPurchase_" + __instance.preReq.selectedData[0].name);
             if (Plugin.debugMode == false && Plugin.connection == null)
             {
+                //__instance.
                 return true;
             }
             if (GameManager.instance.IsGodMode())
@@ -200,20 +203,20 @@ namespace ACTAP
                 CrabFile.current.inventoryData.wallet.AddCurrency(InventoryData.CURRENCY.UmamiCrystals, -__instance.selectedData[0].cost, true);
             }
             AudioManager.PlayOneShot("UI/UI_Level_Up", null, false);
-            //__instance.skillUnlockDialogue = "";
+            dialogue.SetValue(__instance,"");
             //__instance.skillTutorialData = null;
-            /*foreach (SkillTreeData skillTreeData in __instance.selectedData)
+            foreach (SkillTreeData skillTreeData in __instance.selectedData)
             {
-                if (string.IsNullOrEmpty(__instance.skillUnlockDialogue))
+                if (string.IsNullOrEmpty((string)dialogue.GetValue(__instance)))
                 {
-                    __instance.skillUnlockDialogue = skillTreeData.afterUnlockDialogue;
+                    dialogue.SetValue(__instance, skillTreeData.afterUnlockDialogue);
                 }
-                if (__instance.skillTutorialData == null)
+                /*if (__instance.skillTutorialData == null)
                 {
                     __instance.skillTutorialData = skillTreeData.tutorial;
                 }
-                skillTreeData.ClickAction(flag, __instance.skillTreePanel.isDebug);
-            }*/
+                skillTreeData.ClickAction(flag, __instance.skillTreePanel.isDebug);*/
+            }
             CrabFile.current.SetBool("APSkillPurchase_" + __instance.selectedData[0].name, true);
 
             if (Plugin.GetConnection() != null && !Plugin.debugMode)
@@ -237,12 +240,115 @@ namespace ACTAP
                 __instance.onClick.Invoke();
             }*/
 
-            /*if (!string.IsNullOrEmpty(__instance.skillUnlockDialogue) || __instance.skillTutorialData != null)
+            if (!string.IsNullOrEmpty((string)dialogue.GetValue(__instance)))
             {
-                GameManager.instance.StartCoroutine(__instance.PostUpgradeDialogueRoutine());
-            }*/
+                GameManager.instance.StartCoroutine((IEnumerator)dialogueRoutine.Invoke(__instance, new object[] { }));
+            }
             return false;
         }
     }
+
+    [HarmonyPatch(typeof(Menu_MoonSnail), "RefreshRefundButton")]
+    static class RefundButtonPatch
+    {
+        [HarmonyPostfix]
+        public static void MenuPostfix(Menu_MoonSnail __instance)
+        {
+            __instance.refundButton.gameObject.SetActive(true);
+        }
+    }
+
+    [HarmonyPatch(typeof(Menu_MoonSnail),"DoRefund")]
+    static class RefundPatch
+    {
+        [HarmonyPrefix]
+        public static bool Refund(Menu_MoonSnail __instance)
+        {
+            Debug.Log("Refund");
+            if (Plugin.connection.session == null && !Plugin.debugMode)
+            {
+                return true;
+            }
+
+            __instance.tryPrompt.Close();
+            if (CrabFile.current.inventoryData.GetAmount("Level_Respec") <= 0)
+            {
+                __instance.denyRefundPrompt.Open();
+                return false;
+            }
+            InventoryData.Wallet wallet = CrabFile.current.inventoryData.wallet;
+            wallet[InventoryData.CURRENCY.UmamiCrystals] = wallet[InventoryData.CURRENCY.UmamiCrystals] + Menu_MoonSnail.RefundAmount;
+            CrabFile.current.inventoryData.AdjustAmount("Level_Respec", -1);
+            GUIManager.instance.HUD.UpdateUmamiText(-1);
+
+            //Reset();
+            Debug.Log("Reset");
+            for (int i = 0; i < CrabFile.current.unlocks.skills.Count; i++)
+            {
+                TreeSkill treeSkill = CrabFile.current.unlocks.skills[i];
+                SkillTreeData data = AssetListCollection.instance.GetData(CrabFile.current.unlocks.skills[i].id);
+                Debug.Log("Resetting " + data.name);
+                if (treeSkill.id != SkillTreeUnlocks.BasicUmamiTraining && treeSkill.id != SkillTreeUnlocks.Sheleport && treeSkill.id != SkillTreeUnlocks.ShellAbility)
+                {
+                    CrabFile.current.SetBool("APSkillPurchase_" + data.name, false);
+
+                    //treeSkill.unlocked = false;
+                }
+            }
+            Player.singlePlayer.playerStatBlock.SetUmamiUpgrades();
+
+            __instance.RefreshRefundButton();
+            GUIManager.instance.HUD.RefreshHUD();
+            __instance.succeedRefundPrompt.Open();
+            return false;
+        }
+
+        /*public static void Reset()
+        {
+            Debug.Log("Reset");
+            for (int i = 0; i < CrabFile.current.unlocks.skills.Count; i++)
+		    {
+			    TreeSkill treeSkill = CrabFile.current.unlocks.skills[i];
+                SkillTreeData data = AssetListCollection.instance.GetData(CrabFile.current.unlocks.skills[i].id);
+                Debug.Log("Resetting " + data.name);
+                if (treeSkill.id != SkillTreeUnlocks.BasicUmamiTraining && treeSkill.id != SkillTreeUnlocks.Sheleport && treeSkill.id != SkillTreeUnlocks.ShellAbility)
+			    {
+                    CrabFile.current.SetBool("APSkillPurchase_" + data.name,false);
+
+                    //treeSkill.unlocked = false;
+			    }
+		    }
+		    Player.singlePlayer.playerStatBlock.SetUmamiUpgrades();
+        }*/
+    }
+
+    [HarmonyPatch(typeof(Menu_MoonSnail), "CollectTotalCrystals")]
+    public static class CollectPatch
+    { 
+        [HarmonyPostfix]
+        static void Collectpost(ref int __result)
+        {
+            int num = 0;
+		    int count = CrabFile.current.unlocks.skills.Count;
+            Debug.Log("count " + count);
+		    for (int i = 0; i < count; i++)
+		    {
+			    TreeSkill treeSkill = CrabFile.current.unlocks.skills[i];
+                //Debug.Log(treeSkill.name);
+                SkillTreeData data = AssetListCollection.instance.GetData(CrabFile.current.unlocks.skills[i].id);
+                Debug.Log(data.name);
+                if (treeSkill.id != SkillTreeUnlocks.BasicUmamiTraining && treeSkill.id != SkillTreeUnlocks.Sheleport && treeSkill.id != SkillTreeUnlocks.ShellAbility && CrabFile.current.GetBool("APSkillPurchase_" + data.name))
+			    {
+                    Debug.Log("Does have " + treeSkill.name);
+				    //SkillTreeData data = AssetListCollection.instance.GetData(CrabFile.current.unlocks.skills[i].id);
+                    Debug.Log("Cost " + data.cost);
+				    num += data.cost;
+			    }
+		    }
+            Debug.Log("CollectCrystals = " + num);
+		    __result = num;
+        }
+    }
+
 }
 

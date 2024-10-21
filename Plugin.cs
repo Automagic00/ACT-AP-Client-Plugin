@@ -36,6 +36,8 @@ namespace ACTAP
         string xCoord = "";
         string yCoord = "";
         string zCoord = "";
+        float windowWidth = 200;
+
         public static bool removePickups = false;
         public static bool debugMode = false;
         public static float microplasticMult = 1.0f;
@@ -563,7 +565,13 @@ namespace ACTAP
             if (showMenu && (SceneManager.GetActiveScene().name == "Title" || SceneManager.GetActiveScene().name == "Pretitle"))
             {
                 GUI.backgroundColor = backgroundColor;
-                windowRect = new Rect(0, 0, 200, 150);
+
+                if(windowWidth < 200)
+                {
+                    windowWidth = 200;
+                }
+
+                windowRect = new Rect(0, 0, windowWidth, 150);
                 windowRect = GUI.Window(0, windowRect, APConnectMenu, "Archipelago");
             }
             else if (showMenu && debugMode && _player != null)
@@ -634,7 +642,9 @@ namespace ACTAP
         {
             if (debugMode == false && SceneManager.GetActiveScene().name == "Title")
             {
-                GUILayout.BeginHorizontal();
+                
+                
+                GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
                 GUILayout.BeginVertical(GUILayout.Width(80), GUILayout.ExpandWidth(true));
                 GUILayout.Label("Address");
                 GUILayout.Label("Port");
@@ -666,11 +676,10 @@ namespace ACTAP
                     }
                 }
 
-
                 
                 GUILayout.EndVertical();
                 GUILayout.EndHorizontal();
-                GUI.DragWindow();
+                
             }
             if (debugMode && SceneManager.GetActiveScene().name == "Title")
             {

@@ -6,7 +6,52 @@ using UnityEngine;
 
 namespace ACTAP
 {
-    [HarmonyPatch(typeof(InventoryData.Wallet), nameof(InventoryData.Wallet.AddCurrency) /*new Type[] {typeof(InventoryData.CURRENCY),typeof(int)}*/ )]
+    [HarmonyPatch(typeof(Enemy), "CalculateClipsToDrop")]
+    class MicroplasticDropsPatch
+    { 
+        [HarmonyPostfix]
+        static void clipDropPost(ref int __result)
+        {
+            float mult = float.Parse(CrabFile.current.GetString("setting_microplasticMod"));
+            mult = mult <= 0 ? 1 : mult;
+            if (__result > 0 && mult != 1)
+            {
+                Debug.Log($"Multiplying {__result} by {mult}");
+                __result = Mathf.RoundToInt(__result * mult);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(SellButtonFlag),"TrySale")]
+    class ShopSellPatch
+    {
+        [HarmonyPrefix]
+        static bool SellPre(SellButtonFlag __instance, ref int amount)
+        {
+            if(__instance.sellItemData is not JunkCollectable)
+            {
+                return true;
+            }
+            if(!__instance.sellItemData.name.Contains("Claw"))
+            {
+                return true;
+            }
+
+            if (__instance.sellItemData.GetInventorySlot().amount > 0)
+            {
+                CrabFile.current.inventoryData.wallet.AddCurrency(InventoryData.CURRENCY.Clips, Mathf.RoundToInt(__instance.cost * amount * float.Parse(CrabFile.current.GetString("setting_microplasticMult"))), true);
+            }
+            CrabFile.current.inventoryData.AdjustAmount(__instance.sellItemData, -amount);
+            if (__instance.cost > 0)
+            {
+                AudioManager.PlayOneShot("UI/UI_Sell", null, false);
+            }
+            __instance.shop.OnPurchased(__instance);
+            return false;
+        }
+    }
+
+    /*[HarmonyPatch(typeof(InventoryData.Wallet), nameof(InventoryData.Wallet.AddCurrency))]
     class MicroplasticsPatch
     {
         [HarmonyPrefix]
@@ -46,5 +91,5 @@ namespace ACTAP
             return true;
         }
 
-    }
+    }*/
 }

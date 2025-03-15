@@ -12,11 +12,12 @@ namespace ACTAP
         [HarmonyPrefix]
         public static bool Prefix(MoonSnailShell __instance)
         {
-            if (Plugin.connection.session == null)
+            if (Plugin.connection.session == null && !Plugin.debugMode)
             {
                 return true;
             }
 
+            //Do shell routine without giving player fork
             __instance.StartCoroutine(ShellRoutinePatch(__instance));
             return false;
 

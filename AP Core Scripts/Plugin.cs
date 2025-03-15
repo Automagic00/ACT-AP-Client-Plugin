@@ -1,21 +1,20 @@
-﻿using BepInEx;
-using Archipelago.MultiClient.Net;
-using HarmonyLib;
-using System;
-using System.Threading.Tasks;
-using System.Reflection;
-using System.Collections.Generic;
-using System.IO;
-using System.Collections;
-using Newtonsoft.Json.Linq;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using Archipelago.MultiClient.Net;
+using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
-using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
-using System.Collections.Concurrent;
 using Archipelago.MultiClient.Net.Packets;
-using UnityEngine.UI;
+using BepInEx;
+using HarmonyLib;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ACTAP
 {
@@ -47,6 +46,7 @@ namespace ACTAP
         private Rect windowRect = new Rect(0, 0, 200, 150);
         private UnityEngine.Color backgroundColor = UnityEngine.Color.grey;
         private static bool showMenu = true;
+        public static Dictionary<string,Dictionary<string,int>> shellData =new Dictionary<string, Dictionary<string, int>>();
         //public static Archipelago instance { get; set; }
         public static ArchipelagoConnection connection;
 
@@ -156,34 +156,45 @@ namespace ACTAP
                 _player = Player.singlePlayer;
                 if (debugMode)
                 {
+                    if (Input.GetKeyDown(KeyCode.F1))
+                    {
+                        Debug.Log("F1 Pressed");
+                        DebugSettings.settings.debugBuildSettings.debugMode = true;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.F2))
+                    {
+                        Debug.Log(Player.singlePlayer.healthyEggCount);
+                        Player.singlePlayer.ResetDrink();
+                    }
+
+
                     if (Input.GetKeyDown(KeyCode.F3))
                     {
                         Debug.Log("F3 Pressed");
-                        CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = false;
-                        CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = false;
+                        Item_Scripts.Traps.DarkSoulsTrap dst = (Item_Scripts.Traps.DarkSoulsTrap)Player.singlePlayer.gameObject.AddComponent(typeof(Item_Scripts.Traps.DarkSoulsTrap));
+                        dst.ActivateTrap();
                         //CrabFile.current.SetInt("LocationChecked-483021702",0);
                     }
 
                     if (Input.GetKeyDown(KeyCode.F4))
                     {
                         Debug.Log("F4 Pressed");
-                        CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
-                        CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = true;
+                        Item_Scripts.Traps.ClutzTrap.ActivateTrap();
                         //GameManager.events.CheckProgress();
                     }
 
                     if (Input.GetKeyDown(KeyCode.F5))
                     {
                         Debug.Log("F5 Pressed");
-                        SkillTreeData skillTree = new SkillTreeData();
-
-                        skillTree.SetSkill(SkillTreeUnlocks.Sheleport, true, false);
+                        Item_Scripts.Traps.ShellShatterTrap.Shatter();
                     }
 
                     if (Input.GetKeyDown(KeyCode.F6))
                     {
                         Debug.Log("F6 Pressed");
-                        ItemSwapData.GetItem(ItemSwapData.ItemEnum.LevelRespec);
+                        Item_Scripts.Traps.StatusEffectTraps.Electrocute();
+                        //Item_Scripts.Traps.StatusEffectTraps.Hypnotized();
                     }
                     if (Input.GetKeyDown(KeyCode.F8))
                     {
@@ -204,10 +215,19 @@ namespace ACTAP
                     }
                     if (Input.GetKeyDown(KeyCode.F11))
                     {
-                        DeathLinkPatch.RecieveDeathLink("Test");
-                        //DeathLinkPatch.deathMsg = "FortNite";
-                        //DeathLinkPatch.isDeathLink = true;
-                        //Player.singlePlayer.Die();
+                        string path = "shelldata/shellData.json";
+
+                        FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                        Debug.Log("Adding shells");
+
+                        using (StreamWriter writeText = new StreamWriter(fileStream))
+                        {
+                            writeText.WriteLine(JsonConvert.SerializeObject(shellData));
+                            writeText.Close();
+                            Debug.Log("Write Success");
+                        }
+
+
                     }
 
                 }
@@ -262,7 +282,7 @@ namespace ACTAP
                         session = ArchipelagoSessionFactory.CreateSession(adress, port);
                         Debug.Log("Session at " + session.ToString());
                     }
-                    catch (Exception e)
+                    catch
                     {
                         Debug.Log("Failed to create archipelago session!");
                     }
@@ -357,7 +377,7 @@ namespace ACTAP
 
                     Debug.Log("Disconnected from Archipelago");
                 }
-                catch (Exception e)
+                catch
                 {
                     Debug.Log("Encountered an error disconnecting from Archipelago!");
                 }
@@ -808,41 +828,22 @@ namespace ACTAP
             byte[] imageData = new byte[_imageStream.Length];
             _imageStream.Read(imageData, 0, (int)_imageStream.Length);
 
+            
+
             if (!newTex.LoadImage(imageData))
                 Debug.LogWarning("Unable to Load " + filename + " resource from DLL" + _assembly.FullName);
             return newTex;
         }
 
-        /*public static IEnumerator LoadFromAssetBundle()
+        public static GameObject LoadFromAssetBundle(string filename)
         {
-            Shader newShader = new Shader();
-            Material newTex = new Material(newShader);
             Assembly _assembly = Assembly.GetExecutingAssembly();
-
-            var assetBundleCreateRequest = AssetBundle.LoadFromFile(_assembly.Location + "Resources.apassets.itemmatsshader");
+            AssetBundle asset = AssetBundle.LoadFromFile(Path.Combine(new string[]{ _assembly.FullName,"ACTAP.Resources." + filename}));
+            //var assetBundleCreateRequest = AssetBundle.LoadFromFile(_assembly.Location + "Resources.apassets.itemmatsshader");
 
             //if we get here, this is being called as a DLL, extract texture
-            Stream _assetStream = null;
-            try
-            {
-                _assetStream = _assembly.GetManifestResourceStream("ACTAP.Resources." + filename);// this is the namespace this function lives in.
-            }
-            catch
-            {
-                Debug.LogWarning("Unable to find " + filename + " resource in DLL " + _assembly.FullName);
-                return newTex;
-            }
-            if (_assetStream == null)//sanity check- should be "caught" above
-            {
-                Debug.LogWarning("Unable to find " + filename + " resource in DLL " + _assembly.FullName);
-                return newTex;
-            }
-            byte[] imageData = new byte[_assetStream.Length];
-            _assetStream.Read(imageData, 0, (int)_assetStream.Length);
-
-            if (!newTex.LoadImage(imageData))
-                Debug.LogWarning("Unable to Load " + filename + " resource from DLL" + _assembly.FullName);
-            return newTex;
-        }*/
+            var prefab = asset.LoadAsset<GameObject>(filename);
+            return prefab;
+        }
     }
 }

@@ -174,7 +174,6 @@ namespace ACTAP
             {
                 return false;
             }
-            bool flag = true;
             if (purchased)
             {
                 if (__instance.skillTreePanel.isDebug)

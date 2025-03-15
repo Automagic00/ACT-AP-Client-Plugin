@@ -1,17 +1,6 @@
-﻿using BepInEx;
-using Archipelago.MultiClient.Net;
-using Archipelago.MultiClient.Net.Packets;
-using HarmonyLib;
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿using HarmonyLib;
 using UnityEngine;
 using System.Reflection;
-using System.IO;
-using Newtonsoft.Json.Linq;
-using UnityEngine.SceneManagement;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace ACTAP
 {

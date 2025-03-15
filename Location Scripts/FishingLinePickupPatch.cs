@@ -13,6 +13,7 @@ namespace ACTAP
     [HarmonyPatch(typeof(ShallowsManager),"Start")]
     class FishingLinePickupPatch
     {
+        //Create fishingline unlock item if it is deleted by game progress
         [HarmonyPostfix]
         static void PickupPostfix(Player __instance)
         {

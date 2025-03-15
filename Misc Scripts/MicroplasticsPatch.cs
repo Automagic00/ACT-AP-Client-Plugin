@@ -39,7 +39,9 @@ namespace ACTAP
 
             if (__instance.sellItemData.GetInventorySlot().amount > 0)
             {
-                CrabFile.current.inventoryData.wallet.AddCurrency(InventoryData.CURRENCY.Clips, Mathf.RoundToInt(__instance.cost * amount * float.Parse(CrabFile.current.GetString("setting_microplasticMult"))), true);
+                float mult = float.Parse(CrabFile.current.GetString("setting_microplasticMod"));
+                mult = mult <= 0 ? 1 : mult;
+                CrabFile.current.inventoryData.wallet.AddCurrency(InventoryData.CURRENCY.Clips, Mathf.RoundToInt(__instance.cost * amount * mult), true);
             }
             CrabFile.current.inventoryData.AdjustAmount(__instance.sellItemData, -amount);
             if (__instance.cost > 0)

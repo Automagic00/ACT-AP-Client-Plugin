@@ -18,10 +18,10 @@ namespace ACTAP
         }
     }
 
-    class TutStore
+    /*class TutStore
     {
         public static TutorialData data;
-    }
+    }*/
 
     [HarmonyPatch(typeof(TutorialPopup), nameof(TutorialPopup.ActivatePopUp), new Type[] { typeof(TutorialData), typeof(float), typeof(bool), typeof(bool), typeof(CollectableItemData), typeof(bool) })]
     class TutorialForcePatch

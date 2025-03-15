@@ -28,14 +28,20 @@ namespace ACTAP
         {
             item.PickupVisually();
         }
+        public static void CustomRecieveItemVisual(string name, Sprite sprite)
+        {
+            //item.PickupVisually();
+            GUIManager.instance.HUD.itemNotification.Play(name, false, sprite, "test", 0);
+        }
         public static void CustomItemVisual(ItemInfo networkItem)
         {
             ArchipelagoSession session = Plugin.GetConnection().session;
             var playerName = session.Players.GetPlayerName(networkItem.Player);
+            var itemName = networkItem.ItemDisplayName;
 
 
             Debug.Log("CustomVis");
-            GUIManager.instance.HUD.itemNotification.Play(playerName + "'s Item", false, apSprite, "test", 0);
+            GUIManager.instance.HUD.itemNotification.Play(playerName + "'s " + itemName, false, apSprite, "test", 0);
         }
         public static void GetItem(string name)
         {
@@ -87,6 +93,7 @@ namespace ACTAP
             CostumeEnum costumeToGet = CostumeEnum.NULL;
             AdaptationEnum adaptationToGet = AdaptationEnum.NULL;
             SkillEnum skillToGet = SkillEnum.NULL;
+            TrapEnum trapToGet = TrapEnum.NULL;
             id = id - 483021700;
 
             switch (id)
@@ -258,7 +265,56 @@ namespace ACTAP
             {
                 GetItem(skillToGet);
             }
+            if(trapToGet != TrapEnum.NULL)
+            {
+                GetItem(trapToGet);
+            }
         }
+
+        static void GetItem(TrapEnum trapToGet)
+        {
+            switch (trapToGet)
+            {
+                case TrapEnum.TextTrap:
+                    Item_Scripts.Traps.DarkSoulsTrap trap = new Item_Scripts.Traps.DarkSoulsTrap();
+                    trap.ActivateTrap();
+                    break;
+
+                case TrapEnum.GunkTrap:
+                    Item_Scripts.Traps.StatusEffectTraps.Gunked();
+                    break;
+
+                case TrapEnum.ScourTrap:
+                    Item_Scripts.Traps.StatusEffectTraps.Scoured();
+                    break;
+
+                case TrapEnum.BleachedTrap:
+                    Item_Scripts.Traps.StatusEffectTraps.Bleached();
+                    break;
+
+                case TrapEnum.FearTrap:
+                    Item_Scripts.Traps.StatusEffectTraps.Afraid();
+                    break;
+
+                case TrapEnum.TaserTrap:
+                    Item_Scripts.Traps.StatusEffectTraps.Electrocute();
+                    break;
+
+                case TrapEnum.PoisonCocktailTrap:
+                    Item_Scripts.Traps.StatusEffectTraps.PoisonCocktail();
+                    break;
+
+                case TrapEnum.ShellShatterTrap:
+                    Item_Scripts.Traps.ShellShatterTrap.Shatter();
+                    break;
+
+                case TrapEnum.ClutzTrap:
+                    Item_Scripts.Traps.ClutzTrap.ActivateTrap();
+                    break;
+            }
+        }
+
+
         public static void GetItem(ItemEnum itemToGet)
         {
             Item item = new Item();
@@ -358,7 +414,7 @@ namespace ACTAP
             }
 
             CrabFile.current.inventoryData.AdjustAmount(item.item, 1);
-            RecieveItemVisual(item);
+            CustomRecieveItemVisual(item.DisplayName,item.item.GetIcon());
         }
 
         public static void GetItem(CostumeEnum itemToGet)
@@ -385,6 +441,7 @@ namespace ACTAP
             SkillTreeData skillTree = new SkillTreeData();
             SkillTreeUnlocks skill = GetSkillTreeUnlock(skillToGet);
             skillTree.SetSkill(skill, true, false);
+            CustomRecieveItemVisual(skillTree.displayTitle,skillTree.displayImage);
         }
 
         public static SkillTreeUnlocks GetSkillTreeUnlock(SkillEnum skillEnum)
@@ -737,6 +794,20 @@ namespace ACTAP
             Umami1,
             Umami2,
             Umami3,
+            NULL
+        }
+
+        public enum TrapEnum
+        {
+            GunkTrap,
+            ScourTrap,
+            BleachedTrap,
+            FearTrap,
+            ClutzTrap,
+            TextTrap,
+            ShellShatterTrap,
+            PoisonCocktailTrap,
+            TaserTrap,
             NULL
         }
     }

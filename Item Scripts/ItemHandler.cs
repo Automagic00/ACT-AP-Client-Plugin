@@ -11,6 +11,7 @@ using System.Reflection;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Archipelago.MultiClient.Net.Models;
+using UnityEngine.SceneManagement;
 
 namespace ACTAP
 {
@@ -129,7 +130,8 @@ namespace ACTAP
         {
             if (__instance.GetComponent<Item>() != null && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
             {
-                if (Plugin.itemHolder == null)
+                //TEMP SCENE NAME FOR TESTING
+                if (Plugin.itemHolder == null && SceneManager.GetActiveScene().name == "Shallows_0_PreFall")
                 {
                     Plugin.itemHolder = GameObject.Instantiate( __instance.gameObject);
                     Plugin.itemHolder.transform.position = new Vector3(0, -50, 0);

@@ -9,7 +9,7 @@ namespace ACTAP
     [HarmonyPatch(typeof(ProgressReaderBase),"UpdateState")]
     public class MoonSnailEntrancePatch
     {
-        //public static FieldInfo choiceField = typeof(ProgressReaderBase).GetField("choice");
+        //Keep Ghost Moon Snail unlocked regardless of level progress
         [HarmonyPrefix]
         public static bool EntrancePrefix(ProgressReaderBase __instance)
         {

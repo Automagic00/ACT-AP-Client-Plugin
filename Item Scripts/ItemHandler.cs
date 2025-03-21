@@ -200,7 +200,8 @@ namespace ACTAP
 
             if (__instance.name == "ForkUnlock (1)")
             {
-                CompleteCheck.CheckCoroutine(__instance, 483021701);
+                Debug.Log("IsFork");
+                CompleteCheck.CheckCoroutine(__instance, 483021700);
                 return false;
             }
             else if (__instance.name == "FishingLineUnlock")
@@ -237,27 +238,36 @@ namespace ACTAP
 
         public static async void CheckCoroutine(Item __instance, long idToTest)
         {
-            
+            Debug.Log("Enter Check Routine");
             __instance.hideNotification = true;
             ArchipelagoSession session = Plugin.GetConnection().session;
 
             //LocationInfoPacket locPack = await session.Locations.ScoutLocationsAsync(idToTest);
             
             ScoutedItemInfo locPack;
+            TaskCompletionSource<Dictionary<long, ScoutedItemInfo>> tcs = new TaskCompletionSource<Dictionary<long, ScoutedItemInfo>>();
+
             Dictionary<long, ScoutedItemInfo> test = await session.Locations.ScoutLocationsAsync(idToTest);
-            test.TryGetValue(idToTest, out locPack);
+            Debug.Log(test.TryGetValue(idToTest, out locPack));
 
             ItemInfo testNetItem = locPack;
 
+            //Debug.Log(testNetItem.Player);
+            Debug.Log(session.ConnectionInfo.Slot);
+
+            Debug.Log("CustimVis");
             //Custom Visual if item is not for crabgame
             if (testNetItem.Player != session.ConnectionInfo.Slot)
             {
+                Debug.Log("PickUpVisually");
                 __instance.PickupVisually(0f);
                 ItemSwapData.CustomItemVisual(testNetItem);
             }
             //__instance.PickupVisually(0f);
+            Debug.Log("Destroy");
             UnityEngine.Object.Destroy(__instance.gameObject, 0.2f);
 
+            Debug.Log("ActivateCheck");
             if (CrabFile.current.GetInt("LocationChecked-" + idToTest) != 1)
             {
                 Plugin.GetConnection().ActivateCheck(idToTest);

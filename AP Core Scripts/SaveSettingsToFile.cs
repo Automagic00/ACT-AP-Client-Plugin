@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using HarmonyLib;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace ACTAP
@@ -10,35 +13,52 @@ namespace ACTAP
     [HarmonyPatch(typeof(Player),"Update")]
     class SaveSettingsToFile
     {
-        static bool settingsSaved = false;
+        //static bool settingsSaved = false;
         [HarmonyPostfix]
         static void SaveSettingPatch()
         {
-            //Debug.Log("Line 0");
-            if (!Plugin.debugMode && Plugin.connection.session != null && Player.singlePlayer != null && !settingsSaved)
+            
+            if (!Plugin.debugMode && Plugin.connection.session != null && Player.singlePlayer != null && !Plugin.settingsSaved)
             {
-                //Debug.Log("Line 1");
-                settingsSaved = true;
-                //Debug.Log("Line 2");
-                int player = Plugin.connection.session.ConnectionInfo.Slot;
-                //Debug.Log("Line 3");
-                Dictionary<string, object> slotData = Plugin.connection.slotData;
-                //Debug.Log("Line 4");
-                //object value;
+                Debug.Log("Saving Settings");
 
-                foreach (var key in Plugin.connection.slotData.Keys)
+                Plugin.settingsSaved = true;
+                int player = Plugin.connection.session.ConnectionInfo.Slot;
+                Dictionary<string, object> slotData = Plugin.connection.slotData;
+
+
+                /*foreach (var key in Plugin.connection.slotData.Keys)
                 {
                     //Debug.Log("Line 5");
                     Debug.Log("slotdata: " + key);
                     Debug.Log("value: " + slotData[key]);
-                }
-                //Debug.Log("Line 6");
+                }*/
+
+                //Microplastic Multiplier
                 double microplaticMod = (double)Plugin.connection.slotData["microplastic_multiplier"];
-                //Debug.Log("Line 7");
                 microplaticMod = microplaticMod == 0 ? 1 : microplaticMod; //Make sure its not 0
-                //Debug.Log("Line 8");
+
+                //Shell Randomizer
+                //Dictionary<string, string> shellSlotData = new Dictionary<string, string>;
+                //PropertyInfo[] properties = Plugin.connection.slotData["shell_rando"].GetType().GetProperties();
+
+                /*foreach (PropertyInfo property in properties)
+                {
+                    shellSlotData[property.Name] = property.GetValue(Plugin.connection.slotData["shell_rando"]);
+                }*/
+
+                //Debug.Log(shellSlotData);
+
+                string shellRando = JsonConvert.SerializeObject(Plugin.connection.slotData["shell_rando"]);
+
+                Debug.Log("Shell Rando: " + shellRando);
+
+                //Goal
+                //int goal = (int)Plugin.connection.slotData["goal"];
 
                 CrabFile.current.SetString("setting_microplasticMod", ((float)microplaticMod).ToString());
+                CrabFile.current.SetString("shellRando", shellRando);
+                //CrabFile.current.SetInt("currentGoal", goal);
                 //Debug.Log("Line 9");
             }
         }

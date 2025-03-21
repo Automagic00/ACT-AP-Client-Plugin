@@ -12,12 +12,16 @@ namespace ACTAP
         [HarmonyPostfix]
         static void clipDropPost(ref int __result)
         {
-            float mult = float.Parse(CrabFile.current.GetString("setting_microplasticMod"));
-            mult = mult <= 0 ? 1 : mult;
-            if (__result > 0 && mult != 1)
+            Debug.Log("MM Debug? : " + Plugin.debugMode);
+            if (!Plugin.debugMode && Plugin.connection.session != null)
             {
-                Debug.Log($"Multiplying {__result} by {mult}");
-                __result = Mathf.RoundToInt(__result * mult);
+                float mult = float.Parse(CrabFile.current.GetString("setting_microplasticMod"));
+                mult = mult <= 0 ? 1 : mult;
+                if (__result > 0 && mult != 1)
+                {
+                    Debug.Log($"Multiplying {__result} by {mult}");
+                    __result = Mathf.RoundToInt(__result * mult);
+                }
             }
         }
     }

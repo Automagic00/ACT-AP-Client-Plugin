@@ -11,7 +11,7 @@
     </Target>
 
     <!--When in Release mode, pack the libraries into the dll-->
-    <Target Name="ILRepacker" AfterTargets="Build" DependsOnTargets="Definitons">
+    <Target Name="ILRepacker" AfterTargets="Build" BeforeTargets="MoveDllToMods" DependsOnTargets="Definitons">
         <ILRepack
                 Parallel="true"
                 InputAssemblies="@(InputAssemblies)"

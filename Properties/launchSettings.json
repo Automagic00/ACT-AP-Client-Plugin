@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "ACTAP": {
+      "commandName": "Project"
+    },
+    "ACT Run": {
+      "commandName": "Executable",
+      "executablePath": "$(ACT)\\AnotherCrabsTreasure.exe"
+    }
+  }
+}

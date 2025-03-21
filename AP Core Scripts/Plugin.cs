@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 namespace ACTAP
 {
 
-    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.0.0")]
+    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.3.0")]
     public class Plugin : BaseUnityPlugin
     {
         public static Player _player;
@@ -41,6 +41,7 @@ namespace ACTAP
         public static bool debugMode = false;
         public static float microplasticMult = 1.0f;
 
+        public static bool settingsSaved = false;
 
         public static GameObject itemHolder;
         private Rect windowRect = new Rect(0, 0, 200, 150);
@@ -49,11 +50,13 @@ namespace ACTAP
         public static Dictionary<string,Dictionary<string,int>> shellData =new Dictionary<string, Dictionary<string, int>>();
         //public static Archipelago instance { get; set; }
         public static ArchipelagoConnection connection;
+        
 
         private void Awake()
         {
             //Generate Location Data
             LocationDataTable.GenerateTable();
+            ShellData.GenerateTable();
 
             //Debug on Scene Load
             SceneManager.sceneLoaded += DebugLogger;
@@ -187,7 +190,8 @@ namespace ACTAP
                     if (Input.GetKeyDown(KeyCode.F5))
                     {
                         Debug.Log("F5 Pressed");
-                        Item_Scripts.Traps.ShellShatterTrap.Shatter();
+                        var newShell = GameObject.Instantiate<Shell>(AssetListCollection.GetShellPrefab("Shell_SoloCup"));
+                        newShell.transform.position = Player.singlePlayer.transform.position;
                     }
 
                     if (Input.GetKeyDown(KeyCode.F6))
@@ -226,10 +230,7 @@ namespace ACTAP
                             writeText.Close();
                             Debug.Log("Write Success");
                         }
-
-
                     }
-
                 }
                 if (Input.GetKeyDown(KeyCode.Insert))
                 { 

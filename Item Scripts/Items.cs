@@ -35,6 +35,7 @@ namespace ACTAP
         }
         public static void CustomItemVisual(ItemInfo networkItem)
         {
+            Debug.Log("ItemVisual");
             ArchipelagoSession session = Plugin.GetConnection().session;
             var playerName = session.Players.GetPlayerName(networkItem.Player);
             var itemName = networkItem.ItemDisplayName;

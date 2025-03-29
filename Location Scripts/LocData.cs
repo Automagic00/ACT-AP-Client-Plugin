@@ -643,7 +643,7 @@ namespace ACTAP
 
         public static long FindPickupAPID(Item item)
         {
-            Debug.Log("Finding APID");
+            //Debug.Log("Finding APID");
             //Get UUID
             FieldInfo field = AccessTools.Field(typeof(Item), "save");
             SaveStateKillableEntity save = new SaveStateKillableEntity();
@@ -655,20 +655,20 @@ namespace ACTAP
             //If there isnt a match return -1
             if (!pickupTable.Exists((x => x.uuid.Contains(UUID))))
             {
-                Debug.Log("UUID not found");
+                Debug.Log("UUID not found: " + item.name + ", " + item.transform.position + ", " + UUID);
                 return baseid - 1; 
             }
             //Otherwise return apid
             else
             {
-                Debug.Log("UUID found");
+                //Debug.Log("UUID found");
                 return pickupTable.Find(x => x.uuid.Contains(UUID)).apid;
             }
         }
 
         public static long FindSkillAPID(String skillname)
         {
-            Debug.Log("Finding Skill APID");
+            //Debug.Log("Finding Skill APID");
             //Get UUID
             /*FieldInfo field = AccessTools.Field(typeof(Item), "save");
             SaveStateKillableEntity save = new SaveStateKillableEntity();
@@ -686,7 +686,7 @@ namespace ACTAP
             //Otherwise return apid
             else
             {
-                Debug.Log("UUID found");
+                //Debug.Log("UUID found");
                 return pickupTable.Find(x => x.skillName.Contains(skillname)).apid;
             }
         }

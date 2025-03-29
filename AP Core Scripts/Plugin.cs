@@ -48,7 +48,6 @@ namespace ACTAP
         private UnityEngine.Color backgroundColor = UnityEngine.Color.grey;
         private static bool showMenu = true;
         public static Dictionary<string,Dictionary<string,int>> shellData =new Dictionary<string, Dictionary<string, int>>();
-        //public static Archipelago instance { get; set; }
         public static ArchipelagoConnection connection;
         
 
@@ -175,8 +174,7 @@ namespace ACTAP
                     if (Input.GetKeyDown(KeyCode.F3))
                     {
                         Debug.Log("F3 Pressed");
-                        Item_Scripts.Traps.DarkSoulsTrap dst = (Item_Scripts.Traps.DarkSoulsTrap)Player.singlePlayer.gameObject.AddComponent(typeof(Item_Scripts.Traps.DarkSoulsTrap));
-                        dst.ActivateTrap();
+                        ItemSwapData.GetItem(ItemSwapData.SkillEnum.Dispatch);
                         //CrabFile.current.SetInt("LocationChecked-483021702",0);
                     }
 

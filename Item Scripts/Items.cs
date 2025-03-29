@@ -243,6 +243,15 @@ namespace ACTAP
                 case 135: itemToGet = ItemEnum.LevelRespec; break;
                 case 136: skillToGet = SkillEnum.Parry; break;
                 case 137: skillToGet = SkillEnum.Riposte; break;
+                case 138: trapToGet = TrapEnum.GunkTrap; break;
+                case 139: trapToGet = TrapEnum.ScourTrap; break;
+                case 140: trapToGet = TrapEnum.BleachedTrap; break;
+                case 141: trapToGet = TrapEnum.FearTrap; break;
+                case 142: trapToGet = TrapEnum.ClutzTrap; break;
+                case 143: trapToGet = TrapEnum.TextTrap; break;
+                case 144: trapToGet = TrapEnum.ShellShatterTrap; break;
+                case 145: trapToGet = TrapEnum.PoisonCocktailTrap; break;
+                case 146: trapToGet = TrapEnum.TaserTrap; break;
                 default: Debug.Log("could not get item " + id); break;
             }
 
@@ -274,45 +283,66 @@ namespace ACTAP
 
         static void GetItem(TrapEnum trapToGet)
         {
+            string name = "";
+            Sprite sprite = apSprite;
             switch (trapToGet)
             {
                 case TrapEnum.TextTrap:
                     Item_Scripts.Traps.DarkSoulsTrap trap = new Item_Scripts.Traps.DarkSoulsTrap();
                     trap.ActivateTrap();
+                    name = "Text Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.GunkTrap:
                     Item_Scripts.Traps.StatusEffectTraps.Gunked();
+                    name = "Gunked Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.ScourTrap:
                     Item_Scripts.Traps.StatusEffectTraps.Scoured();
+                    name = "Scoured Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.BleachedTrap:
                     Item_Scripts.Traps.StatusEffectTraps.Bleached();
+                    name = "Bleached Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.FearTrap:
                     Item_Scripts.Traps.StatusEffectTraps.Afraid();
+                    name = "Fear Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.TaserTrap:
                     Item_Scripts.Traps.StatusEffectTraps.Electrocute();
+                    name = "Taser Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.PoisonCocktailTrap:
                     Item_Scripts.Traps.StatusEffectTraps.PoisonCocktail();
+                    name = "Poison Cocktail Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.ShellShatterTrap:
                     Item_Scripts.Traps.ShellShatterTrap.Shatter();
+                    name = "Shell Shatter Trap";
+                    sprite = apSprite;
                     break;
 
                 case TrapEnum.ClutzTrap:
                     Item_Scripts.Traps.ClutzTrap.ActivateTrap();
+                    name = "Clutz Trap";
+                    sprite = apSprite;
                     break;
             }
+            CustomRecieveItemVisual(name, sprite);
         }
 
 
@@ -365,7 +395,7 @@ namespace ACTAP
                     UserSettings.SetBool("tutorialPopupsActive", true);
 
                     CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
-                    Debug.Log(item.item.summary);
+                    //Debug.Log(item.item.summary);
                     item.item.summary = "NOTICE: If playing the Archipelago players must save, quit to menu, then continue the file to enter Fallen Slacktide";
                     //CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = true;
                     GameManager.events.CheckProgress();
@@ -440,9 +470,11 @@ namespace ACTAP
         public static void GetItem(SkillEnum skillToGet)
         {
             SkillTreeData skillTree = new SkillTreeData();
+            
             SkillTreeUnlocks skill = GetSkillTreeUnlock(skillToGet);
             skillTree.SetSkill(skill, true, false);
-            CustomRecieveItemVisual(skillTree.displayTitle,skillTree.displayImage);
+            Debug.Log("Skill Recieved" + skillTree.displayTitle);
+            CustomRecieveItemVisual("Recieved Skill: "+skillToGet.ToString(),apSprite);
         }
 
         public static SkillTreeUnlocks GetSkillTreeUnlock(SkillEnum skillEnum)

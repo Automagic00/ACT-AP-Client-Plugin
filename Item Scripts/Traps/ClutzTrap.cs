@@ -27,8 +27,8 @@ namespace ACTAP.Item_Scripts.Traps
             if (PassengerManager.instance.activeStowaways[2] != null)
                 PassengerManager.instance.SetPassengerToInventory(2);
 
-            Player.singlePlayer.AssignUmamiAttackToSlot(null, 0);
-            Player.singlePlayer.AssignUmamiAttackToSlot(null, 1);
+            //Player.singlePlayer.AssignUmamiAttackToSlot(null, 0);
+            //Player.singlePlayer.AssignUmamiAttackToSlot(null, 1);
         }
     }
 }

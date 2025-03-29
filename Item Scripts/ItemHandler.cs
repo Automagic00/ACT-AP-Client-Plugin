@@ -238,7 +238,7 @@ namespace ACTAP
 
         public static async void CheckCoroutine(Item __instance, long idToTest)
         {
-            Debug.Log("Enter Check Routine");
+            Debug.Log("Enter Check Routine: " + idToTest.ToString());
             __instance.hideNotification = true;
             ArchipelagoSession session = Plugin.GetConnection().session;
 

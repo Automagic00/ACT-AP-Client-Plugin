@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace ACTAP
 {
-    [HarmonyPatch(typeof(Shell), "Awake")]
+  /*  [HarmonyPatch(typeof(Shell), "Awake")]
     class ShellRando
     {
 
@@ -21,46 +21,10 @@ namespace ACTAP
         {
             if (Plugin.debugMode)
             {
-                //Log Shell locations
-                /*Debug.Log("Adding " + __instance.prefabName);
-                Dictionary<string, int> value;
-                int count;
-                //Check if Scene Dict Exists
-                if (Plugin.shellData.TryGetValue(__instance.gameObject.scene.name, out value))
-                {
-                    //Check if shell dict exits
-                    if (Plugin.shellData[__instance.gameObject.scene.name].TryGetValue(__instance.prefabName,out count))
-                    {
-                        Plugin.shellData[__instance.gameObject.scene.name][__instance.prefabName] = count + 1;
-                    }
-                    else
-                    {
-                        Plugin.shellData[__instance.gameObject.scene.name].Add(__instance.prefabName, 1);
-                    }
-                    Debug.Log("Key Exists");
-                    
-                }
-                else
-                {
-                    Debug.Log("Key Does Not Exist");
-
-                    Plugin.shellData.Add(__instance.gameObject.scene.name, new Dictionary<string, int> { { __instance.prefabName, 1 } }); 
-                }*/
-
-
                 Debug.Log(__instance.prefabName);
-                /*if (!__instance.name.Contains("SWAP"))
-                {
-                    __instance.name += "_SWAP";
-                    var newShell = GameObject.Instantiate<Shell>(AssetListCollection.GetShellPrefab("Shell_SoloCup"));
-                    newShell.transform.position = __instance.transform.position;
-                    newShell.transform.rotation = __instance.transform.rotation;
-                    newShell.prefabName += "_SWAP";
-                    __instance.enabled = false;
-                }*/
             }
         }
-    }
+    }*/
 
     [HarmonyPatch(typeof(Shell), "Start")]
     class ShellReplacer
@@ -68,8 +32,15 @@ namespace ACTAP
         [HarmonyPostfix]
         static void Postfix(Shell __instance)
         {
-            if (!__instance.name.Contains("SWAP") && __instance.gameObject.scene.name != "Player_Main" && __instance.transform.parent.name != "ShellTransform" && __instance.transform.parent.name != "Hat")
+            if (!__instance.name.Contains("SWAP") && __instance.gameObject.scene.name != "Player_Main" )
             {
+                if (__instance.transform.parent != null)
+                {
+                    if(__instance.transform.parent.name == "ShellTransform" || __instance.transform.parent.name == "Hat")
+                    {
+                        return;
+                    }
+                }
                 Debug.Log("TryReplaceShell");
                 if (Plugin.debugMode)
                 {
@@ -89,7 +60,7 @@ namespace ACTAP
                 else if (Plugin.connection.session != null)
                 {
                     Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
-                    Debug.Log("Connected");
+                    Debug.Log("Replace" + __instance.prefabName);
 
                     string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.prefabName)]);
 
@@ -102,8 +73,12 @@ namespace ACTAP
                     newShell.transform.position = __instance.transform.position;
                     newShell.transform.rotation = __instance.transform.rotation;
                     newShell.name += "_SWAP";
-                    newShell.transform.parent = __instance.transform.parent;
+                    if (__instance.transform.parent != null)
+                    {
+                        newShell.transform.parent = __instance.transform.parent;
+                    }
                     newRB.velocity = oldRB.velocity;
+                    newRB.isKinematic = oldRB.isKinematic;
 
                     GameObject.Destroy(__instance.gameObject);
                 }
@@ -132,6 +107,17 @@ namespace ACTAP
         }
     }
 
+    [HarmonyPatch(typeof(ScuttleportShellSpawner), "SpawnShell")]
+    static class PlugSpawnRBFix
+    {
+        [HarmonyPostfix]
+        static void Postfix(ScuttleportShellSpawner __instance)
+        {
+            __instance.currentShell.rb.isKinematic = false;
+        }
+    }
+    
+
     [HarmonyPatch(typeof(HermitMimic), "InitShell")]
     static class MimicShellReplace
     {
@@ -145,7 +131,6 @@ namespace ACTAP
             else if (Plugin.connection.session != null)
             {
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
-                //Debug.Log("Connected");
 
                 string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.startingShell.prefabName)]);
 
@@ -174,7 +159,6 @@ namespace ACTAP
                     else if (Plugin.connection.session != null)
                     {
                         Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
-                        //Debug.Log("Connected");
 
                         Shell shellToReplace = GameManager.instance.assetCollection.shells.Find((Shell x) => x.stats.displayName == item.item.GetNameIndex());
                         if (shellToReplace != null)
@@ -203,7 +187,6 @@ namespace ACTAP
             else if (Plugin.connection.session != null)
             {
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
-                //Debug.Log("Connected");
 
                 string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.canPrefabs[0].prefabName)]);
 
@@ -212,6 +195,7 @@ namespace ACTAP
         }
     }
 
+    //Fixes the Nephro Vending Machine
     [HarmonyPatch(typeof(VendingMachineButton), "SpawnCan")]
     static class SpawnCanPatch
     {
@@ -250,4 +234,58 @@ namespace ACTAP
             return true;
         }
     }
+
+    //Makes sure the Plug shell is insured if bought from shop
+    [HarmonyPatch(typeof(ShellSelectionButtonFlag), "Initialize")]
+    static class InsuredShellsPatch 
+    { 
+        [HarmonyPrefix]
+        static void Prefix(ShellSelectionButtonFlag __instance, ShellSelectionList list, InventoryData.InventorySlot item)
+        {
+            //Delete after real fix
+            if (item.name == "Inv_Shell_Fuse" && item.amount > 0)
+            {
+                Debug.Log("Shell is fuse");
+                Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+
+                //string plugLocationShell = shellRandoData["Plug Fuse"];
+                List<string> shellsInShop = new List<string> { "Conchiglie", "Bartholomew", "Baby Shoe", "Lil' Bro", "Matryoshka Large", "Shuttlecock", "Felix Cube", "Piggy Bank", "Trophy", "Imposter"};
+                bool foundInShop = false;
+                
+                //Check if any of the Shop Shells contain the Fuse
+                foreach (var shell in shellsInShop)
+                {
+                    if (shellRandoData[shell] == "Plug Fuse")
+                    {
+                        foundInShop = true;
+                        break;
+                    }
+                }
+                if (foundInShop)
+                {
+                    Debug.Log("FuseFromShop");
+                    item.amount = 2;
+                }
+                else
+                {
+                    Debug.Log("FuseNotFromShop");
+                    item.amount = 1;
+                }
+            }
+            __instance.shellCollectable = item.LookupItem() as ShellCollectable;
+            __instance.shellCollectable.cantInsure = false;
+        }
+    }
+
+    //Fix Corpse Shell
+    [HarmonyPatch(typeof(PlayerCorpse),nameof(PlayerCorpse.Init),new[] { typeof(Vector3), typeof(string), typeof(int), typeof(int) })]
+    static class CorpseShellPatch
+    {
+        [HarmonyPostfix]
+        static void Postfix(ref Vector3 location, ref string shellName, int shellHealth, int breadClips)
+        {
+            PlayerCorpse.currentCorpse.name += "_SWAP";
+        }
+    }
+
 }

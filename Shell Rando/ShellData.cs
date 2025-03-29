@@ -84,7 +84,7 @@ namespace ACTAP
             prefabNames.Add("Shell_Gacha");
             apworldNames.Add("Gacha Capsule");
 
-            prefabNames.Add("Shell_GameCartridge");
+            prefabNames.Add("Shell_GameCartidge");
             apworldNames.Add("Going Under 64");
 
             prefabNames.Add("Shell_Gun");

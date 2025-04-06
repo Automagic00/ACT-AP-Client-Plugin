@@ -395,8 +395,8 @@ namespace ACTAP
                     UserSettings.SetBool("tutorialPopupsActive", true);
 
                     CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
-                    //Debug.Log(item.item.summary);
-                    item.item.summary = "NOTICE: If playing the Archipelago players must save, quit to menu, then continue the file to enter Fallen Slacktide";
+                    CrabFile.current.SetBool("WasSentPearl", true);
+                    item.item.summary = "NOTICE: In the Archipelago, Fallen Slacktide can be toggled from the [Insert] menu. The area must be reloaded for changes to take place.";
                     //CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = true;
                     GameManager.events.CheckProgress();
                 }

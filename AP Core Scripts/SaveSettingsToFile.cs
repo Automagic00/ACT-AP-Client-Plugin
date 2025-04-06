@@ -50,15 +50,19 @@ namespace ACTAP
                 //Debug.Log(shellSlotData);
 
                 string shellRando = JsonConvert.SerializeObject(Plugin.connection.slotData["shell_rando"]);
+                bool shellRandoEnabled = (bool)Plugin.connection.slotData["shell_rando_enabled"];
 
                 Debug.Log("Shell Rando: " + shellRando);
 
                 //Goal
-                //int goal = (int)Plugin.connection.slotData["goal"];
+                long goal = (long)Plugin.connection.slotData["goal"];
+
+                Debug.Log("GOAL IS " + goal.GetType());
 
                 CrabFile.current.SetString("setting_microplasticMod", ((float)microplaticMod).ToString());
                 CrabFile.current.SetString("shellRando", shellRando);
-                //CrabFile.current.SetInt("currentGoal", goal);
+                CrabFile.current.SetBool("shellRandoEnabled", shellRandoEnabled);
+                CrabFile.current.SetInt("currentGoal",  (int)goal);
                 //Debug.Log("Line 9");
             }
         }

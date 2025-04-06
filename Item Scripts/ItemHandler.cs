@@ -40,6 +40,27 @@ namespace ACTAP
                 if (apid != -1)
                 {
                     Plugin.GetConnection().ActivateCheck(apid);
+
+                    Debug.Log("Current Goal " + CrabFile.current.GetInt("currentGoal"));
+
+                    //If Goal is Magista
+                    if (apid - 483021700 == 44 && CrabFile.current.GetInt("currentGoal") == 3)
+                    {
+                        Plugin.GetConnection().SendCompletion();
+                    }
+
+                    //If Goal is Voltai
+                    else if (apid - 483021700 == 56 && CrabFile.current.GetInt("currentGoal") == 2)
+                    {
+                        Plugin.GetConnection().SendCompletion();
+                    }
+
+                    //If Goal is Roland
+                    else if (apid - 483021700 == 57 && CrabFile.current.GetInt("currentGoal") == 1)
+                    {
+                        Plugin.GetConnection().SendCompletion();
+                    }
+
                     /*if (apid == 44)
                     {
                         Plugin.GetConnection().SendCompletion();
@@ -112,7 +133,7 @@ namespace ACTAP
         public static void InteractPatch(Shell __instance)
         {
             Debug.Log(__instance.name);
-            if (__instance.name == "Shell_HomeShell_1" && Plugin.connection.session != null)
+            if (__instance.name == "Shell_HomeShell_1" && Plugin.connection.session != null && CrabFile.current.GetInt("currentGoal") == 0)
             {
                 Plugin.GetConnection().SendCompletion();
             }

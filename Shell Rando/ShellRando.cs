@@ -32,16 +32,22 @@ namespace ACTAP
         [HarmonyPostfix]
         static void Postfix(Shell __instance)
         {
+            //Exit if shell rando is not enabled
+            if (!CrabFile.current.GetBool("shellRandoEnabled") && !Plugin.debugMode)
+            {
+                return;
+            }
+
             if (!__instance.name.Contains("SWAP") && __instance.gameObject.scene.name != "Player_Main" )
             {
                 if (__instance.transform.parent != null)
                 {
-                    if(__instance.transform.parent.name == "ShellTransform" || __instance.transform.parent.name == "Hat")
+                    if(__instance.transform.parent.name == "ShellTransform" || __instance.transform.parent.name == "Hat" || __instance.transform.parent.name == "CanSpot")
                     {
                         return;
                     }
                 }
-                Debug.Log("TryReplaceShell");
+                //Debug.Log("TryReplaceShell");
                 if (Plugin.debugMode)
                 {
                     __instance.name += "_SWAP";
@@ -60,11 +66,11 @@ namespace ACTAP
                 else if (Plugin.connection.session != null)
                 {
                     Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
-                    Debug.Log("Replace" + __instance.prefabName);
+                    //Debug.Log("Replace" + __instance.prefabName);
 
                     string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.prefabName)]);
 
-                    Debug.Log(__instance.prefabName + " : " + newShellName);
+                    //Debug.Log(__instance.prefabName + " : " + newShellName);
 
                     var newShell = GameObject.Instantiate<Shell>(AssetListCollection.GetShellPrefab(newShellName));
                     var newRB = newShell.GetComponent<Rigidbody>();
@@ -92,12 +98,18 @@ namespace ACTAP
         [HarmonyPostfix]
         static void Postfix(ScuttleportShellSpawner __instance)
         {
+
             if (Plugin.debugMode)
             {
                 __instance.shellToSpawn = AssetListCollection.GetShellPrefab("Shell_AmongUs");
             }
             else if (Plugin.connection.session != null)
             {
+                //Exit if shell rando is not enabled
+                if (!CrabFile.current.GetBool("shellRandoEnabled"))
+                {
+                    return;
+                }
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
 
                 string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.shellToSpawn.prefabName)]);
@@ -130,6 +142,11 @@ namespace ACTAP
             }
             else if (Plugin.connection.session != null)
             {
+                //Exit if shell rando is not enabled
+                if (!CrabFile.current.GetBool("shellRandoEnabled"))
+                {
+                    return;
+                }
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
 
                 string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.startingShell.prefabName)]);
@@ -145,6 +162,7 @@ namespace ACTAP
         [HarmonyPrefix]
         static void Prefix(ShopItem item, ShopButtonList __instance)
         {
+
             //Check if its shellfish desires
             if ( __instance.shopData.shopID == StoreSaveData.ShopID.ShellfishDesires)
             {
@@ -158,12 +176,17 @@ namespace ACTAP
                     }
                     else if (Plugin.connection.session != null)
                     {
+                        //Exit if shell rando is not enabled
+                        if (!CrabFile.current.GetBool("shellRandoEnabled"))
+                        {
+                            return;
+                        }
                         Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
 
                         Shell shellToReplace = GameManager.instance.assetCollection.shells.Find((Shell x) => x.stats.displayName == item.item.GetNameIndex());
                         if (shellToReplace != null)
                         {
-                            Debug.Log("Shell to replace: " + shellToReplace.prefabName);
+                            //Debug.Log("Shell to replace: " + shellToReplace.prefabName);
                             string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(shellToReplace.prefabName)]);
 
                             item.item.displayName = AssetListCollection.GetShellPrefab(newShellName).stats.displayName;
@@ -186,6 +209,11 @@ namespace ACTAP
             }
             else if (Plugin.connection.session != null)
             {
+                //Exit if shell rando is not enabled
+                if (!CrabFile.current.GetBool("shellRandoEnabled"))
+                {
+                    return;
+                }
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
 
                 string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.canPrefabs[0].prefabName)]);
@@ -286,6 +314,38 @@ namespace ACTAP
         {
             PlayerCorpse.currentCorpse.name += "_SWAP";
         }
+    }
+
+    //Fix MSS Can Spawnner
+    [HarmonyPatch(typeof(PlugSpawner), "OnEnable")]
+    static class MSSCanSpawnPatch
+    {
+        [HarmonyPostfix]
+        static void Postfix(PlugSpawner __instance)
+        {
+            //FieldInfo currentCan = AccessTools.Field(typeof(MSSCanSpawner), "currentCan");
+
+            if (Plugin.debugMode)
+            {
+                __instance.plug = AssetListCollection.GetShellPrefab("Shell_AmongUs");
+                __instance.plug.name += "_SWAP";
+            }
+            else if (Plugin.connection.session != null)
+            {
+                //Exit if shell rando is not enabled
+                if (!CrabFile.current.GetBool("shellRandoEnabled"))
+                {
+                    return;
+                }
+                Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+
+                string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.plug.prefabName)]);
+
+                __instance.plug = AssetListCollection.GetShellPrefab(newShellName);
+                __instance.plug.name += "_SWAP";
+            }
+        }
+
     }
 
 }

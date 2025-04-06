@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 namespace ACTAP
 {
 
-    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.3.0")]
+    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.4.0")]
     public class Plugin : BaseUnityPlugin
     {
         public static Player _player;
@@ -556,11 +556,12 @@ namespace ACTAP
                 }
             }
 
-            public void SendDeathLink()
+            public void SendDeathLink(string deathCause)
             {
                 if (connected)
                 {
-                    deathLinkService.SendDeathLink(new DeathLink(session.Players.ActivePlayer.Name));
+                    //Debug.Log("Sending Death Link: " + deathCause);
+                    deathLinkService.SendDeathLink(new DeathLink(session.Players.ActivePlayer.Name,deathCause));
                 }
             }
 
@@ -602,17 +603,24 @@ namespace ACTAP
             else if (showMenu && !debugMode && connection.session != null && _player != null)
             {
                 GUI.backgroundColor = backgroundColor;
-                windowRect = new Rect(0, 0, 200, 100);
+                windowRect = new Rect(0, 0, 200, 160);
                 windowRect = GUI.Window(0, windowRect, APClientMenu, "Archipelago");
             }
         }
 
+        //In game UI for AP
         void APClientMenu(int windowID)
         {
             
             GUILayout.BeginHorizontal();
-            GUILayout.BeginVertical(GUILayout.Width(80));
+            GUILayout.BeginVertical();
             GUILayout.Label("Press [Insert] to toggle menu.");
+            GUILayout.Label("\nPlayer Coords: ");
+            GUILayout.Label(_player.transform.position.ToString());
+            if (CrabFile.current.GetBool("WasSentPearl") == true)
+            {
+                CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = GUILayout.Toggle(CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked, "Fallen Slacktide");
+            }
 
             if (CrabFile.current.inventoryData.HasItem("Shallows_0_ForkOverlook"))
             {
@@ -636,27 +644,20 @@ namespace ACTAP
             GUI.DragWindow();
         }
 
+        //Teleport to Start button
         IEnumerator TeleToStartRoutine()
         {
             TeleportPanel tele = new TeleportPanel();
             GUIManager.instance.CloseAllWindows();
             GameManager.events.TriggerShelleport();
-            /*if (!string.IsNullOrEmpty(TeleportPanel.queuedChatter))
-            {
-                DialogueManager.instance.StartChatter(TeleportPanel.queuedChatter, null);
-                TeleportPanel.queuedChatter = null;
-                yield return null;
-                while (DialogueManager.instance.playingScene)
-                {
-                    yield return null;
-                }
-            }*/
             PlayerLocationData playerLocationData = ScriptableObject.CreateInstance<PlayerLocationData>();
             playerLocationData.SetSpawnerMSS(Level.TheShallows, 0);
             //GUIManager.instance.Load(GUIManager.instance.blackFadeLoaderIllustrated, tele.LoadWarpLocationRoutine(targetLocation), false, null, 0f);
             AreaMap.RefreshDataMap(playerLocationData);
             yield break;
         }
+        
+        //AP Connection info on Main Menu
         void APConnectMenu(int windowID)
         {
             if (debugMode == false && SceneManager.GetActiveScene().name == "Title")
@@ -706,6 +707,8 @@ namespace ACTAP
             }
             
         }
+
+        //In game ui for debug mode
         void DebugMenu(int windowID)
         {
             if (debugMode == true && _player != null)

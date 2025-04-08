@@ -461,7 +461,6 @@ namespace ACTAP
         [HarmonyPrefix]
         public static bool SetVector3Patch(ref string index, Vector3 value)
         {
-
             Debug.Log("[Int] " + index + " : " + value);
             return true;
         }

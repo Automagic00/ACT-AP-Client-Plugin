@@ -38,7 +38,7 @@ namespace ACTAP
                 return;
             }
 
-            if (!__instance.name.Contains("SWAP") && __instance.gameObject.scene.name != "Player_Main" )
+            if (!__instance.name.Contains("SWAP") && __instance.gameObject.scene.name != "Player_Main" && !__instance.name.Contains("HomeShell"))
             {
                 if (__instance.transform.parent != null)
                 {
@@ -47,7 +47,7 @@ namespace ACTAP
                         return;
                     }
                 }
-                //Debug.Log("TryReplaceShell");
+                Debug.Log("TryReplaceShell " + __instance.name );
                 if (Plugin.debugMode)
                 {
                     __instance.name += "_SWAP";

@@ -32,7 +32,7 @@ namespace ACTAP.Item_Scripts.Traps
         public void ActivateTrap()
         {
             Debug.Log("Entered Method");
-            StartCoroutine(TextRoutine(3));
+            Player.singlePlayer.StartCoroutine(TextRoutine(3));
         }
 
         public IEnumerator TextRoutine(int messageCount)

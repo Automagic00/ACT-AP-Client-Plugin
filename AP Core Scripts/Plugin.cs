@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 namespace ACTAP
 {
 
-    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.4.0")]
+    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.4.3")]
     public class Plugin : BaseUnityPlugin
     {
         public static Player _player;

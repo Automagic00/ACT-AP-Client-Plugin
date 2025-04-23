@@ -23,6 +23,7 @@
 - Map Pieces
 - Fork (Optional)
 - Grapple (Optional)
+- Shells (Randomized between spawn locations)
 
 #### Randomized Locations
 - Defeating Bosses
@@ -33,3 +34,5 @@
 #### Other Features
 - Deathlink
 - Microplastic Multiplier (Player Setting)
+- Traps
+- Combat Logic Settings

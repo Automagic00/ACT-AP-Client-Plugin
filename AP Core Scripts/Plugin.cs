@@ -53,7 +53,7 @@ namespace ACTAP
 
         private void Awake()
         {
-            //Generate Location Data
+            //Generate Data Tables
             LocationDataTable.GenerateTable();
             ShellData.GenerateTable();
 
@@ -330,6 +330,10 @@ namespace ACTAP
                     if ((bool)Plugin.connection.slotData["death_link"])
                     {
                         deathLinkService.EnableDeathLink();
+                    }
+                    else
+                    {
+                        deathLinkService.DisableDeathLink();
                     }
 
                     //SetupDataStorage();

@@ -66,38 +66,89 @@ Note: If installed correctly, there should be a form on the top left corner of t
 </details>
 
 
+## Key Events For Progression
+
+The following event: trigger pairs detail events which unlock access to additional items and what to do to trigger those events. This is in addition to using mantis punch, eelectrocute, the fishing line, and spearfishing to collect individual items.
+
+ - Access Fallen Slacktide: Obtain Pristine Pearl.
+ - Access Post Pagarus items: Return Pagarus Map Piece to Conch.
+ - Open Entrances to Secluded Ridge Pt.1 and Trashbin Plateau: Have Mantis Punch.
+ - Open Entrances to Southern Town Ridge and Secluded Ridge Pt.2: Have Eelectrocute.
+ - Unblock Scuttleport Door: Have fuse shell.
+ - Activate shell dispensers in Scuttleport: Return all three Map Pieces to Conch.
+ - Access Pinbarge: Return all three Map Pieces to Conch and obtain Eelectrocute.
+
+
 ## Options
 
-#### Goal
+<details><summary>Goal</summary>
+Choose your goal for the multiworld from:
+ 
+- Home: Defeat the final boss and equip the Home shell.
+- Roland: Defeat Roland on the Pinbarge.
+- Voltai: Defeat Voltai in Scuttleport.
+- Magista: Defeat Magista in Fallen Slacktide.
+</details>
 
-#### Fork Location
+<details><summary>Fork Location</summary>
+Choose where the Fork (weapon) location is set. Does nothing if [Allow Forkless] option is enabled.
 
-#### Allow Forkless
+- Vanilla: Fork is in its vanilla location.
+- Shuffled Early Local: Fork is in a random early location in Another Crab's Treasure.
+- Shuffled Early Global: Fork is in a random early location in any multiworld.
+</details>
 
-#### Logic Rules
+<details><summary>Allow Forkless</summary>
+If enabled, allows for the Fork to not be required early on, meaning you may have to play some of the game without it. Ignores [Fork Location] and shuffles Fork into wider item pool.
 
-#### Shelleport Location
+- Disabled: Forkis required to fight early bosses, meaning it will be placed before them in your run.
+- Forkless Easy: Ensuresthat the intended forkless strategy is not too advanced (you may be expected to use adaptation and shell spell focused builds).
+- Forkless Hard: Allows for the possibility of more advanced forkless strategies to be necessary for some portion of the game (you may be expected to use rolling attack and summon focused builds).
+</details>
 
-#### Fishing Line Location
+<details><summary>Logic Rules</summary>
 
-#### Random Shells
 
-#### Remove Costumes
+</details>
 
-#### Miscroplastics Multiplier
+<details><summary>Shelleport Location</summary>
 
-#### Trap Amount
 
-#### Death Link
+</details>
 
+<details><summary>Fishing Line Location</summary>
+
+
+</details>
+
+<details><summary>Random Shells</summary>
+
+
+</details>
+
+<details><summary>Remove Costumes</summary>
+
+
+</details>
+
+<details><summary>Microplastics Multiplier</summary>
+
+
+</details>
+
+<details><summary>Trap Amount</summary>
+
+
+</details>
+
+<details><summary>Death Link</summary>
+
+
+</details>
 
 
 
 ## Randomization
-
-
-
-
 
 #### Randomized Items
 - Adaptations

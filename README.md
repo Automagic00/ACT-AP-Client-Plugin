@@ -68,6 +68,29 @@ Note: If installed correctly, there should be a form on the top left corner of t
 
 ## Options
 
+#### Goal
+
+#### Fork Location
+
+#### Allow Forkless
+
+#### Logic Rules
+
+#### Shelleport Location
+
+#### Fishing Line Location
+
+#### Random Shells
+
+#### Remove Costumes
+
+#### Miscroplastics Multiplier
+
+#### Trap Amount
+
+#### Death Link
+
+
 
 
 ## Randomization

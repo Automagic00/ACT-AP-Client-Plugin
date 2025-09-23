@@ -10,24 +10,33 @@ using UnityEngine.SceneManagement;
 
 namespace ACTAP
 {
-    [HarmonyPatch(typeof(ShallowsManager),"Start")]
-    class FishingLinePickupPatch
+    [HarmonyPatch(typeof(ProgressReaderBase), "CheckProgressData")]
+    class FishingLineProgressPatch
     {
-        //Create fishingline unlock item if it is deleted by game progress
-        [HarmonyPostfix]
-        static void PickupPostfix(Player __instance)
+        //Ensure Progress Reader doesnt remove house of cards
+        [HarmonyPrefix]
+        static void ProgressPatch(ProgressReaderBase __instance)
         {
-            Debug.Log(SceneManager.GetActiveScene().name);
-            Debug.Log("Player Start");
-            Debug.Log("PlayerInShallows");
-            if ((Plugin.connection.session != null || Plugin.debugMode) && (CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked == true || CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked == true))
+            if ((Plugin.connection.session != null || Plugin.debugMode) && __instance.gameObject.name == "House of Cards")
             {
-                //Plugin.connection.ActivateCheck(483021702);
-                //Debug.Log("Try to Create Fishing Line");
-                
-                //CreateCustom.CreateItemWhenPossible(new Vector3(652.8f, 79.1f, 1243.8f), "FishingLineUnlock", ItemSwapData.ItemEnum.FishingLine, __instance);
+                __instance.isNotUnlocked.Invoke();
             }
             
+        }
+    }
+
+    [HarmonyPatch(typeof(UnlockReaderBase), "CheckUnlockData")]
+    class FishingLineUnlockPatch
+    {
+        //Ensure Unlock Reader doesnt remove house of cards/ item itself
+        [HarmonyPrefix]
+        static void UnlockPatch(ProgressReaderBase __instance)
+        {
+            if ((Plugin.connection.session != null || Plugin.debugMode) && (__instance.gameObject.name == "House of Cards" || __instance.gameObject.name == "FishingLineUnlock"))
+            {
+                __instance.isNotUnlocked.Invoke();
+            }
+
         }
     }
 }

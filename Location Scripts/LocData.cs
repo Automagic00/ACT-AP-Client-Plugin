@@ -232,30 +232,30 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid =  "2bccca10-1f27-4762-9a9b-8e628586e0a4-2_A-OOGroveRadius", apid =  baseid + 210}); //barbedhook_trashbin_eelgrapple
             pickupTable.Add(new LocationData() { uuid =  "fc2cf7ed-6ff6-40bb-987a-936da0afa93b-2_A-OOGroveRadius", apid =  baseid + 211}); //bobber_ridge_broomspire
             pickupTable.Add(new LocationData() { uuid =  "dcc6b99e-1d47-481f-86ca-e14a5743f460-2_A-OOGroveRadius", apid =  baseid + 212}); //sharkegg_ridge_broomspire
-            pickupTable.Add(new LocationData() { uuid =  "74aa4107-6a5a-4868-ae54-942e4421be3f-2_A-GroveForestLow", apid =  baseid + 213}); //barnacle_lowergrove_colander
-            pickupTable.Add(new LocationData() { uuid =  "8fd70034-2415-4934-975b-2303d159f567-2_A-GroveForestLow", apid =  baseid + 214}); //barbedhook_lowergrove_sniper
-            pickupTable.Add(new LocationData() { uuid =  "0860891c-3db6-4e51-8c0b-58b09ac8ece0-2_A-GroveForestLow", apid =  baseid + 215}); //barbedhook_lowergrove_riverledge
-            pickupTable.Add(new LocationData() { uuid =  "2465aea2-9800-49e5-9e7e-d751ca2b3612-2_A-GroveForestLow", apid =  baseid + 216}); //barbedhook_lowergrove_riversand
-            pickupTable.Add(new LocationData() { uuid =  "09b60c18-2172-41bb-9588-a3e764559b15-2_B-GroveForestHigh", apid =  baseid + 217}); //oldworldwhorl_lowergrove_southclam
-            pickupTable.Add(new LocationData() { uuid =  "17cb1eed-8d88-4464-b33b-215c837035f6-2_A-GroveForestLow", apid =  baseid + 218}); //seastar_lowergrove_eastrock
-            pickupTable.Add(new LocationData() { uuid =  "4933d4b0-a56a-4472-b9a6-4469fd335fa4-2_A-GroveForestLow", apid =  baseid + 219}); //breadclaw_lowergrove_takeout
-            pickupTable.Add(new LocationData() { uuid =  "c6a56f3d-c134-41cd-83b7-4a755fa32284-2_A-GroveForestLow", apid =  baseid + 220}); //pufferquill_lowergrove_sponges
-            pickupTable.Add(new LocationData() { uuid =  "35455018-8cf6-48db-ba76-4ffbca84b0a8-2_A-GroveForestLow", apid =  baseid + 221}); //barbedhook_lowergrove_lichenthrope
-            pickupTable.Add(new LocationData() { uuid =  "5a106f4d-8139-44da-9cdf-8d0bd70c6bf3-2_A-GroveForestLow", apid =  baseid + 222}); //barbedhook_lowergrove_lichenthropeeast
-            pickupTable.Add(new LocationData() { uuid =  "10a99891-923e-4bab-8057-b6d5781cb35d-2_A-GroveForestLow", apid =  baseid + 223}); //barbedhook_lowergrove_sodacans
-            pickupTable.Add(new LocationData() { uuid =  "da04ed8f-2d99-48f9-8412-67748d983d2b-2_A-GroveForestLow", apid =  baseid + 224}); //breadclaw_lowergrove_tiretop
-            pickupTable.Add(new LocationData() { uuid =  "902c2deb-1b51-4226-9fd0-1c76bea668c3-2_A-GroveForestLow", apid =  baseid + 225}); //chipclaw_lowergrove_plastic
-            pickupTable.Add(new LocationData() { uuid =  "e38ef2da-daaf-4312-bf7f-2e0a97d3d67b-2_A-GroveForestLow", apid =  baseid + 226}); //clothesclaw_lowergrove_choccymilk
-            pickupTable.Add(new LocationData() { uuid =  "def84515-cfc0-4124-a1e1-81f6953b0c06-2_A-GroveForestLow", apid =  baseid + 227}); //breadclaw_lowergrove_insidetire
-            pickupTable.Add(new LocationData() { uuid =  "50f9f7d1-0e70-4333-b8b3-fbc46f04f3ea-2_A-GroveForestLow", apid =  baseid + 228}); //barbedhook_lowergrove_acrossriver
-            pickupTable.Add(new LocationData() { uuid =  "f1d3eafe-c252-4768-abcd-7f459e734d35-2_A-GroveForestLow", apid =  baseid + 229}); //bloodstar_lowergrove_waterfall
+            pickupTable.Add(new LocationData() { uuid = "09fbd30a-ce33-45a9-bffd-8b4f24c35559-2_A-GroveForestLow", apid =  baseid + 213}); //barnacle_lowergrove_colander
+            pickupTable.Add(new LocationData() { uuid = "8fd70034-2415-4934-975b-2303d159f567-2_A-GroveForestLow", apid =  baseid + 214}); //barbedhook_lowergrove_sniper
+            pickupTable.Add(new LocationData() { uuid = "84480f21-e1d7-46d2-9c43-9669ed805a22-2_A-GroveForestLow", apid =  baseid + 215}); //barbedhook_lowergrove_riverledge
+            pickupTable.Add(new LocationData() { uuid = "9b359e06-c812-437d-b03b-175dd8ef77de-2_A-GroveForestLow", apid =  baseid + 216}); //barbedhook_lowergrove_riversand
+            pickupTable.Add(new LocationData() { uuid = "e8b4805a-d793-4cd6-943e-bb51b0a6a7dd-2_A-GroveForestLow", apid =  baseid + 217}); //oldworldwhorl_lowergrove_southclam
+            pickupTable.Add(new LocationData() { uuid = "f429fad9-bbb8-4eaf-a154-80164a6550c3-2_A-GroveForestLow", apid =  baseid + 218}); //seastar_lowergrove_eastrock
+            pickupTable.Add(new LocationData() { uuid = "7d3ea7ae-4d80-4618-b798-39ba032f7650-2_A-GroveForestLow", apid =  baseid + 219}); //breadclaw_lowergrove_takeout
+            pickupTable.Add(new LocationData() { uuid = "36499157-9a63-42c2-b3b2-644546520db0-2_A-GroveForestLow", apid =  baseid + 220}); //pufferquill_lowergrove_sponges
+            pickupTable.Add(new LocationData() { uuid = "7f4c117f-b387-42cc-a689-8ace39284f5d-2_A-GroveForestLow", apid =  baseid + 221}); //barbedhook_lowergrove_lichenthrope
+            pickupTable.Add(new LocationData() { uuid = "dc6c6660-a95a-4587-85cd-cb012292d260-2_A-GroveForestLow", apid =  baseid + 222}); //barbedhook_lowergrove_lichenthropeeast
+            pickupTable.Add(new LocationData() { uuid = "80a22472-1b49-42d0-8ad5-a38ce1c7be8c-2_A-GroveForestLow", apid =  baseid + 223}); //barbedhook_lowergrove_sodacans
+            pickupTable.Add(new LocationData() { uuid = "075bc58b-ab5e-41cc-b82b-89f7c897821a-2_A-GroveForestLow", apid =  baseid + 224}); //breadclaw_lowergrove_tiretop
+            pickupTable.Add(new LocationData() { uuid = "af194776-481c-4198-aa8b-baf05f24de1b-2_A-GroveForestLow", apid =  baseid + 225}); //chipclaw_lowergrove_plastic
+            pickupTable.Add(new LocationData() { uuid = "6ad0a92e-48c3-40e6-9f3c-746fd78cf376-2_A-GroveForestLow", apid =  baseid + 226}); //clothesclaw_lowergrove_choccymilk
+            pickupTable.Add(new LocationData() { uuid = "90bfa7e8-b69f-4e3b-b539-967c7df38523-2_A-GroveForestLow", apid =  baseid + 227}); //breadclaw_lowergrove_insidetire
+            pickupTable.Add(new LocationData() { uuid = "c662e7b9-1f80-4a66-ae70-e0ba31f14a37-2_A-GroveForestLow", apid =  baseid + 228}); //barbedhook_lowergrove_acrossriver
+            pickupTable.Add(new LocationData() { uuid = "5053f259-8f89-44b2-a64e-6ad48884e569-2_A-GroveForestLow", apid =  baseid + 229}); //bloodstar_lowergrove_waterfall
             pickupTable.Add(new LocationData() { uuid =  "e7382e22-3232-4380-a734-bef8eb9a2a76-2_A-GroveForestLow", apid =  baseid + 230}); //barbedhook_lowergrove_afternets
             pickupTable.Add(new LocationData() { uuid =  "be378f83-9ec2-4a3b-85b2-9a7499e6d693-2_A-GroveForestLow", apid =  baseid + 231}); //breadclaw_lowergrove_smallhall
             pickupTable.Add(new LocationData() { uuid =  "faa3c9ce-87c7-4f6d-b07e-be334c3bc447-2_A-GroveForestLow", apid =  baseid + 232}); //chipclaw_lowergrove_apples
             pickupTable.Add(new LocationData() { uuid =  "25737275-a222-4a6e-af6b-0c66c197cab7-2_A-GroveForestLow", apid =  baseid + 233}); //chipclaw_lowergrove_sodacans
-            pickupTable.Add(new LocationData() { uuid =  "fd557b69-ddba-4b14-bd80-f0cb0d786203-2_A-GroveForestLow", apid =  baseid + 234}); //hairclaw_lowergrove_moonshine
+            pickupTable.Add(new LocationData() { uuid = "1c84843a-ab7e-433f-b376-83a0373f5a97-2_A-GroveForestLow", apid =  baseid + 234}); //hairclaw_lowergrove_moonshine
             pickupTable.Add(new LocationData() { uuid =  "dc13eb69-ac98-4de9-9fe0-7f16a03d4ebb-2_A-GroveForestLow", apid =  baseid + 235}); //barbedhook_lowergrove_cartledge
-            pickupTable.Add(new LocationData() { uuid =  "093c4972-ff5e-4ba6-b9a8-136411e1017f-2_A-GroveForestLow", apid =  baseid + 236}); //limpet_lowergrove_sodacan
+            pickupTable.Add(new LocationData() { uuid = "eed5053e-c3f5-4c95-868b-86d92ba3d9a1-2_A-GroveForestLow", apid =  baseid + 236}); //limpet_lowergrove_sodacan
             pickupTable.Add(new LocationData() { uuid =  "a5b6f3f6-6e1c-4934-9006-26da6cee47f4-2_A-GroveForestLow", apid =  baseid + 237}); //barbedhook_lowergrove_cartledgebottle
             pickupTable.Add(new LocationData() { uuid =  "1b74ef4f-528c-484b-9a5f-abbb3434f133-2_A-GroveForestLow", apid =  baseid + 238}); //chipclaw_lowergrove_circlerock
             pickupTable.Add(new LocationData() { uuid =  "f99a120b-43c2-4e65-91fd-71cbfbf3e8f7-2_A-GroveForestLow", apid =  baseid + 239}); //clothesclaw_lowergrove_alcove
@@ -264,10 +264,10 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid =  "12c73a88-beef-4bfb-a2d1-c159c91d8304-2_B-GroveForestHigh", apid =  baseid + 242}); //barbedhook_lowergrove_oildrum
             pickupTable.Add(new LocationData() { uuid =  "c859129f-cc29-4624-a161-fdeffa00d0ca-2_B-GroveForestHigh", apid =  baseid + 243}); //breadclaw_lowergrove_amongus
             pickupTable.Add(new LocationData() { uuid =  "b85cb09c-f1d7-4396-85cb-fde4dc845acd-2_B-GroveForestHigh", apid =  baseid + 244}); //breadclaw_lowergrove_oildrum
-            pickupTable.Add(new LocationData() { uuid =  "070b84a6-7a8b-4d88-8216-f55882856713-2_A-GroveForestLow", apid =  baseid + 245}); //chipclaw_lowergrove_sniper
-            pickupTable.Add(new LocationData() { uuid =  "e78f03e8-2827-45d7-8cfa-cbaa0f17cd3d-2_A-GroveForestLow", apid =  baseid + 246}); //hairclaw_lowergrove_milkurchins
-            pickupTable.Add(new LocationData() { uuid =  "3789e56d-69b5-4d6c-adb1-6454b101840d-2_A-GroveForestLow", apid =  baseid + 247}); //lumpsucker_lowergrove_canopy
-            pickupTable.Add(new LocationData() { uuid =  "101eff6d-e09a-471d-86fd-cdc587012c32-2_A-GroveForestLow", apid =  baseid + 248}); //barbedhook_lowergrove_canopy
+            pickupTable.Add(new LocationData() { uuid = "9ca18539-8fd5-4def-9418-c17bbb1f0d65-2_A-GroveForestLow", apid =  baseid + 245}); //chipclaw_lowergrove_sniper
+            pickupTable.Add(new LocationData() { uuid = "df6fcb07-437c-4b21-b207-5a9e8e37cccb-2_A-GroveForestLow", apid =  baseid + 246}); //hairclaw_lowergrove_milkurchins
+            pickupTable.Add(new LocationData() { uuid = "d1bd4b15-62ca-4363-94ec-59b9abbff10b-2_A-GroveForestLow", apid =  baseid + 247}); //lumpsucker_lowergrove_canopy
+            pickupTable.Add(new LocationData() { uuid = "75b98171-82f1-4559-ac2a-d0a63cccfab2-2_A-GroveForestLow", apid =  baseid + 248}); //barbedhook_lowergrove_canopy
             pickupTable.Add(new LocationData() { uuid =  "bc18b92b-a6c6-420c-9095-e15c34c2f921-2_B-GroveForestHigh", apid =  baseid + 249}); //breadclaw_lowergrove_oilgrapple
             pickupTable.Add(new LocationData() { uuid =  "3a1e7a2c-5111-4360-b168-cc5e84088b6a-2_B-GroveForestHigh", apid =  baseid + 250}); //barbedhook_lowergrove_drumtop
             pickupTable.Add(new LocationData() { uuid =  "8e34f6a5-5844-4767-ab15-4fbaf6c147dc-2_B-GroveForestHigh", apid =  baseid + 251}); //sharktooth_lowergrove_pizza
@@ -275,18 +275,18 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "df0386e0-99ee-478a-873d-b40e973fc16b-2_D-Caves", apid = baseid + 253});//
             pickupTable.Add(new LocationData() { skillName = "Skill_Shelleport", apid = baseid + 254 });//
             pickupTable.Add(new LocationData() { skillName = "Skill_Skedaddle", apid = baseid + 255 });//
-            pickupTable.Add(new LocationData() { uuid = "048736b5-59c1-4dd2-b36a-e11b6bd9304f-2_A-GroveForestLow", apid = baseid + 256 });//
-            pickupTable.Add(new LocationData() { uuid = "23907bde-1820-4c4d-9c59-aab72c64139a-2_A-GroveForestLow", apid = baseid + 257 });//
+            pickupTable.Add(new LocationData() { uuid = "789ed5bd-38ce-4539-8f1c-135cc3c89377-2_A-GroveForestLow", apid = baseid + 256 });//
+            pickupTable.Add(new LocationData() { uuid = "24079978-2320-428e-9096-71aa2d20fb9c-2_A-GroveForestLow", apid = baseid + 257 });//
             pickupTable.Add(new LocationData() { uuid = "ebad553d-fbff-441e-8c1d-0ccc65fe81ae-2_A-GroveForestLow", apid = baseid + 258 });//
-            pickupTable.Add(new LocationData() { uuid = "d1b73602-aca6-4d33-991d-39110a5e6780-2_A-GroveForestLow", apid = baseid + 259 });//
-            pickupTable.Add(new LocationData() { uuid = "f734eb5e-d674-4c84-9493-61d20f70fde3-2_A-GroveForestLow", apid = baseid + 260 });//
-            pickupTable.Add(new LocationData() { uuid = "7069eee2-4c77-4a80-a276-1131e6cfe4b8-2_A-GroveForestLow", apid = baseid + 261 });//
-            pickupTable.Add(new LocationData() { uuid = "0e278f86-0f9d-468f-95b2-586df2a94689-2_A-GroveForestLow", apid = baseid + 262 });//
+            pickupTable.Add(new LocationData() { uuid = "bfe46822-3646-4b65-872d-718ab758ab6c-2_A-GroveForestLow", apid = baseid + 259 });//
+            pickupTable.Add(new LocationData() { uuid = "1bace4e0-6ae9-4c89-a583-3d2a9dab800e-2_A-GroveForestLow", apid = baseid + 260 });//
+            pickupTable.Add(new LocationData() { uuid = "7689fa51-f5c8-498f-a842-b302b47f806b-2_A-GroveForestLow", apid = baseid + 261 });//
+            pickupTable.Add(new LocationData() { uuid = "ac0843c0-17cd-4af2-a11c-d1d42bd0ccea-2_A-GroveForestLow", apid = baseid + 262 });//
             pickupTable.Add(new LocationData() { uuid = "fa3cfc64-4f87-452c-bf59-4f599cb3f6fa-2_A-GroveForestLow", apid = baseid + 263 });//
-            pickupTable.Add(new LocationData() { uuid = "a1c14883-bc09-441c-a188-20dabf047532-2_A-GroveForestLow", apid = baseid + 264 });//
-            pickupTable.Add(new LocationData() { uuid = "a7aa1847-5a38-4f15-a6fc-90c15cd9baf7-2_A-GroveForestLow", apid = baseid + 265 });//
-            pickupTable.Add(new LocationData() { uuid = "6ce4acf2-09a4-43ca-9be7-5d79a9d5c781-2_A-GroveForestLow", apid = baseid + 266 });//
-            pickupTable.Add(new LocationData() { uuid = "027511ce-7f48-480e-91af-18b4c7aaa57d-2_A-GroveForestLow", apid = baseid + 267 });//
+            pickupTable.Add(new LocationData() { uuid = "96c16da5-97e3-44db-bca9-8a4990c2707b-2_A-GroveForestLow", apid = baseid + 264 });//
+            pickupTable.Add(new LocationData() { uuid = "a8310c1f-205c-42cf-bcbd-66b0636e8901-2_A-GroveForestLow", apid = baseid + 265 });//
+            pickupTable.Add(new LocationData() { uuid = "5480f8db-7801-4ca6-bbca-71dd0876785a-2_A-GroveForestLow", apid = baseid + 266 });//
+            pickupTable.Add(new LocationData() { uuid = "622cbc21-fcd5-44d1-8e95-c6fcaacc2dcb-2_A-GroveForestLow", apid = baseid + 267 });//
             pickupTable.Add(new LocationData() { uuid = "66a4a627-ad3a-45d6-aaf1-1e505dac0495-2_B-GroveForestHigh", apid = baseid + 268 });//
             pickupTable.Add(new LocationData() { uuid = "a6e719fc-65b0-4c3a-830e-43065a819c7d-2_B-GroveForestHigh", apid = baseid + 269 });//
             pickupTable.Add(new LocationData() { uuid = "507a5ca4-3de6-4d85-ba51-04c1e42c891e-2_B-GroveForestHigh", apid = baseid + 270 });//
@@ -294,17 +294,17 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "ec08fee3-e62f-45ee-9fbe-9101522d4f30-2_B-GroveForestHigh", apid = baseid + 272 });//
             pickupTable.Add(new LocationData() { uuid = "9c983d04-ac83-40f0-8220-d92f76ea7099-2_B-GroveForestHigh", apid = baseid + 273 });//
             pickupTable.Add(new LocationData() { uuid = "5e81380f-3e8f-4d44-a0ef-ebbad0f23fdb-2_B-GroveForestHigh", apid = baseid + 274 });//
-            pickupTable.Add(new LocationData() { uuid = "5c973136-cfe9-4ea5-bc93-60ffa4b5cc13-2_C-Village", apid = baseid + 275 });//
-            pickupTable.Add(new LocationData() { uuid = "84c9cc27-0876-4e4d-a9e2-c28f06abdfc3-2_C-Village", apid = baseid + 276 });//
-            pickupTable.Add(new LocationData() { uuid = "4721ab20-67be-4d5b-b0bb-3f2c2ecb510f-2_C-Village", apid = baseid + 277 });//
-            pickupTable.Add(new LocationData() { uuid = "bae2eb9a-56a0-4548-8c6d-798d234ba479-2_C-Village", apid = baseid + 278 });//
-            pickupTable.Add(new LocationData() { uuid = "20238db7-8d1e-4045-8e0a-de2aaea1cb49-2_C-Village", apid = baseid + 279 });//
-            pickupTable.Add(new LocationData() { uuid = "87e729ae-0659-4b6e-9ac1-c1d059719ba8-2_C-Village", apid = baseid + 280 });//
-            pickupTable.Add(new LocationData() { uuid = "c83c8f42-474a-4dd4-bbae-99df2ad1681a-2_C-Village", apid = baseid + 281 });//
-            pickupTable.Add(new LocationData() { uuid = "b29402c2-62e8-4fa3-8c27-4e419750b16f-2_C-Village", apid = baseid + 282 });//
-            pickupTable.Add(new LocationData() { uuid = "1cd62e82-14b4-4a8a-8dc1-7e8f0ff9b11b-2_C-Village", apid = baseid + 283 });//
-            pickupTable.Add(new LocationData() { uuid = "256daaaa-675c-47e5-bd4e-367dc4abd9e2-2_C-Village", apid = baseid + 284 });//
-            pickupTable.Add(new LocationData() { uuid = "451f2fe5-9c29-4710-9493-0878963547e4-2_C-Village", apid = baseid + 285 });//
+            pickupTable.Add(new LocationData() { uuid = "0cf8ca63-6a57-411d-92d5-b476c1446e9b-2_C-Village", apid = baseid + 275 });//
+            pickupTable.Add(new LocationData() { uuid = "4fc8b860-3980-4dba-9a04-622ca685f58a-2_C-Village", apid = baseid + 276 });//
+            pickupTable.Add(new LocationData() { uuid = "9614ea8c-152a-4aea-96df-697628c6d639-2_C-Village", apid = baseid + 277 });//
+            pickupTable.Add(new LocationData() { uuid = "d55b82a8-3eb1-4d71-9cc7-75dc837924a9-2_C-Village", apid = baseid + 278 });//
+            pickupTable.Add(new LocationData() { uuid = "a587f40e-b255-4fb5-a1ee-863082e603a4-2_C-Village", apid = baseid + 279 });//
+            pickupTable.Add(new LocationData() { uuid = "655d7880-1c82-441f-9929-807cd45187a3-2_C-Village", apid = baseid + 280 });//
+            pickupTable.Add(new LocationData() { uuid = "541eece9-d2ae-46c6-8799-6c8fce1038ba-2_C-Village", apid = baseid + 281 });//
+            pickupTable.Add(new LocationData() { uuid = "18b63b27-1174-4759-a11f-0a50ef5758e4-2_C-Village", apid = baseid + 282 });//
+            pickupTable.Add(new LocationData() { uuid = "34fca9ff-ebdc-4e26-955b-acda73df419d-2_C-Village", apid = baseid + 283 });//
+            pickupTable.Add(new LocationData() { uuid = "a73325d0-5e3f-49bf-8f45-4c2466073010-2_C-Village", apid = baseid + 284 });//
+            pickupTable.Add(new LocationData() { uuid = "db0d1b3f-21fe-4d48-85d0-54d250bfa8a0-2_C-Village", apid = baseid + 285 });//
             pickupTable.Add(new LocationData() { uuid = "99c33625-2da4-4f69-a0af-8a8d2da3b399-2_D-Caves", apid = baseid + 286 });//
             pickupTable.Add(new LocationData() { uuid = "bcfabbd4-8575-4a6a-8325-7259996a7d68-2_D-Caves", apid = baseid + 287 });//
             pickupTable.Add(new LocationData() { uuid = "", apid = baseid + 288 });//Unused
@@ -312,15 +312,15 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "10eae42f-9cca-447a-8cb8-9cffcba11ecd-2_D-Caves", apid = baseid + 290 });//
             pickupTable.Add(new LocationData() { uuid = "6dbab2ee-2440-4b3d-944e-688f11a88199-2_D-Caves", apid = baseid + 291 });//
             pickupTable.Add(new LocationData() { uuid = "7434f4f5-8e47-40f0-b3a3-507ada236333-2_D-Caves", apid = baseid + 292 });//
-            pickupTable.Add(new LocationData() { uuid = "b1b6be9e-1973-4562-8e96-43adf0d8fcd5-2_C-Village", apid = baseid + 293 });//
-            pickupTable.Add(new LocationData() { uuid = "dc39a6c7-45be-4e9a-9ac2-4da3094395dd-2_C-Village", apid = baseid + 294 });//
-            pickupTable.Add(new LocationData() { uuid = "e9f1284d-a5cf-441e-a358-8cabf5e3a7b1-2_C-Village", apid = baseid + 295 });//
-            pickupTable.Add(new LocationData() { uuid = "4ba7f2ff-ff35-4d74-b5ac-d9c59fe1c94d-2_C-Village", apid = baseid + 296 });//
-            pickupTable.Add(new LocationData() { uuid = "3eee4944-4b1e-4680-92de-0ee564c91330-2_C-Village", apid = baseid + 297 });//
+            pickupTable.Add(new LocationData() { uuid = "a14ac78c-615a-45a5-a4f9-c286c98d99f8-2_C-Village", apid = baseid + 293 });//
+            pickupTable.Add(new LocationData() { uuid = "a4867b74-b444-42b0-ae95-be5e1044f19e-2_C-Village", apid = baseid + 294 });//
+            pickupTable.Add(new LocationData() { uuid = "ef8017ce-dab2-48d4-864a-7a53ea9a26a7-2_C-Village", apid = baseid + 295 });//
+            pickupTable.Add(new LocationData() { uuid = "57a328a3-94f4-406c-90de-bdcd1be7d69b-2_C-Village", apid = baseid + 296 });//
+            pickupTable.Add(new LocationData() { uuid = "b7d86492-a9c9-43fd-bf07-5bd35196ce10-2_C-Village", apid = baseid + 297 });//
             pickupTable.Add(new LocationData() { uuid = "c69ffc64-04af-44d1-b470-a867c5f06199-2_D-Caves", apid = baseid + 298 });//
-            pickupTable.Add(new LocationData() { uuid = "8e368d78-572e-4fed-8607-2fb4c35b23e8-2_C-Village", apid = baseid + 299 });//
-            pickupTable.Add(new LocationData() { uuid = "03bc01f8-4691-40b7-93c6-4d45563b5b46-2_C-Village", apid = baseid + 300 });//
-            pickupTable.Add(new LocationData() { uuid = "28362ae0-defe-4a04-b449-93d7e5e60676-2_C-Village", apid = baseid + 301 });//
+            pickupTable.Add(new LocationData() { uuid = "37b6c80a-20cc-4a2d-ba70-5e755ee13620-2_C-Village", apid = baseid + 299 });//
+            pickupTable.Add(new LocationData() { uuid = "5e1cd261-5882-4737-a524-e27b267b61b0-2_C-Village", apid = baseid + 300 });//
+            pickupTable.Add(new LocationData() { uuid = "b571bdc4-1f34-476e-a4f3-149858da1108-2_C-Village", apid = baseid + 301 });//
             pickupTable.Add(new LocationData() { uuid = "0177d8ef-8849-4ea4-b1b3-08a1c3134a99-2_E-Cliffs", apid = baseid + 302 });//
             pickupTable.Add(new LocationData() { uuid = "b3a776e1-52ab-4dc8-adc1-55c95eca9972-2_E-Cliffs", apid = baseid + 303 });//
             pickupTable.Add(new LocationData() { uuid = "ce1700e2-d9d0-462a-af23-cb55828b062a-2_E-Cliffs", apid = baseid + 304 });//
@@ -328,11 +328,11 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "ab2ba852-edf4-467f-a1f5-1825341b7596-2_E-Cliffs", apid = baseid + 306 });//
             pickupTable.Add(new LocationData() { uuid = "269526ef-6bb0-42cf-a93d-e2cac970e424-2_E-Cliffs", apid = baseid + 307 });//
             pickupTable.Add(new LocationData() { uuid = "32841813-148d-45f7-8c4e-4464f157200d-2_E-Cliffs", apid = baseid + 308 });//
-            pickupTable.Add(new LocationData() { uuid = "aff46c65-7a4a-4b1c-a0ca-840af3898f26-2_C-Village", apid = baseid + 309 });//
-            pickupTable.Add(new LocationData() { uuid = "3f1f877c-e5ac-40d1-93b7-2245282b0669-2_C-Village", apid = baseid + 310 });//
-            pickupTable.Add(new LocationData() { uuid = "2a160afc-7439-4e22-9f2b-62fa152f6626-2_C-Village", apid = baseid + 311 });//
-            pickupTable.Add(new LocationData() { uuid = "08e5033e-a401-4e90-a1a5-7e9e76ed72a5-2_C-Village", apid = baseid + 312 });//
-            pickupTable.Add(new LocationData() { uuid = "725998d5-172d-4408-9f70-0f9264a6a6fd-2_C-Village", apid = baseid + 313 });//
+            pickupTable.Add(new LocationData() { uuid = "58571bb7-9503-48c7-a212-01c06bb77296-2_C-Village", apid = baseid + 309 });//
+            pickupTable.Add(new LocationData() { uuid = "26a3a961-1a29-4d56-a5b3-5612b84d6241-2_C-Village", apid = baseid + 310 });//
+            pickupTable.Add(new LocationData() { uuid = "b5f18ebb-b325-4b01-802c-8aac4a902cf0-2_C-Village", apid = baseid + 311 });//
+            pickupTable.Add(new LocationData() { uuid = "26975cc9-71ac-4f09-a523-99331c45a6ae-2_C-Village", apid = baseid + 312 });//
+            pickupTable.Add(new LocationData() { uuid = "70ae97d9-a424-4c98-85f4-150815ea3dd2-2_C-Village", apid = baseid + 313 });//
             pickupTable.Add(new LocationData() { uuid = "3bd305d9-8d6b-43c4-99c7-1f2be904de06-2_E-Cliffs", apid = baseid + 314 });//
             pickupTable.Add(new LocationData() { uuid = "2601baa3-999e-443b-ae33-ea619346413b-2_E-Cliffs", apid = baseid + 315 });//
             pickupTable.Add(new LocationData() { uuid = "8b9b3b77-b95f-46a2-adfd-ca962e8f0cef-2_E-Cliffs", apid = baseid + 316 });//
@@ -415,7 +415,7 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "2112465c-60b4-423a-8bb7-301a64aec108-2_A-HighSwamp", apid = baseid + 394 });//
             pickupTable.Add(new LocationData() { uuid = "daf9fa57-89d6-481f-8a6d-c32c9e8ecb5a-2_A-HighSwamp", apid = baseid + 395 });//
             pickupTable.Add(new LocationData() { uuid = "beafc7da-1e14-43b2-ad4a-522519b036b7-2_A-HighSwamp", apid = baseid + 396 });//
-            pickupTable.Add(new LocationData() { uuid = "977f86dc-aeb1-471f-bb86-4db41bcbfc2c-2_A-HighSwamp", apid = baseid + 397 });//
+            pickupTable.Add(new LocationData() { uuid = "bb7a792d-9933-49ce-93d0-6bf2762cdb69-2_A-HighSwamp", apid = baseid + 397 });//
             pickupTable.Add(new LocationData() { uuid = "1abd8a20-f2cc-488b-8e0a-00b12c305667-2_A-HighSwamp", apid = baseid + 398 });//
             pickupTable.Add(new LocationData() { uuid = "a76a0b9b-6307-4b71-be91-da385c17a977-2_A-HighSwamp", apid = baseid + 399 });//
             pickupTable.Add(new LocationData() { uuid = "771c0772-2715-42c1-90b1-e033997895d1-2_A-HighSwamp", apid = baseid + 400 });//
@@ -449,10 +449,10 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "69c1d4c5-c467-4127-a12a-6277376c47f0-2_A-HighSwamp", apid = baseid + 428 });//
             pickupTable.Add(new LocationData() { uuid = "a91e708c-89a8-4ef0-bf21-870cd56e652e-2_A-HighSwamp", apid = baseid + 429 });//
             pickupTable.Add(new LocationData() { uuid = "f37cb96e-df05-4aed-b2b5-7d8d5af32483-NickGym", apid = baseid + 430 });//
-            pickupTable.Add(new LocationData() { uuid = "b2821ac0-6087-46a8-9809-61e20afb3a6e-2_C-Facilities", apid = baseid + 431 });//
-            pickupTable.Add(new LocationData() { uuid = "14992c5b-3377-4664-9309-3f44a31b1ae5-2_C-Facilities", apid = baseid + 432 });//
-            pickupTable.Add(new LocationData() { uuid = "6c265bf5-d319-4a6b-8ddf-ad803b9bdde6-2_C-Facilities", apid = baseid + 433 });//
-            pickupTable.Add(new LocationData() { uuid = "f738e9de-5eb9-41c1-8358-48a6d51a9fff-2_C-Facilities", apid = baseid + 434 });//
+            pickupTable.Add(new LocationData() { uuid = "e5906936-1a8c-4f6e-8280-1be9d7f6f403-2_C-Facilities", apid = baseid + 431 });//
+            pickupTable.Add(new LocationData() { uuid = "bfa268ed-5df9-410b-a71e-fc8f0f711655-2_C-Facilities", apid = baseid + 432 });//
+            pickupTable.Add(new LocationData() { uuid = "3d0db077-a9de-4725-92ac-8c4cd24d3b73-2_C-Facilities", apid = baseid + 433 });//
+            pickupTable.Add(new LocationData() { uuid = "6b8cd4a1-7a84-4148-837a-75369a25511d-2_C-Facilities", apid = baseid + 434 });//
             pickupTable.Add(new LocationData() { uuid = "62ab5a16-8e1f-411b-91d9-c71b45cd449e-2_C-Facilities", apid = baseid + 435 });//
             pickupTable.Add(new LocationData() { uuid = "12994a0d-c89b-4780-aaa9-48bf996c9348-2_C-Facilities", apid = baseid + 436 });//
             pickupTable.Add(new LocationData() { uuid = "34e41971-5cef-4947-b6ff-6b1e4da0f2d6-2_C-Facilities", apid = baseid + 437 });//
@@ -462,9 +462,9 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "1a376ec2-e1bf-44a3-bc18-0ec8d4252b0d-2_C-Facilities", apid = baseid + 441 });//
             pickupTable.Add(new LocationData() { uuid = "631f983b-ebc5-4fa3-aedc-38fd4d1efffb-2_C-Facilities", apid = baseid + 442 });//
             pickupTable.Add(new LocationData() { uuid = "b0c6c00b-fcbb-4884-83c7-cf655211e599-2_C-Facilities", apid = baseid + 443 });//
-            pickupTable.Add(new LocationData() { uuid = "555557dd-239a-40da-a89f-82d0cc6adc65-2_C-Facilities", apid = baseid + 444 });//
-            pickupTable.Add(new LocationData() { uuid = "497aa1a9-1ffa-4ea1-ad17-32fa6654db2e-2_C-Facilities", apid = baseid + 445 });//
-            pickupTable.Add(new LocationData() { uuid = "6837a37b-eb98-42da-bd99-b589a7bc15a2-2_C-Facilities", apid = baseid + 446 });//
+            pickupTable.Add(new LocationData() { uuid = "5c2d7cbb-1040-4e43-9aee-fac430ece31d-2_C-Facilities", apid = baseid + 444 });//
+            pickupTable.Add(new LocationData() { uuid = "931eb344-1b24-4995-947b-4e56674151a5-2_C-Facilities", apid = baseid + 445 });//
+            pickupTable.Add(new LocationData() { uuid = "28baa847-9008-40e5-89b7-566612ca75f5-2_C-Facilities", apid = baseid + 446 });//
             pickupTable.Add(new LocationData() { uuid = "c2d88bae-4763-4c16-b79e-802f00a519a7-2_C-Facilities", apid = baseid + 447 });//
             pickupTable.Add(new LocationData() { uuid = "e449f43b-dc05-4e13-8f8c-b93adf0e97fa-2_C-Facilities", apid = baseid + 448 });//
             pickupTable.Add(new LocationData() { uuid = "bb733ac9-8027-47b6-bea5-f2f66e202da3-2_C-Facilities", apid = baseid + 449 });//
@@ -556,26 +556,26 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "2cb43e11-10dd-49af-8c42-f43ae2742bce-2_C-HermitCave", apid = baseid + 535 });//
             pickupTable.Add(new LocationData() { uuid = "dac6390a-11b4-411e-9c6e-a406ef5ae503-2_D-SilentFlats", apid = baseid + 536 });//
             pickupTable.Add(new LocationData() { uuid = "0fd36d2d-dbac-4284-b471-918f407d09aa-2_D-SilentFlats", apid = baseid + 537 });//
-            pickupTable.Add(new LocationData() { uuid = "bb24e13b-1c43-4def-8d89-a997fb53772e-2_A-BleachedCopse", apid = baseid + 538 });//
-            pickupTable.Add(new LocationData() { uuid = "47f18391-b63c-402e-8787-3cebb4c72224-2_A-BleachedCopse", apid = baseid + 539 });//
-            pickupTable.Add(new LocationData() { uuid = "9248df82-ada8-4cd0-a839-3dcfa0443400-2_A-BleachedCopse", apid = baseid + 540 });//
-            pickupTable.Add(new LocationData() { uuid = "f1d07afa-7684-4c41-ba1b-e3563cee1302-2_A-BleachedCopse", apid = baseid + 541 });//
-            pickupTable.Add(new LocationData() { uuid = "14d445d2-f997-458d-a285-123bf009c223-2_A-BleachedCopse", apid = baseid + 542 });//
-            pickupTable.Add(new LocationData() { uuid = "db6e270b-224f-4bd9-9190-f27c522df224-2_A-BleachedCopse", apid = baseid + 543 });//
-            pickupTable.Add(new LocationData() { uuid = "5f0809f4-5a0f-4b4d-be76-1386bc665a16-2_A-BleachedCopse", apid = baseid + 544 });//
-            pickupTable.Add(new LocationData() { uuid = "19a53c5e-497f-4e5e-a947-6a065747c92a-2_A-BleachedCopse", apid = baseid + 545 });//
-            pickupTable.Add(new LocationData() { uuid = "9fea96c3-97f8-4670-a5c5-fd2bf05aed14-2_A-BleachedCopse", apid = baseid + 546 });//
-            pickupTable.Add(new LocationData() { uuid = "8af465e9-b1df-49fe-a7fc-cfe9eede0e93-2_A-BleachedCopse", apid = baseid + 547 });//
-            pickupTable.Add(new LocationData() { uuid = "9d251937-c0f2-44b4-8247-a80ca0335d8d-2_A-BleachedCopse", apid = baseid + 548 });//
-            pickupTable.Add(new LocationData() { uuid = "0cde8fb4-1c06-4c31-ba70-dfd1906404a0-2_A-BleachedCopse", apid = baseid + 549 });//
-            pickupTable.Add(new LocationData() { uuid = "c9b315b7-28de-4efb-9d0c-608e9629a9a7-2_A-BleachedCopse", apid = baseid + 550 });//
-            pickupTable.Add(new LocationData() { uuid = "d5fed7e0-cd33-4a81-9688-1e7ca948139f-2_A-BleachedCopse", apid = baseid + 551 });//
-            pickupTable.Add(new LocationData() { uuid = "2e322c37-6011-41eb-ac2b-7fb67d0d85b1-2_A-BleachedCopse", apid = baseid + 552 });//
-            pickupTable.Add(new LocationData() { uuid = "584108d6-147a-4c89-9b42-53eb66c7d779-2_A-BleachedCopse", apid = baseid + 553 });//
-            pickupTable.Add(new LocationData() { uuid = "765f4cdd-d7a5-4954-be69-99ed7c68913b-2_A-BleachedCopse", apid = baseid + 554 });//
-            pickupTable.Add(new LocationData() { uuid = "a612eb7f-28ff-47a7-9576-8e15f3404802-2_A-BleachedCopse", apid = baseid + 555 });//
-            pickupTable.Add(new LocationData() { uuid = "8a4445f5-aaa4-4f73-9aec-adffed944b03-2_A-BleachedCopse", apid = baseid + 556 });//
-            pickupTable.Add(new LocationData() { uuid = "6a75e525-e399-482b-b21f-42ae8ae63a17-2_A-BleachedCopse", apid = baseid + 557 });//
+            pickupTable.Add(new LocationData() { uuid = "451aaccb-f207-46fb-a1e0-87005f600a1d-2_A-BleachedCopse", apid = baseid + 538 });//
+            pickupTable.Add(new LocationData() { uuid = "765182cb-9f6e-440c-8c71-b03fe998ea0e-2_A-BleachedCopse", apid = baseid + 539 });//
+            pickupTable.Add(new LocationData() { uuid = "a003f790-11cb-4419-ac30-ec447187a2d0-2_A-BleachedCopse", apid = baseid + 540 });//
+            pickupTable.Add(new LocationData() { uuid = "66709053-4a7a-4501-9473-f99bc9a250c0-2_A-BleachedCopse", apid = baseid + 541 });//
+            pickupTable.Add(new LocationData() { uuid = "9da554ca-25f7-4f4f-a914-0276899663cc-2_A-BleachedCopse", apid = baseid + 542 });//
+            pickupTable.Add(new LocationData() { uuid = "29006be3-6d62-41f8-82aa-e44c906fcfa9-2_A-BleachedCopse", apid = baseid + 543 });//
+            pickupTable.Add(new LocationData() { uuid = "7b965ee1-f184-45d5-ac62-0dbc2c6800ac-2_A-BleachedCopse", apid = baseid + 544 });//
+            pickupTable.Add(new LocationData() { uuid = "411d984e-413e-4167-bb8c-c9e52572874e-2_A-BleachedCopse", apid = baseid + 545 });//
+            pickupTable.Add(new LocationData() { uuid = "2a05d9c1-b7e2-4e2a-87b1-dac4ed775b8e-2_A-BleachedCopse", apid = baseid + 546 });//
+            pickupTable.Add(new LocationData() { uuid = "db268ee6-76ac-4537-9c02-1996c291ff10-2_A-BleachedCopse", apid = baseid + 547 });//
+            pickupTable.Add(new LocationData() { uuid = "12b952dd-aee3-4fec-b128-04636cf935a6-2_A-BleachedCopse", apid = baseid + 548 });//
+            pickupTable.Add(new LocationData() { uuid = "dd859464-428d-44f7-a81f-a85ac671fe6f-2_A-BleachedCopse", apid = baseid + 549 });//
+            pickupTable.Add(new LocationData() { uuid = "e83d3323-c371-4358-bd76-372285b083ba-2_A-BleachedCopse", apid = baseid + 550 });//
+            pickupTable.Add(new LocationData() { uuid = "ecc223b8-902c-4d66-b01b-24728ccb7d4e-2_A-BleachedCopse", apid = baseid + 551 });//
+            pickupTable.Add(new LocationData() { uuid = "0317b352-75a3-4ac5-8f23-f44c5170a5af-2_A-BleachedCopse", apid = baseid + 552 });//
+            pickupTable.Add(new LocationData() { uuid = "560a19c0-374c-4c50-8ebf-ceaf556ac7b7-2_A-BleachedCopse", apid = baseid + 553 });//
+            pickupTable.Add(new LocationData() { uuid = "80dadb0e-6347-4c6d-b7e2-bbc8041bed96-2_A-BleachedCopse", apid = baseid + 554 });//
+            pickupTable.Add(new LocationData() { uuid = "e3c6fc65-0df9-4cba-98e2-14c698aa7a78-2_A-BleachedCopse", apid = baseid + 555 });//
+            pickupTable.Add(new LocationData() { uuid = "d1befb56-8d22-4088-8eb2-a75fb79d112d-2_A-BleachedCopse", apid = baseid + 556 });//
+            pickupTable.Add(new LocationData() { uuid = "35c3ce0a-a17b-4ca1-b9b5-9b5c32b1a531-2_A-BleachedCopse", apid = baseid + 557 });//
             pickupTable.Add(new LocationData() { uuid = "216137c4-ed27-4bc7-89fd-0818f0b5ce89-2_B-GrandCourtyard", apid = baseid + 558 });//
             pickupTable.Add(new LocationData() { uuid = "e9e60f3d-0c0f-4481-ad22-827a32d9987e-2_B-GrandCourtyard", apid = baseid + 559 });//
             pickupTable.Add(new LocationData() { uuid = "674cd75e-e914-4d6d-9bc3-9ead6219f833-2_B-GrandCourtyard", apid = baseid + 560 });//
@@ -625,7 +625,7 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "21387127-4e04-4017-bb58-3aafb9537876-2_B-GrandCourtyard", apid = baseid + 604 });//
             pickupTable.Add(new LocationData() { uuid = "5b786881-414b-41d4-97ea-b3a850d3633a-2_A-HighSwamp", apid = baseid + 605 });//
             pickupTable.Add(new LocationData() { uuid = "99e59ba9-3c41-4133-bf7e-d09bc1957f04-2_A-HighSwamp", apid = baseid + 606 });//
-            pickupTable.Add(new LocationData() { uuid = "", apid = baseid + 607 });//
+            pickupTable.Add(new LocationData() { uuid = "9545c7d7-0ea6-457b-ad4d-c744984f0d79-2_A-HighSwamp ", apid = baseid + 607 });//
             pickupTable.Add(new LocationData() { uuid = "669e8494-68f1-4de8-8814-6b41a0a69d18-2_A-HighSwamp", apid = baseid + 608 });//
             pickupTable.Add(new LocationData() { uuid = "584ec079-5ecc-409b-bcac-7197b1d04a1c-2_A-HighSwamp", apid = baseid + 609 });//
             pickupTable.Add(new LocationData() { uuid = "b4a9c83a-b0c6-4606-a785-16f4ff33d66e-2_A-HighSwamp", apid = baseid + 610 });//
@@ -633,12 +633,18 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "a6a69a65-21fa-4bdd-8940-e1f1f6c226a0-2_A-HighSwamp", apid = baseid + 612 });//
             pickupTable.Add(new LocationData() { uuid = "6709552a-af26-4b87-a69e-97830fd645be-2_A-HighSwamp", apid = baseid + 613 });//
             pickupTable.Add(new LocationData() { uuid = "6db7743b-1b30-49c4-983a-bb8256959022-2_A-HighSwamp", apid = baseid + 614 });//
-            pickupTable.Add(new LocationData() { uuid = "70b7c84e-2c02-47c4-9e49-a58c78856f9d-2_C-Facilities", apid = baseid + 615 });//
-            pickupTable.Add(new LocationData() { uuid = "fa0535e3-55e1-4879-ac12-9327d5858b1a-2_C-Facilities", apid = baseid + 616 });//
+            pickupTable.Add(new LocationData() { uuid = "adbf6e36-d142-458d-a2a4-3406168e3a12-2_C-Facilities", apid = baseid + 615 });//
+            pickupTable.Add(new LocationData() { uuid = "dbcacde0-7803-42c7-8894-026826e23a67-2_C-Facilities", apid = baseid + 616 });//
             pickupTable.Add(new LocationData() { uuid = "c376ad88-aa83-4923-9652-13fd98a67a19-2_C-Facilities", apid = baseid + 617 });//
             pickupTable.Add(new LocationData() { uuid = "8e4714bf-cc7f-4bde-9c88-7fcdbf8d0afe-2_A-GroveForestLow", apid = baseid + 619 });//
-            pickupTable.Add(new LocationData() { uuid = "", apid = baseid + 618 });//
-            
+            pickupTable.Add(new LocationData() { uuid = "7b97c71e-bc63-4156-8077-851252c7383e-2_B-DarkCanyon", apid = baseid + 618 });//
+            pickupTable.Add(new LocationData() { uuid = "9a2f64f8-cba8-41a4-acac-8cc3e6e9583d-2_A-GroveForestLow", apid = baseid + 620 });//
+            pickupTable.Add(new LocationData() { uuid = "cb589bcb-04b5-412d-a8a0-8502b584083b-2_A-GroveForestLow", apid = baseid + 621 });//
+            pickupTable.Add(new LocationData() { uuid = "6440b99a-9998-4191-961a-32d9f1ecd9e4-2_A-GroveForestLow", apid = baseid + 622 });//
+            pickupTable.Add(new LocationData() { uuid = "f446f24d-71ec-4f13-a6a0-ad5834080de6-2_A-GroveForestLow", apid = baseid + 623 });//
+            pickupTable.Add(new LocationData() { uuid = "1a2f542b-c84a-45d2-9c5d-192bf49123b3-2_A-BleachedCopse", apid = baseid + 624 });//
+            pickupTable.Add(new LocationData() { uuid = "602a241b-4901-4542-bd7b-f5bce8a9e383-2_A-BleachedCopse", apid = baseid + 625 });//
+
         }
 
         public static long FindPickupAPID(Item item)

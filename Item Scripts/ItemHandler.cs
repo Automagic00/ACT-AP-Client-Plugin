@@ -211,11 +211,12 @@ namespace ACTAP
             }
             if (Plugin.debugMode == true)
             {
+                LocationSwapData.LogLocation(__instance);
                 if (__instance.name == "FishingLineUnlock")
                 {
                     Debug.Log("Send Fishing Line Here");
                 }
-                    return true;
+                return true;
             }
 
 
@@ -233,7 +234,7 @@ namespace ACTAP
             }
 
 
-            LocationSwapData.LogLocation(__instance);
+            
 
             
 

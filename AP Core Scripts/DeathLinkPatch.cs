@@ -60,7 +60,7 @@ namespace ACTAP
                         case "PRAYADUBIA2": possibleMsgBodies = new string[] { "couldn't hold out", "wasn't able to run away" }; break;
                         case "FIRTH_1": possibleMsgBodies = new string[] { "didn't get what they wanted", "lost to an honest businesscrab", "learned the power of the Perfect Whorl" }; break;
                         case "FIRTH_2": possibleMsgBodies = new string[] { "wasn't ready for phase 2", "couldn't adapt", "died atop an island of trash" }; break;
-                        default: possibleMsgBodies = new string[] { "died to " + killer }; break;
+                        default: possibleMsgBodies = new string[] { "died" }; break;
                     }
                     System.Random rand = new System.Random();
                     msgBody = possibleMsgBodies[rand.Next(possibleMsgBodies.Length)];

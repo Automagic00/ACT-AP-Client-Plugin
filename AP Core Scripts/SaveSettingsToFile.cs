@@ -27,28 +27,11 @@ namespace ACTAP
                 Dictionary<string, object> slotData = Plugin.connection.slotData;
 
 
-                /*foreach (var key in Plugin.connection.slotData.Keys)
-                {
-                    //Debug.Log("Line 5");
-                    Debug.Log("slotdata: " + key);
-                    Debug.Log("value: " + slotData[key]);
-                }*/
-
                 //Microplastic Multiplier
                 double microplaticMod = (double)Plugin.connection.slotData["microplastic_multiplier"];
                 microplaticMod = microplaticMod == 0 ? 1 : microplaticMod; //Make sure its not 0
 
                 //Shell Randomizer
-                //Dictionary<string, string> shellSlotData = new Dictionary<string, string>;
-                //PropertyInfo[] properties = Plugin.connection.slotData["shell_rando"].GetType().GetProperties();
-
-                /*foreach (PropertyInfo property in properties)
-                {
-                    shellSlotData[property.Name] = property.GetValue(Plugin.connection.slotData["shell_rando"]);
-                }*/
-
-                //Debug.Log(shellSlotData);
-
                 string shellRando = JsonConvert.SerializeObject(Plugin.connection.slotData["shell_rando"]);
                 bool shellRandoEnabled = (bool)Plugin.connection.slotData["shell_rando_enabled"];
 
@@ -63,7 +46,6 @@ namespace ACTAP
                 CrabFile.current.SetString("shellRando", shellRando);
                 CrabFile.current.SetBool("shellRandoEnabled", shellRandoEnabled);
                 CrabFile.current.SetInt("currentGoal",  (int)goal);
-                //Debug.Log("Line 9");
             }
         }
     }

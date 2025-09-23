@@ -213,7 +213,9 @@ namespace ACTAP
                     if (Input.GetKeyDown(KeyCode.F10))
                     {
                         Debug.Log("F10 Pressed");
-                        CreateCustom.CreateItem(_player.transform.position, "TestCustomItem", ItemSwapData.ItemEnum.BreadClaw);
+                        GUIManager.instance.Load(GUIManager.instance.blackFadeLoaderIllustrated, LevelDirector.SwapLevelRoutine(Level.TheUnfathom, 2, false), false, null, 0f);
+                        _player.depressed = false;
+                        //_player.Die();
                     }
                     if (Input.GetKeyDown(KeyCode.F11))
                     {
@@ -641,6 +643,15 @@ namespace ACTAP
                 }
             }
 
+            if (CrabFile.current.progressData.scuttleportBools[CrabFile.current.progressData.GetProgressIndex(ProgressData.ScuttleportProgress.RolandDefeated)].unlocked == true)
+            {
+                if (GUILayout.Button("Teleport to Unfathom"))
+                {
+                    GUIManager.instance.Load(GUIManager.instance.blackFadeLoaderIllustrated, LevelDirector.SwapLevelRoutine(Level.TheUnfathom, 2, false), false, null, 0f);
+                    _player.depressed = false;
+                }
+            }
+
 
 
             GUILayout.EndVertical();
@@ -722,7 +733,15 @@ namespace ACTAP
                 GUILayout.Label("Press [Insert] to toggle menu.");
                 GUILayout.Label(_player.transform.position.ToString());
 
-                
+                if (CrabFile.current.progressData.scuttleportBools[CrabFile.current.progressData.GetProgressIndex(ProgressData.ScuttleportProgress.RolandDefeated)].unlocked == true)
+                {
+                    if (GUILayout.Button("Teleport to Unfathom"))
+                    {
+                        GUIManager.instance.Load(GUIManager.instance.blackFadeLoaderIllustrated, LevelDirector.SwapLevelRoutine(Level.TheUnfathom, 2, false), false, null, 0f);
+                        _player.depressed = false;
+                    }
+                }
+
                 if (GUILayout.Button("Give Useful Items"))
                 {
                     CrabFile.current.unlocks[SkillWorldUnlocks.String].unlocked = true;

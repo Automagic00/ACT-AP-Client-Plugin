@@ -38,7 +38,7 @@ namespace ACTAP
                 return;
             }
 
-            if (!__instance.name.Contains("SWAP") && __instance.gameObject.scene.name != "Player_Main" && !__instance.name.Contains("HomeShell"))
+            if (!__instance.name.Contains("SWAP") && __instance.gameObject.scene.name != "Player_Main" && !__instance.name.Contains("HomeShell") && !__instance.name.Contains("PerfectWhorl"))
             {
                 if (__instance.transform.parent != null)
                 {
@@ -51,6 +51,7 @@ namespace ACTAP
                 if (Plugin.debugMode)
                 {
                     __instance.name += "_SWAP";
+                    
                     var newShell = GameObject.Instantiate<Shell>(AssetListCollection.GetShellPrefab("Shell_AmongUs"));
                     var newRB = newShell.GetComponent<Rigidbody>();
                     var oldRB = __instance.GetComponent<Rigidbody>();

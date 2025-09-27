@@ -110,7 +110,7 @@ Below is a summary of the options available to you when creating an Another Crab
 
 &nbsp;&nbsp; Set the preferred logic rules for your game.
 
-- Vanilla: Standard logic, no skips/glitches are required to complete the chosen goal.
+- Vanilla *[Default]*: Standard logic, no skips/glitches are required to complete the chosen goal.
 - Glitchless: Allows for parkour-based skips to be required to complete the game.
   <details><summary><ins>List of Skips</ins></summary>  
    

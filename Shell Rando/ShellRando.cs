@@ -103,6 +103,10 @@ namespace ACTAP
             if (Plugin.debugMode)
             {
                 __instance.shellToSpawn = AssetListCollection.GetShellPrefab("Shell_AmongUs");
+                
+                __instance.shellToSpawn.rb.isKinematic = false;
+                __instance.shellToSpawn.name += "_SWAP";
+                __instance.spawnForce *= 2;
             }
             else if (Plugin.connection.session != null)
             {
@@ -113,9 +117,13 @@ namespace ACTAP
                 }
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
 
-                string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.shellToSpawn.prefabName)]);
+                string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.shellToSpawn.prefabName)]) + "_SWAP";
 
                 __instance.shellToSpawn = AssetListCollection.GetShellPrefab(newShellName);
+                __instance.shellToSpawn.rb.isKinematic = false;
+                __instance.shellToSpawn.name = newShellName;
+                __instance.spawnForce *= 2;
+
             }
         }
     }
@@ -123,10 +131,29 @@ namespace ACTAP
     [HarmonyPatch(typeof(ScuttleportShellSpawner), "SpawnShell")]
     static class PlugSpawnRBFix
     {
-        [HarmonyPostfix]
-        static void Postfix(ScuttleportShellSpawner __instance)
+        [HarmonyPrefix]
+        static void Prefix(ScuttleportShellSpawner __instance)
         {
+            /*FieldInfo dustField = AccessTools.Field(typeof(ScuttleportShellSpawner), "dust");
+            ParticleSystem dust = (ParticleSystem)dustField.GetValue(__instance);
+
+            FieldInfo trashField = AccessTools.Field(typeof(ScuttleportShellSpawner), "trash");
+            ParticleSystem trash = (ParticleSystem)dustField.GetValue(__instance);
+
+            FieldInfo animField = AccessTools.Field(typeof(ScuttleportShellSpawner), "anim");
+            Animator anim = (Animator)dustField.GetValue(__instance);
+
+            __instance.currentShell = UnityEngine.Object.Instantiate<GameObject>(__instance.shellToSpawn.gameObject, __instance.shellSpawnPoint.position, __instance.shellSpawnPoint.rotation).GetComponent<Shell>();
             __instance.currentShell.rb.isKinematic = false;
+            __instance.currentShell.rb.AddForce(__instance.shellSpawnPoint.forward * __instance.spawnForce * 0.016666f, ForceMode.Impulse);
+            __instance.currentShell.rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            SceneManager.MoveGameObjectToScene(__instance.currentShell.gameObject, __instance.gameObject.scene);
+            anim.SetTrigger("SpawnShell");
+            AudioManager.PlayOneShot("ShellAbilities/BombsAwayJumpOnly", __instance.shellSpawnPoint.transform.position, false);
+            dust.Play();
+            trash.Play();
+            __instance.busy = false;*/
+            
         }
     }
     

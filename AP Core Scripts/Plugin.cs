@@ -1,4 +1,5 @@
-﻿using Archipelago.MultiClient.Net;
+﻿using ACTAP.Utils;
+using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
@@ -12,6 +13,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -49,7 +51,19 @@ namespace ACTAP
         private static bool showMenu = true;
         public static Dictionary<string,Dictionary<string,int>> shellData =new Dictionary<string, Dictionary<string, int>>();
         public static ArchipelagoConnection connection;
-        
+
+        //Map Utils
+        public static bool fromPretitle = true;
+        //public static bool DEBUG = true;
+        //public static ManualLogSource logSource;
+        public static List<Enemy> crystalEnemies;
+        public static List<Item> items;
+        public static List<GameObject> mapMarkers = new();
+
+        public static bool RenderWorldMarkers = false;
+        public static bool RenderWorldMarkersTemp = false;
+        public static bool RenderMapMarkers = false;
+
 
         private void Awake()
         {
@@ -85,6 +99,11 @@ namespace ACTAP
 
         public void Update()
         {
+            //Map Stuff
+            crystalEnemies = FindObjectsOfType<Enemy>(true).ToList();
+            items = FindObjectsOfType<Item>(true).ToList();
+
+            //Handle AP Items
             if (!connection.connected)
             {
                 return;
@@ -575,6 +594,10 @@ namespace ACTAP
 
         public void OnGUI()
         {
+            if (RenderWorldMarkers)
+            {
+                RenderWorld();
+            }
             if (showFadingLabel && alphaAmount < 1f)
             {
                 alphaAmount += 0.3f * Time.deltaTime;
@@ -627,6 +650,10 @@ namespace ACTAP
             {
                 CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = GUILayout.Toggle(CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked, "Fallen Slacktide");
             }
+
+            RenderMapMarkers = GUILayout.Toggle(RenderMapMarkers, "Show items on map");
+            RenderWorldMarkers = GUILayout.Toggle(RenderWorldMarkers, "Show items in world");
+            
 
             if (CrabFile.current.inventoryData.HasItem("Shallows_0_ForkOverlook"))
             {
@@ -741,6 +768,9 @@ namespace ACTAP
                         _player.depressed = false;
                     }
                 }
+
+                RenderMapMarkers = GUILayout.Toggle(RenderMapMarkers, "Show items on map");
+                RenderWorldMarkers = GUILayout.Toggle(RenderWorldMarkers, "Show items in world");
 
                 if (GUILayout.Button("Give Useful Items"))
                 {
@@ -869,6 +899,96 @@ namespace ACTAP
             //if we get here, this is being called as a DLL, extract texture
             var prefab = asset.LoadAsset<GameObject>(filename);
             return prefab;
+        }
+
+        public static void RenderWorld()
+        {
+            if (RenderWorldMarkersTemp)
+            {
+                if (crystalEnemies != null)
+                {
+                    foreach (Enemy enemy in crystalEnemies)
+                    {
+                        SaveStateKillableEntity state = Traverse.Create(enemy).Field("saveState").GetValue() as SaveStateKillableEntity;
+                        if (state == null) { continue; }
+                        if (enemy.transform == null || enemy.isBoss || state.killedPreviously)
+                        {
+                            continue;
+                        }
+                        if (enemy.umamiDrops > 0)
+                        {
+                            Vector3 center = enemy.GetCenter();
+                            Vector3 screenPoint = Camera.main.WorldToScreenPoint(center);
+                            Texture2D crystal = ModHelper.GetSprite("crystal").texture;
+                            float iconSize = 64;
+
+                            if (screenPoint.z > 0)
+                            {
+                                GUI.DrawTexture(new Rect(new Vector2(screenPoint.x - iconSize / 2, Screen.height - screenPoint.y - iconSize / 2), new Vector2(iconSize, iconSize)), crystal, ScaleMode.ScaleToFit);
+                            }
+                        }
+                    }
+                }
+                if (items != null)
+                {
+                    foreach (Item item in items)
+                    {
+                        string itemName = item.DisplayName.Replace("Item_", "").Replace("_Name", "").ToLower();
+                        string resourceName;
+                        if (ItemNameToResource.ItemToResource.ContainsKey(itemName))
+                        {
+                            resourceName = ItemNameToResource.ItemToResource[itemName];
+                        }
+                        else if (itemName.Contains("stowaway"))
+                        {
+                            resourceName = "stowaways";
+                        }
+                        else if (itemName.Contains("claw"))
+                        {
+                            resourceName = "junk";
+                        }
+                        else if (itemName.Contains("costume"))
+                        {
+                            resourceName = "costume";
+                        }
+                        else
+                        {
+                            resourceName = "junk";
+                        }
+                        SaveStateKillableEntity state = Traverse.Create(item).Field("save").GetValue() as SaveStateKillableEntity;
+                        if (state == null)
+                        {
+                            continue;
+                        }
+                        if (item == null || state.killedPreviously)
+                        {
+                            continue;
+                        }
+                        Vector3 center = item.GetCenter();
+                        Vector3 screenPoint = Camera.main.WorldToScreenPoint(center);
+                        Texture2D crystal = ModHelper.GetSprite(resourceName).texture;
+                        float iconSize = 64;
+
+                        if (screenPoint.z > 0)
+                        {
+                            GUI.DrawTexture(new Rect(new Vector2(screenPoint.x - iconSize / 2, Screen.height - screenPoint.y - iconSize / 2), new Vector2(iconSize, iconSize)), crystal, ScaleMode.ScaleToFit);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static bool EnemiesAggro()
+        {
+            bool aggro = false;
+            foreach (Enemy enemy in crystalEnemies)
+            {
+                if (enemy.aggro)
+                {
+                    aggro = true;
+                }
+            }
+            return aggro;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ACTAP
         {
             __instance.objectToEnable.gameObject.SetActive(true);
 
-            bool bosses = true;
+            bool bosses = Plugin.debugMode? true: CrabFile.current.GetBool("ngplusBosses");
             bool pickups = false;
             bool enemies = false;
 

@@ -252,6 +252,35 @@ namespace ACTAP
                 case 144: trapToGet = TrapEnum.ShellShatterTrap; break;
                 case 145: trapToGet = TrapEnum.PoisonCocktailTrap; break;
                 case 146: trapToGet = TrapEnum.TaserTrap; break;
+                case 147: stowawayToGet = StowawayEnum.Isopod; break;
+                case 148: stowawayToGet = StowawayEnum.StreakersSigil; break;
+                case 149: stowawayToGet = StowawayEnum.SentinelsSigil; break;
+                case 150: stowawayToGet = StowawayEnum.SickosSigil; break;
+                case 151: stowawayToGet = StowawayEnum.ShadowsSigil; break;
+                case 152: stowawayToGet = StowawayEnum.SorcerersSigil; break;
+                case 153: stowawayToGet = StowawayEnum.AnemonePlusPlusPlus; break;
+                case 154: stowawayToGet = StowawayEnum.BarnaclePlusPlusPlus; break;
+                case 155: stowawayToGet = StowawayEnum.CocklePlusPlus; break;
+                case 156: stowawayToGet = StowawayEnum.FruitstickerPlusPlus; break;
+                case 157: stowawayToGet = StowawayEnum.FruitstickerPlusPlusPlus; break;
+                case 158: stowawayToGet = StowawayEnum.LampreyPlusPlus; break;
+                case 159: stowawayToGet = StowawayEnum.LampreyPlusPlusPlus; break;
+                case 160: stowawayToGet = StowawayEnum.LimpetPlusPlusPlus; break;
+                case 161: stowawayToGet = StowawayEnum.MusselPlusPlusPlus; break;
+                case 162: stowawayToGet = StowawayEnum.OysterPlus; break;
+                case 163: stowawayToGet = StowawayEnum.OysterPlusPlus; break;
+                case 164: stowawayToGet = StowawayEnum.PufferquillPlus; break;
+                case 165: stowawayToGet = StowawayEnum.RustynailPlusPlus; break;
+                case 166: stowawayToGet = StowawayEnum.RustynailPlusPlusPlus; break;
+                case 167: stowawayToGet = StowawayEnum.SeacucumberPlus; break;
+                case 168: stowawayToGet = StowawayEnum.SeastarPlusPlusPlus; break;
+                case 169: stowawayToGet = StowawayEnum.SharktoothPlusPlus; break;
+                case 170: stowawayToGet = StowawayEnum.SinkerPlusPlusPlus; break;
+                case 171: stowawayToGet = StowawayEnum.SiphonophorePlusPlus; break;
+                case 172: stowawayToGet = StowawayEnum.SiphonophorePlusPlusPlus; break;
+                case 173: stowawayToGet = StowawayEnum.UsedbandagePlusPlus; break;
+                case 174: stowawayToGet = StowawayEnum.WadofGumPlus; break;
+                case 175: stowawayToGet = StowawayEnum.WhelkPlusPlusPlus; break;
                 default: Debug.Log("could not get item " + id); break;
             }
 
@@ -394,7 +423,7 @@ namespace ACTAP
                 {
                     UserSettings.SetBool("tutorialPopupsActive", true);
 
-                    CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = true;
+                    CrabFile.current.progressData[ProgressData.ShallowsProgress.PearlPickedUp].unlocked = false;
                     CrabFile.current.SetBool("WasSentPearl", true);
                     item.item.summary = "NOTICE: In the Archipelago, Fallen Slacktide can be toggled from the [Insert] menu. The area must be reloaded for changes to take place.";
                     //CrabFile.current.progressData[ProgressData.ShallowsProgress.EnteredFallenSlacktide].unlocked = true;
@@ -633,6 +662,35 @@ namespace ACTAP
                 case StowawayEnum.WhelkPlusPlus: return "Stowaway_Whelk++";
                 case StowawayEnum.Zooplankton: return "Stowaway_Zooplankton";
                 case StowawayEnum.ZooplanktonPlus: return "Stowaway_Zooplankton+";
+                case StowawayEnum.StreakersSigil: return "Stowaway_Berserkers";
+                case StowawayEnum.SentinelsSigil: return "Stowaway_Defenders";
+                case StowawayEnum.SickosSigil: return "Stowaway_Fragile";
+                case StowawayEnum.ShadowsSigil: return "Stowaway_Predators";
+                case StowawayEnum.SorcerersSigil: return "Stowaway_Sorcerors";
+                case StowawayEnum.AnemonePlusPlusPlus: return "Stowaway_Anemone+++";
+                case StowawayEnum.BarnaclePlusPlusPlus: return "Stowaway_Barnacle+++";
+                case StowawayEnum.CocklePlusPlus: return "Stowaway_Cockle++";
+                case StowawayEnum.FruitstickerPlusPlus: return "Stowaway_Fruit Sticker++";
+                case StowawayEnum.FruitstickerPlusPlusPlus: return "Stowaway_Fruit Sticker+++";
+                case StowawayEnum.LampreyPlusPlus: return "Stowaway_Lamprey++";
+                case StowawayEnum.LampreyPlusPlusPlus: return "Stowaway_Lamprey+++";
+                case StowawayEnum.LimpetPlusPlusPlus: return "Stowaway_Limpet+++";
+                case StowawayEnum.MusselPlusPlusPlus: return "Stowaway_Mussel+++";
+                case StowawayEnum.OysterPlus: return "Stowaway_Oyster+";
+                case StowawayEnum.OysterPlusPlus: return "Stowaway_Oyster++";
+                case StowawayEnum.PufferquillPlus: return "Stowaway_Puffer Quill+";
+                case StowawayEnum.RustynailPlusPlus: return "Stowaway_Rusty Nail++";
+                case StowawayEnum.RustynailPlusPlusPlus: return "Stowaway_Rusty Nail+++";
+                case StowawayEnum.SeacucumberPlus: return "Stowaway_Sea Cucumber+";
+                case StowawayEnum.SeastarPlusPlusPlus: return "Stowaway_Sea Star+++";
+                case StowawayEnum.SharktoothPlusPlus: return "Stowaway_SharkTooth++";
+                case StowawayEnum.SinkerPlusPlusPlus: return "Stowaway_Sinker+++";
+                case StowawayEnum.SiphonophorePlusPlus: return "Stowaway_Siphonophore++";
+                case StowawayEnum.SiphonophorePlusPlusPlus: return "Stowaway_Siphonophore+++";
+                case StowawayEnum.UsedbandagePlusPlus: return "Stowaway_Used Bandage++";
+                case StowawayEnum.WadofGumPlus: return "Stowaway_Wad of Gum+";
+                case StowawayEnum.WhelkPlusPlusPlus: return "Stowaway_Whelk+++";
+
                 default: return "";
 
             }
@@ -777,6 +835,35 @@ namespace ACTAP
             WhelkPlusPlus,
             Zooplankton,
             ZooplanktonPlus,
+            StreakersSigil,
+            SentinelsSigil,
+            SickosSigil,
+            ShadowsSigil,
+            SorcerersSigil,
+            AnemonePlusPlusPlus,
+            BarnaclePlusPlusPlus,
+            CocklePlusPlus,
+            FruitstickerPlusPlus,
+            FruitstickerPlusPlusPlus,
+            LampreyPlusPlus,
+            LampreyPlusPlusPlus,
+            LimpetPlusPlusPlus,
+            MusselPlusPlusPlus,
+            OysterPlus,
+            OysterPlusPlus,
+            PufferquillPlus,
+            RustynailPlusPlus,
+            RustynailPlusPlusPlus,
+            SeacucumberPlus,
+            SeastarPlusPlusPlus,
+            SharktoothPlusPlus,
+            SinkerPlusPlusPlus,
+            SiphonophorePlusPlus,
+            SiphonophorePlusPlusPlus,
+            UsedbandagePlusPlus,
+            WadofGumPlus,
+            WhelkPlusPlusPlus,
+
             NULL
 
         }

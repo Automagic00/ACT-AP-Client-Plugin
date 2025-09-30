@@ -42,10 +42,17 @@ namespace ACTAP
 
                 Debug.Log("GOAL IS " + goal.GetType());
 
+                //NG+ Options
+                bool ngplusBosses = (bool)Plugin.connection.slotData["ngplus_bosses"];
+                bool ngplusSlots = (bool)Plugin.connection.slotData["ngplus_slots"];
+
                 CrabFile.current.SetString("setting_microplasticMod", ((float)microplaticMod).ToString());
                 CrabFile.current.SetString("shellRando", shellRando);
                 CrabFile.current.SetBool("shellRandoEnabled", shellRandoEnabled);
                 CrabFile.current.SetInt("currentGoal",  (int)goal);
+                CrabFile.current.SetBool("ngplusBosses", ngplusBosses);
+                CrabFile.current.SetBool("ngplusSlots", ngplusSlots);
+
             }
         }
     }

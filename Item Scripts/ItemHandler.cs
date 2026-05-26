@@ -146,11 +146,20 @@ namespace ACTAP
     [HarmonyPatch(typeof(SaveStateKillableEntity), "LoadFromFile")]
     class InvUpdate
     {
-        [HarmonyPostfix]
+        [HarmonyPrefix]
         private static void LogItemsPatch(SaveStateKillableEntity __instance)
         {
+            var getSaveIndex = Traverse.Create(__instance).Method("GetSaveIndex").GetValue<string>();
+
+            __instance.state = CrabFile.current.GetInt(getSaveIndex, __instance.debugPrint);
+            if (__instance.killedPreviously && __instance.GetComponent<Item>() != null)
+            {
+                Plugin.items.Remove(__instance.GetComponent<Item>());
+            }
+
             if (__instance.GetComponent<Item>() != null && __instance.GetComponent<Item>().name != "Item_HeartkelpPodsUnlock")
             {
+                Item item = __instance.GetComponent<Item>();
                 //TEMP SCENE NAME FOR TESTING
                 if (Plugin.itemHolder == null && SceneManager.GetActiveScene().name == "Shallows_0_PreFall")
                 {
@@ -171,6 +180,7 @@ namespace ACTAP
                         {
                             GameManager.events.TriggerEntityDestroyedFromSave(component);
                         }
+                        Plugin.items.Remove(item);
                         GameObject.Destroy(__instance.gameObject);
                         
                     }
@@ -186,6 +196,7 @@ namespace ACTAP
                         {
                             GameManager.events.TriggerEntityDestroyedFromSave(component);
                         }
+                        Plugin.items.Remove(item);
                         GameObject.Destroy(__instance.gameObject);
                     }
                 }
@@ -287,6 +298,7 @@ namespace ACTAP
             }
             //__instance.PickupVisually(0f);
             Debug.Log("Destroy");
+            Plugin.items.Remove(__instance);
             UnityEngine.Object.Destroy(__instance.gameObject, 0.2f);
 
             Debug.Log("ActivateCheck");

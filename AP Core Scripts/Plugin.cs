@@ -21,7 +21,7 @@ using UnityEngine.SceneManagement;
 namespace ACTAP
 {
 
-    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.4.3")]
+    [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", "0.5.0")]
     public class Plugin : BaseUnityPlugin
     {
         public static Player _player;
@@ -56,8 +56,8 @@ namespace ACTAP
         public static bool fromPretitle = true;
         //public static bool DEBUG = true;
         //public static ManualLogSource logSource;
-        public static List<Enemy> crystalEnemies;
-        public static List<Item> items;
+        public static List<Enemy> crystalEnemies = new List<Enemy>();
+        public static List<Item> items = new List<Item>();
         public static List<GameObject> mapMarkers = new();
 
         public static bool RenderWorldMarkers = false;
@@ -100,8 +100,8 @@ namespace ACTAP
         public void Update()
         {
             //Map Stuff
-            crystalEnemies = FindObjectsOfType<Enemy>(true).ToList();
-            items = FindObjectsOfType<Item>(true).ToList();
+            //crystalEnemies = FindObjectsOfType<Enemy>(true).ToList();
+            //items = FindObjectsOfType<Item>(true).ToList();
 
             //Handle AP Items
             if (!connection.connected)
@@ -110,6 +110,8 @@ namespace ACTAP
             }
             if (SceneManager.GetActiveScene().name == "Title" || SceneManager.GetActiveScene().name == "Pretitle" || _player == null || _loadingScreen.IsLoading() == true)
             {
+                //crystalEnemies.Clear();
+                //items.Clear();
                 return;
             }
             if (connection.checkItemsReceived != null)
@@ -632,7 +634,7 @@ namespace ACTAP
             else if (showMenu && !debugMode && connection.session != null && _player != null)
             {
                 GUI.backgroundColor = backgroundColor;
-                windowRect = new Rect(0, 0, 200, 160);
+                windowRect = new Rect(0, 0, 200, 220);
                 windowRect = GUI.Window(0, windowRect, APClientMenu, "Archipelago");
             }
         }
@@ -905,6 +907,7 @@ namespace ACTAP
         {
             if (RenderWorldMarkersTemp)
             {
+                Debug.Log("Render World");
                 if (crystalEnemies != null)
                 {
                     foreach (Enemy enemy in crystalEnemies)

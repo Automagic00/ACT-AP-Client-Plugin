@@ -9,6 +9,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
 using System.Reflection;
+using UnityEngine.UI;
 
 namespace ACTAP
 {
@@ -164,31 +165,36 @@ namespace ACTAP
         [HarmonyPrefix]
         static void Prefix(HermitMimic __instance)
         {
-            if (Plugin.debugMode)
+            //Make sure its not Petroch
+            if (__instance.GetComponent<MoonHermit>() == null)
             {
-                __instance.startingShell = AssetListCollection.GetShellPrefab("Shell_AmongUs");
-            }
-            else if (Plugin.connection.session != null)
-            {
-                //Exit if shell rando is not enabled
-                if (!CrabFile.current.GetBool("shellRandoEnabled"))
+
+                if (Plugin.debugMode)
                 {
-                    return;
+                    __instance.startingShell = AssetListCollection.GetShellPrefab("Shell_AmongUs");
                 }
-                Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+                else if (Plugin.connection.session != null)
+                {
+                    //Exit if shell rando is not enabled
+                    if (!CrabFile.current.GetBool("shellRandoEnabled"))
+                    {
+                        return;
+                    }
+                    Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
 
-                string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.startingShell.prefabName)]);
+                    string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.startingShell.prefabName)]);
 
-                __instance.startingShell = AssetListCollection.GetShellPrefab(newShellName);
+                    __instance.startingShell = AssetListCollection.GetShellPrefab(newShellName);
+                }
             }
         }
     }
 
-    [HarmonyPatch(typeof(ShopButtonList),"InitializeItem")]
+    /*[HarmonyPatch(typeof(ShopButtonList),"InitializeItem")]
     static class ShellfishDesiresReplace
     {
         [HarmonyPrefix]
-        static void Prefix(ShopItem item, ShopButtonList __instance)
+        static bool Prefix(ShopItem item, ShopButtonList __instance)
         {
 
             //Check if its shellfish desires
@@ -221,7 +227,200 @@ namespace ACTAP
                         }
                     }
                 }
+                if (item == null)
+                {
+                    return false;
+                }
+                if (item.stock == 0)
+                {
+                    return false;
+                }
+                if (item.item.isUnique && CrabFile.current.inventoryData[item.item].amount > 0)
+                {
+                    return false;
+                }
+                if (item.prerequisite != null && CrabFile.current.inventoryData[item.prerequisite].amount <= 0)
+                {
+                    return false;
+                }
+
+                ShopItem newShell = new ShopItem(item.item,item.cost,item.stock,item.prerequisite,item.descriptionOverride,item.costArray);
+                if (Plugin.debugMode)
+                {
+                    //item.item.displayName = AssetListCollection.GetShellPrefab("Shell_AmongUs").stats.displayName;
+                    newShell.item.displayName = AssetListCollection.GetShellPrefab("Shell_AmongUs").stats.displayName;
+                }
+                else if (Plugin.connection.session != null)
+                {
+                    //Exit if shell rando is not enabled
+                    if (!CrabFile.current.GetBool("shellRandoEnabled"))
+                    {
+                        return true;
+                    }
+                    Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+
+                    Shell shellToReplace = GameManager.instance.assetCollection.shells.Find((Shell x) => x.stats.displayName == item.item.GetNameIndex());
+                    if (shellToReplace != null)
+                    {
+                        //Debug.Log("Shell to replace: " + shellToReplace.prefabName);
+                        string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(shellToReplace.prefabName)]);
+
+                        newShell.item.displayName = AssetListCollection.GetShellPrefab(newShellName).stats.displayName;
+                    }
+                }
+
+
+                ShopButtonFlag shopButtonFlag = UnityEngine.Object.Instantiate<ButtonFlag>(__instance.buttonPrefab) as ShopButtonFlag;
+                shopButtonFlag.transform.SetParent(__instance.listTransform.transform);
+                shopButtonFlag.transform.localScale = Vector3.one;
+                shopButtonFlag.Initialize(__instance, newShell);
+                __instance.listElements.Add(shopButtonFlag.GetComponent<Selectable>());
+                return false;
             }
+            return true;
+        }
+    }*/
+
+    
+    [HarmonyPatch(typeof(ListedButtonFlag), "UpdateName")]
+    //Shellfish Desires Name
+    static class ShellfishDesiresName
+    {
+        [HarmonyPostfix]
+        static void Postfix(ListedButtonFlag __instance)
+        {
+            
+            CollectableItemData collectable = Traverse.Create(__instance).Field("collectable").GetValue<CollectableItemData>();
+            InventoryData.InventorySlot item = Traverse.Create(__instance).Field("item").GetValue<InventoryData.InventorySlot>();
+            ShopButtonList shopButtonList = null;
+            if (__instance.transform.parent != null)
+            {
+                shopButtonList = __instance.transform.GetComponentInParent<ShopButtonList>();
+            }
+
+            if (collectable != null && collectable.name.Contains("Shell") && shopButtonList != null && shopButtonList.name == "window_Shop_BuyShells")
+            {
+                if (Plugin.debugMode)
+                {
+
+                    string localizedName = AssetListCollection.GetShellPrefab("Shell_AmongUs").stats.shellCollectable.GetLocalizedName();
+                    Debug.Log("6");
+                    __instance.label.text = localizedName;
+                    Debug.Log("7");
+                }
+                else if (Plugin.connection.connected && CrabFile.current.GetBool("shellRandoEnabled"))
+                {
+                    Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+                    Shell shellToReplace = GameManager.instance.assetCollection.shells.Find((Shell x) => x.stats.displayName == collectable.displayName);
+                    if (shellToReplace != null)
+                    {
+                        //Debug.Log("Shell to replace: " + shellToReplace.prefabName);
+                        string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(shellToReplace.prefabName)]);
+                        string localizedName = AssetListCollection.GetShellPrefab(newShellName).stats.shellCollectable.GetLocalizedName();
+
+                        __instance.label.text = localizedName;
+                    }
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(ListedButtonFlag), "UpdateIcon")]
+    //Shellfish Desires Icon
+    static class ShellfishDesiresIcon
+    {
+        [HarmonyPostfix]
+        static void Postfix(ListedButtonFlag __instance)
+        {
+
+            CollectableItemData collectable = Traverse.Create(__instance).Field("collectable").GetValue<CollectableItemData>();
+            InventoryData.InventorySlot item = Traverse.Create(__instance).Field("item").GetValue<InventoryData.InventorySlot>();
+            ShopButtonList shopButtonList = null;
+            if (__instance.transform.parent != null)
+            {
+                shopButtonList = __instance.transform.GetComponentInParent<ShopButtonList>();
+            }
+
+            if (collectable != null && collectable.name.Contains("Shell") && shopButtonList != null && shopButtonList.name == "window_Shop_BuyShells")
+            {
+                if (Plugin.debugMode)
+                {
+
+                    Sprite icon = AssetListCollection.GetShellPrefab("Shell_AmongUs").stats.shellCollectable.GetIcon();
+                    __instance.icon.sprite = icon;
+                }
+                else if (Plugin.connection.connected && CrabFile.current.GetBool("shellRandoEnabled"))
+                {
+                    Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+                    Shell shellToReplace = GameManager.instance.assetCollection.shells.Find((Shell x) => x.stats.displayName == collectable.displayName);
+                    if (shellToReplace != null)
+                    {
+                        //Debug.Log("Shell to replace: " + shellToReplace.prefabName);
+                        string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(shellToReplace.prefabName)]);
+                        Sprite icon = AssetListCollection.GetShellPrefab(newShellName).stats.shellCollectable.GetIcon();
+
+                        __instance.icon.sprite = icon;
+                    }
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(ShopButtonFlag),"TryPurchase")]
+    static class ShellfishDesiresPurchase
+    {
+        [HarmonyPrefix]
+        static bool Prefix(ShopButtonFlag __instance)
+        {
+            ShellCollectable shellCollectable = __instance.shopItemData.item as ShellCollectable;
+            if (shellCollectable != null)
+            {
+                ShellCollectable newShell = null;
+                if (Plugin.debugMode)
+                {
+                    newShell = AssetListCollection.GetShellPrefab("Shell_AmongUs").stats.shellCollectable;
+                }
+                else if (Plugin.connection.connected && CrabFile.current.GetBool("shellRandoEnabled"))
+                {
+                    Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+                    Shell shellToReplace = GameManager.instance.assetCollection.shells.Find((Shell x) => x.stats.displayName == shellCollectable.displayName);
+                    if (shellToReplace != null)
+                    {
+                        //Debug.Log("Shell to replace: " + shellToReplace.prefabName);
+                        string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(shellToReplace.prefabName)]);
+                        newShell = AssetListCollection.GetShellPrefab(newShellName).stats.shellCollectable;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+
+                if (Player.singlePlayer.equippedShell && Player.singlePlayer.equippedShell is Dentures)
+                {
+                    Player.singlePlayer.SwapShell(null, false, true);
+                }
+
+                if (newShell != null)
+                {
+                    if (__instance.shopItemData.stock != -1)
+                    {
+                        __instance.shopItemData.stock = Mathf.Max(__instance.shopItemData.stock - 1, 0);
+                    }
+                    CrabFile.current.storeData.SavePurchase(__instance.shop.shopData.shopID, __instance.shopItemData.item.name, 1);
+                
+                    CrabFile.current.inventoryData.AdjustAmount(__instance.shopItemData.item, 1);
+                    AudioManager.PlayOneShot((__instance.shopItemData.GetCost().umamiCost > 0) ? "UI/UI_Purchase_Umami" : "UI/UI_Purchase_Breadclaw", null, false);
+
+                    Debug.Log("Inthere");
+                    newShell.SetStartAndEquip();
+                    newShell.InsureShell(true);
+                    __instance.shop.OnPurchased(__instance);
+                    return false;
+                }
+
+            }
+            return true;
         }
     }
 
@@ -335,15 +534,30 @@ namespace ACTAP
 
     //Fix Corpse Shell
     [HarmonyPatch(typeof(PlayerCorpse),nameof(PlayerCorpse.Init),new[] { typeof(Vector3), typeof(string), typeof(int), typeof(int) })]
-    static class CorpseShellPatch
+    static class CorpseShellPatch1
     {
         [HarmonyPostfix]
         static void Postfix(ref Vector3 location, ref string shellName, int shellHealth, int breadClips)
         {
-            PlayerCorpse.currentCorpse.name += "_SWAP";
+            if (PlayerCorpse.currentCorpse.currentShell != null)
+            {
+                PlayerCorpse.currentCorpse.currentShell.name += "_SWAP";
+            }
         }
     }
 
+    [HarmonyPatch(typeof(PlayerCorpse), nameof(PlayerCorpse.Init), new[] { typeof(PlayerCorpse.CorpseData )})]
+    static class CorpseShellPatch2
+    {
+        [HarmonyPostfix]
+        static void Postfix(ref PlayerCorpse.CorpseData data)
+        {
+            if (PlayerCorpse.currentCorpse.currentShell != null)
+            {
+                PlayerCorpse.currentCorpse.currentShell.name += "_SWAP";
+            }
+        }
+    }
     //Fix MSS Can Spawnner
     [HarmonyPatch(typeof(PlugSpawner), "OnEnable")]
     static class MSSCanSpawnPatch

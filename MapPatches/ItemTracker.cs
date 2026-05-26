@@ -14,18 +14,18 @@ namespace ACTAP
         public static void Postfix(AreaMap __instance)
         {
             if (Plugin.RenderMapMarkers)
-            { 
+            {
+                Debug.Log("Rendering Item Map");
+                GameObject icon = __instance.pagurusIcon.gameObject;
+                GameObject mapOverlay = __instance.pagurusIcon.transform.parent.gameObject;
+                List<Item> items = Plugin.items;
+                PlayerLocationData location = CrabFile.current.locationData;
 
-            GameObject icon = __instance.pagurusIcon.gameObject;
-            GameObject mapOverlay = __instance.pagurusIcon.transform.parent.gameObject;
-            List<Item> items = Plugin.items;
-            PlayerLocationData location = CrabFile.current.locationData;
-
-            LevelData dataFromLevel = WorldData.globalWorldData.GetDataFromLevel(location.currentLevel);
-            Vector2 treasureMapBottomLeft = dataFromLevel.treasureMapBottomLeft;
-            Vector2 treasureMapTopRight = dataFromLevel.treasureMapTopRight;
-            int mapDataIndex = Traverse.Create(__instance).Field<int>("activeDataSetIndex").Value;
-            AreaMapDataSet areaMapDataSet = __instance.areaMapDataSets[mapDataIndex];
+                LevelData dataFromLevel = WorldData.globalWorldData.GetDataFromLevel(location.currentLevel);
+                Vector2 treasureMapBottomLeft = dataFromLevel.treasureMapBottomLeft;
+                Vector2 treasureMapTopRight = dataFromLevel.treasureMapTopRight;
+                int mapDataIndex = Traverse.Create(__instance).Field<int>("activeDataSetIndex").Value;
+                AreaMapDataSet areaMapDataSet = __instance.areaMapDataSets[mapDataIndex];
 
                 foreach (Item item in items)
                 {

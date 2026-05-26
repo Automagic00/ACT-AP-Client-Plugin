@@ -141,7 +141,13 @@ namespace ACTAP
         {
             if (!DeathLinkPatch.isDeathLink && Plugin.connection.session != null)
             {
-                DeathLinkPatch.GenerateDeathMessage(killEvent);
+                if(killEvent != null){
+                    DeathLinkPatch.GenerateDeathMessage(killEvent);
+                }
+                else
+                {
+                    DeathLinkPatch.deathMsgSent =  Plugin.connection.session.Players.GetPlayerName(Plugin.connection.session.ConnectionInfo.Slot) + " died.";
+                }
                 
             }
         }

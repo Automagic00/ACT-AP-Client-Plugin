@@ -27,7 +27,11 @@ namespace ACTAP
             if (Plugin.connection.session != null)
             {
                 string msgBody = "";
-                if (killEvent.source.GetComponent<Boss>() != null)
+                if (killEvent.source == null)
+                {
+                    msgBody = "died";
+                }
+                else if (killEvent.source.GetComponent<Boss>() != null)
                 {
                     string killer = killEvent.source.GetComponent<Boss>().bossName;
                     killer = killer.Replace("Enemy_", "");

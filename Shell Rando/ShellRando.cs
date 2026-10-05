@@ -130,12 +130,19 @@ namespace ACTAP
                     return;
                 }
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+                
+                string apworldName;
+                if (!ShellData.shellTableByPrefab.TryGetValue(__instance.shellToSpawn.prefabName, out apworldName) || apworldName == "" || !shellRandoData.ContainsKey(apworldName))
+                {
+                    Debug.Log("Shell " + __instance.shellToSpawn.prefabName + " is not part of the rando, skipping");
+                    return;
+                }
 
-                string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.shellToSpawn.prefabName)]) + "_SWAP";
+                string newShellName = ShellData.GetShellPrefabName(shellRandoData[apworldName]);
 
                 __instance.shellToSpawn = AssetListCollection.GetShellPrefab(newShellName);
                 __instance.shellToSpawn.rb.isKinematic = false;
-                __instance.shellToSpawn.name = newShellName;
+                __instance.shellToSpawn.name = newShellName + "_SWAP";
                 __instance.spawnForce *= 2;
 
             }
@@ -593,8 +600,15 @@ namespace ACTAP
                     return;
                 }
                 Dictionary<string, string> shellRandoData = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrabFile.current.GetString("shellRando"));
+                
+                string apworldName;
+                if (!ShellData.shellTableByPrefab.TryGetValue(__instance.plug.prefabName, out apworldName) || apworldName == "" || !shellRandoData.ContainsKey(apworldName))
+                {
+                    Debug.Log("Shell " + __instance.plug.prefabName + " is not part of the rando, skipping");
+                    return;
+                }
 
-                string newShellName = ShellData.GetShellPrefabName(shellRandoData[ShellData.GetShellApworldName(__instance.plug.prefabName)]);
+                string newShellName = ShellData.GetShellPrefabName(shellRandoData[apworldName]);
 
                 __instance.plug = AssetListCollection.GetShellPrefab(newShellName);
                 __instance.plug.name += "_SWAP";

@@ -25,7 +25,7 @@ namespace ACTAP
     [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", PluginVersion)]
     public class Plugin : BaseUnityPlugin
     {
-        public const string PluginVersion = "0.5.2";
+        public const string PluginVersion = "0.5.3";
         public static Player _player;
         public static LoadingScreen _loadingScreen;
         float alphaAmount = 0f;

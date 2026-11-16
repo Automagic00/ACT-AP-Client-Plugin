@@ -233,7 +233,7 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid =  "fc2cf7ed-6ff6-40bb-987a-936da0afa93b-2_A-OOGroveRadius", apid =  baseid + 211}); //Bobber (Secluded Ridge - Broom Spire Climb)
             pickupTable.Add(new LocationData() { uuid =  "dcc6b99e-1d47-481f-86ca-e14a5743f460-2_A-OOGroveRadius", apid =  baseid + 212}); //Shark Egg (Secluded Ridge - Broom Spire Peak)
             pickupTable.Add(new LocationData() { uuid = "09fbd30a-ce33-45a9-bffd-8b4f24c35559-2_A-GroveForestLow", apid =  baseid + 213}); //Barnacle (Expired Grove - On Top of Colander)
-            pickupTable.Add(new LocationData() { uuid = "8fd70034-2415-4934-975b-2303d159f567-2_A-GroveForestLow", apid =  baseid + 214}); //Barbed Hook (Expired Grove - Next to Sniper Crab)
+            pickupTable.Add(new LocationData() { uuid = "1a0f7d65-c345-4ab2-b447-9a33d5f3acca-2_A-GroveForestLow", apid =  baseid + 214}); //Barbed Hook (Expired Grove - Next to Sniper Crab)
             pickupTable.Add(new LocationData() { uuid = "84480f21-e1d7-46d2-9c43-9669ed805a22-2_A-GroveForestLow", apid =  baseid + 215}); //Barbed Hook (Expired Grove - Ledge Near Gunk River)
             pickupTable.Add(new LocationData() { uuid = "9b359e06-c812-437d-b03b-175dd8ef77de-2_A-GroveForestLow", apid =  baseid + 216}); //Barbed Hook (Expired Grove - In Sand Near Gunk River)
             pickupTable.Add(new LocationData() { uuid = "e8b4805a-d793-4cd6-943e-bb51b0a6a7dd-2_A-GroveForestLow", apid =  baseid + 217}); //Old World Whorl (Expired Grove - South Clam)

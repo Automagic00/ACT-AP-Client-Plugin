@@ -277,7 +277,7 @@ namespace ACTAP
                         }
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.Insert))
+                if (Input.GetKeyDown(KeyCode.F8))
                 { 
                     showMenu = !showMenu;
                     Debug.Log("Toggle Menu");
@@ -688,7 +688,7 @@ namespace ACTAP
             
             GUILayout.BeginHorizontal();
             GUILayout.BeginVertical();
-            GUILayout.Label("Press [Insert] to toggle menu.");
+            GUILayout.Label("Press [F8] to toggle menu.");
             GUILayout.Label("\nPlayer Coords: ");
             GUILayout.Label(_player.transform.position.ToString());
             if (CrabFile.current.GetBool("WasSentPearl") == true)
@@ -832,7 +832,7 @@ namespace ACTAP
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical(GUILayout.Width(160));
-                GUILayout.Label("Press [Insert] to toggle menu.");
+                GUILayout.Label("Press [F8] to toggle menu.");
                 GUILayout.Label(_player.transform.position.ToString());
 
                 if (CrabFile.current.progressData.scuttleportBools[CrabFile.current.progressData.GetProgressIndex(ProgressData.ScuttleportProgress.RolandDefeated)].unlocked == true)

@@ -109,7 +109,7 @@ namespace ACTAP
             apworldNames.Add("Knight's Helmet");
 
             prefabNames.Add("Shell_LegoBrick");
-            apworldNames.Add("LEGAL Brick");
+            apworldNames.Add("Legal Brick");
 
             prefabNames.Add("Shell_LightBulb");
             apworldNames.Add("Lightbulb");
@@ -160,7 +160,7 @@ namespace ACTAP
             apworldNames.Add("Dish Scrubber");
 
             prefabNames.Add("Shell_Scrubfather");
-            apworldNames.Add("Scrub Aggie");
+            apworldNames.Add("Scrub Aggy");
 
             prefabNames.Add("Shell_ShellPasta");
             apworldNames.Add("Conchiglie");

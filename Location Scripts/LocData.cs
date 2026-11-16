@@ -38,7 +38,7 @@ namespace ACTAP
             int baseid = 483021700;
 
             //ShallowsTidePools
-            pickupTable.Add(new LocationData() { uuid = "950e628c-f657-48d4-b93b-f8717627f6b3-2_A-ShallowsTidePools", apid = baseid + 0 }); //heartkelp_inital
+            pickupTable.Add(new LocationData() { uuid = "950e628c-f657-48d4-b93b-f8717627f6b3-2_A-ShallowsTidePools", apid = baseid + 1 }); //heartkelp_inital
             pickupTable.Add(new LocationData() { uuid =  "73329d8e-7c96-4e82-9d3c-e57cc61b46b4-2_A-ShallowsTidePools", apid =  baseid + 4}); //breadclaw_caveofrespite_ledge
             pickupTable.Add(new LocationData() { uuid =  "0171a152-809a-47cf-9fcc-60ddb61511bb-2_B-ShallowsBigSand", apid =  baseid + 5}); //breadclaw_shallows_southsandal
             pickupTable.Add(new LocationData() { uuid =  "ae27274c-c3f7-4721-9ddb-7c5a880578a4-2_B-ShallowsBigSand", apid =  baseid + 6}); //breadclaw_shallows_westwall
@@ -249,8 +249,8 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "90bfa7e8-b69f-4e3b-b539-967c7df38523-2_A-GroveForestLow", apid =  baseid + 227}); //breadclaw_lowergrove_insidetire
             pickupTable.Add(new LocationData() { uuid = "c662e7b9-1f80-4a66-ae70-e0ba31f14a37-2_A-GroveForestLow", apid =  baseid + 228}); //barbedhook_lowergrove_acrossriver
             pickupTable.Add(new LocationData() { uuid = "5053f259-8f89-44b2-a64e-6ad48884e569-2_A-GroveForestLow", apid =  baseid + 229}); //bloodstar_lowergrove_waterfall
-            pickupTable.Add(new LocationData() { uuid =  "e7382e22-3232-4380-a734-bef8eb9a2a76-2_A-GroveForestLow", apid =  baseid + 230}); //barbedhook_lowergrove_afternets
-            pickupTable.Add(new LocationData() { uuid =  "be378f83-9ec2-4a3b-85b2-9a7499e6d693-2_A-GroveForestLow", apid =  baseid + 231}); //breadclaw_lowergrove_smallhall
+            pickupTable.Add(new LocationData() { uuid =  "886641b3-08c7-4460-97dc-56d52e2e24c9-2_A-GroveForestLow", apid =  baseid + 230}); //hairclaw_lowergrove_afternets
+            pickupTable.Add(new LocationData() { uuid =  "cf1311a6-d64c-4d03-b32e-f6440bb9e247-2_A-GroveForestLow", apid =  baseid + 231}); //barbedhook_lowergrove_smallhall
             pickupTable.Add(new LocationData() { uuid =  "faa3c9ce-87c7-4f6d-b07e-be334c3bc447-2_A-GroveForestLow", apid =  baseid + 232}); //chipclaw_lowergrove_apples
             pickupTable.Add(new LocationData() { uuid =  "25737275-a222-4a6e-af6b-0c66c197cab7-2_A-GroveForestLow", apid =  baseid + 233}); //chipclaw_lowergrove_sodacans
             pickupTable.Add(new LocationData() { uuid = "1c84843a-ab7e-433f-b376-83a0373f5a97-2_A-GroveForestLow", apid =  baseid + 234}); //hairclaw_lowergrove_moonshine
@@ -457,7 +457,7 @@ namespace ACTAP
             pickupTable.Add(new LocationData() { uuid = "a852dd53-a482-4858-a503-6d6c691c5b7b-2_C-Facilities", apid = baseid + 436 });//
             pickupTable.Add(new LocationData() { uuid = "416129a7-73dc-49db-884e-dd39081c159f-2_C-Facilities", apid = baseid + 437 });//
             pickupTable.Add(new LocationData() { uuid = "5b38d7db-b409-4b96-98aa-e1a861365453-2_C-Facilities", apid = baseid + 438 });//
-            pickupTable.Add(new LocationData() { uuid = "5b38d7db-b409-4b96-98aa-e1a861365453-2_C-Facilities", apid = baseid + 439 });//
+            pickupTable.Add(new LocationData() { uuid = "944f517e-6c6b-40f2-88ec-a5490dd08ab0-2_C-Facilities", apid = baseid + 439 });//
             pickupTable.Add(new LocationData() { uuid = "37f09b48-7c2f-447e-9c87-5c29f6d0685f-2_C-Facilities", apid = baseid + 440 });//
             pickupTable.Add(new LocationData() { uuid = "09cdcb1f-cb62-4a7c-a9a1-04aba76325c4-2_C-Facilities", apid = baseid + 441 });//
             pickupTable.Add(new LocationData() { uuid = "cb37f39c-6d87-4151-bbc0-11029c60ebbc-2_C-Facilities", apid = baseid + 442 });//

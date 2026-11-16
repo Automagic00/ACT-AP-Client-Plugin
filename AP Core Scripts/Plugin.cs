@@ -343,7 +343,7 @@ namespace ACTAP
 
                 try
                 {
-                    result = session.TryConnectAndLogin("Another Crabs Treasure", player, ItemsHandlingFlags.AllItems, requestSlotData: true, password: pass);
+                    result = session.TryConnectAndLogin("Another Crab's Treasure", player, ItemsHandlingFlags.AllItems, requestSlotData: true, password: pass);
                 }
                 catch (Exception e)
                 {
@@ -353,10 +353,12 @@ namespace ACTAP
                 {
 
                     slotData = LoginSuccess.SlotData;
-                    // If we aren't on v0.5.0, fail to connect
-                    if (!slotData.ContainsKey("ngplus_bosses") || !slotData.ContainsKey("ngplus_slots"))
+                    versionNumber = slotData["version_number"].ToString();
+                    // If we aren't on v0.6.0 or higher, fail to connect.
+                    // This check isn't necessary until v0.7.0, as the apworld name was changed in v0.6.0, but leaving instrumentation here for future use.
+                    if (int.Parse(versionNumber.Split('.')[1]) < 6)
                     {
-                        Debug.Log("Error connecting to Archipelago: Using wrong version. Make sure you generated on v0.5.0 or higher.");
+                        Debug.Log("Error connecting to Archipelago: Using wrong version. Make sure you generated on v0.6.0 or higher.");
                         TryDisconnect();
                         return;
                     }
@@ -376,11 +378,6 @@ namespace ACTAP
                             //Debug.Log("Death link received");
                             DeathLinkPatch.deathMsg = deathLinkObject.Cause == null ? $"{deathLinkObject.Source} died. Point and laugh." : $"{deathLinkObject.Cause}";
                             DeathLinkPatch.isDeathLink = true;
-                            //Player.singlePlayer.Die();
-                            //DeathLinkPatch.RecieveDeathLink(deathLinkObject.Cause == null ? $"\"{deathLinkObject.Source} died and took you with them.\"" : $"\"{deathLinkObject.Cause}\"");
-                            //DeathLinkPatch.RecieveDeathLink(deathLinkObject.Cause == null ? $"{deathLinkObject.Source} died." : $"{deathLinkObject.Cause}");
-                            //PlayerCharacterPatches.DeathLinkMessage = deathLinkObject.Cause == null ? $"\"{deathLinkObject.Source} died and took you with them.\"" : $"\"{deathLinkObject.Cause}\"";
-                            //PlayerCharacterPatches.DiedToDeathLink = true;
                         }
                     };
 

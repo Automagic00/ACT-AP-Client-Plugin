@@ -671,7 +671,7 @@ namespace ACTAP
             else if (showMenu && debugMode && _player != null)
             {
                 GUI.backgroundColor = backgroundColor;
-                windowRect = new Rect(0, 0, 200, 335);
+                windowRect = new Rect(0, 0, 200, 400);
                 windowRect = GUI.Window(0, windowRect, DebugMenu, $"Debug (Plugin v{PluginVersion}");
             }
             else if (showMenu && !debugMode && connection.session != null && _player != null)
@@ -830,7 +830,7 @@ namespace ACTAP
         {
             if (debugMode == true && _player != null)
             {
-                GUILayout.BeginHorizontal(GUILayout.Height(200));
+                GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical(GUILayout.Width(160));
                 GUILayout.Label("Press [Insert] to toggle menu.");
                 GUILayout.Label(_player.transform.position.ToString());

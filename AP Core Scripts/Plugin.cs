@@ -299,6 +299,7 @@ namespace ACTAP
             public Dictionary<string, object> slotData;
             public DeathLinkService deathLinkService;
             public int ItemIndex = 0;
+            private string versionNumber;
             private ConcurrentQueue<(ItemInfo NetworkItem, int index)> incomingItems;
             private ConcurrentQueue<ItemInfo> outgoingItems;
             public bool connected

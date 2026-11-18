@@ -25,7 +25,7 @@ namespace ACTAP
     [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", PluginVersion)]
     public class Plugin : BaseUnityPlugin
     {
-        public const string PluginVersion = "0.5.3";
+        public const string PluginVersion = "0.6.0";
         public static Player _player;
         public static LoadingScreen _loadingScreen;
         float alphaAmount = 0f;
@@ -487,7 +487,7 @@ namespace ACTAP
 
             public long GetLocationID(string name)
             {
-                long id = session.Locations.GetLocationIdFromName("Another Crabs Treasure", name);
+                long id = session.Locations.GetLocationIdFromName("Another Crab's Treasure", name);
                 return id;
             }
 
@@ -830,7 +830,7 @@ namespace ACTAP
         {
             if (debugMode == true && _player != null)
             {
-                GUILayout.BeginHorizontal();
+                GUILayout.BeginHorizontal(GUILayout.Height(400));
                 GUILayout.BeginVertical(GUILayout.Width(160));
                 GUILayout.Label("Press [F8] to toggle menu.");
                 GUILayout.Label(_player.transform.position.ToString());

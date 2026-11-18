@@ -15,7 +15,7 @@ Should you experience any issues with setting up or using this mod, please feel 
 1) Download the latest `another_crab.apworld` from [releases](https://github.com/Automagic00/ACT-AP-Client-Plugin/releases).
 2) Install the Archipelago Launcher following the instructions [here](https://archipelago.gg/tutorial/Archipelago/setup_en) if you have not done so already.
 3) Place the `another_crab.apworld` file in the `custom_worlds` folder of your Archipelago install or click on Install APWorld in the Archipelago Launcher and select your `another_crab.apworld` file.
-4) To generate a .yaml, click on Generate Template Options in the Archipelago Launcher and select the `Another Crabs Treasure.yaml`. This can then be edited and saved wherever you wish.
+4) To generate a .yaml, click on Generate Template Options in the Archipelago Launcher and select the `Another Crab's Treasure.yaml`. This can then be edited and saved wherever you wish.
 5) To generate a game, continue following the instructions on the [Archipelago website](https://archipelago.gg/tutorial/Archipelago/setup_en), using the yaml created in step 4.
 </details>
 
@@ -50,7 +50,7 @@ In order to install the ACT-AP client mod, it is necessary to first install BepI
 > **Linux Only:** It is necessary to configure the Proton/Wine prefix for BepInEx to run correctly. Do so by following the instructions [here](https://docs.bepinex.dev/articles/advanced/proton_wine.html) before launching Another Crab's Treasure.
 
 2) Download `ACTAP.dll` from [releases](https://github.com/Automagic00/ACT-AP-Client-Plugin/releases) and place it in `BepInEx/Plugins`
-3) Launch Another Crabs Treasure via Thunderstore or r2modman.
+3) Launch Another Crab's Treasure via Thunderstore or r2modman.
 
 > Note: If installed correctly, there should be a form on the top left corner of the main menu.
  

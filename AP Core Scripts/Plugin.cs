@@ -25,7 +25,7 @@ namespace ACTAP
     [BepInPlugin("ACTPlugins.Automagic.Archipelago", "AP Randomizer", PluginVersion)]
     public class Plugin : BaseUnityPlugin
     {
-        public const string PluginVersion = "0.5.3";
+        public const string PluginVersion = "0.6.0";
         public static Player _player;
         public static LoadingScreen _loadingScreen;
         float alphaAmount = 0f;
@@ -277,7 +277,7 @@ namespace ACTAP
                         }
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.Insert))
+                if (Input.GetKeyDown(KeyCode.F8))
                 { 
                     showMenu = !showMenu;
                     Debug.Log("Toggle Menu");
@@ -299,6 +299,7 @@ namespace ACTAP
             public Dictionary<string, object> slotData;
             public DeathLinkService deathLinkService;
             public int ItemIndex = 0;
+            private string versionNumber;
             private ConcurrentQueue<(ItemInfo NetworkItem, int index)> incomingItems;
             private ConcurrentQueue<ItemInfo> outgoingItems;
             public bool connected
@@ -343,7 +344,7 @@ namespace ACTAP
 
                 try
                 {
-                    result = session.TryConnectAndLogin("Another Crabs Treasure", player, ItemsHandlingFlags.AllItems, requestSlotData: true, password: pass);
+                    result = session.TryConnectAndLogin("Another Crab's Treasure", player, ItemsHandlingFlags.AllItems, requestSlotData: true, password: pass);
                 }
                 catch (Exception e)
                 {
@@ -353,10 +354,12 @@ namespace ACTAP
                 {
 
                     slotData = LoginSuccess.SlotData;
-                    // If we aren't on v0.5.0, fail to connect
-                    if (!slotData.ContainsKey("ngplus_bosses") || !slotData.ContainsKey("ngplus_slots"))
+                    versionNumber = slotData["version_number"].ToString();
+                    // If we aren't on v0.6.0 or higher, fail to connect.
+                    // This check isn't necessary until v0.7.0, as the apworld name was changed in v0.6.0, but leaving instrumentation here for future use.
+                    if (int.Parse(versionNumber.Split('.')[1]) < 6)
                     {
-                        Debug.Log("Error connecting to Archipelago: Using wrong version. Make sure you generated on v0.5.0 or higher.");
+                        Debug.Log("Error connecting to Archipelago: Using wrong version. Make sure you generated on v0.6.0 or higher.");
                         TryDisconnect();
                         return;
                     }
@@ -376,11 +379,6 @@ namespace ACTAP
                             //Debug.Log("Death link received");
                             DeathLinkPatch.deathMsg = deathLinkObject.Cause == null ? $"{deathLinkObject.Source} died. Point and laugh." : $"{deathLinkObject.Cause}";
                             DeathLinkPatch.isDeathLink = true;
-                            //Player.singlePlayer.Die();
-                            //DeathLinkPatch.RecieveDeathLink(deathLinkObject.Cause == null ? $"\"{deathLinkObject.Source} died and took you with them.\"" : $"\"{deathLinkObject.Cause}\"");
-                            //DeathLinkPatch.RecieveDeathLink(deathLinkObject.Cause == null ? $"{deathLinkObject.Source} died." : $"{deathLinkObject.Cause}");
-                            //PlayerCharacterPatches.DeathLinkMessage = deathLinkObject.Cause == null ? $"\"{deathLinkObject.Source} died and took you with them.\"" : $"\"{deathLinkObject.Cause}\"";
-                            //PlayerCharacterPatches.DiedToDeathLink = true;
                         }
                     };
 
@@ -490,7 +488,7 @@ namespace ACTAP
 
             public long GetLocationID(string name)
             {
-                long id = session.Locations.GetLocationIdFromName("Another Crabs Treasure", name);
+                long id = session.Locations.GetLocationIdFromName("Another Crab's Treasure", name);
                 return id;
             }
 
@@ -674,7 +672,7 @@ namespace ACTAP
             else if (showMenu && debugMode && _player != null)
             {
                 GUI.backgroundColor = backgroundColor;
-                windowRect = new Rect(0, 0, 200, 335);
+                windowRect = new Rect(0, 0, 200, 375);
                 windowRect = GUI.Window(0, windowRect, DebugMenu, $"Debug (Plugin v{PluginVersion}");
             }
             else if (showMenu && !debugMode && connection.session != null && _player != null)
@@ -691,7 +689,7 @@ namespace ACTAP
             
             GUILayout.BeginHorizontal();
             GUILayout.BeginVertical();
-            GUILayout.Label("Press [Insert] to toggle menu.");
+            GUILayout.Label("Press [F8] to toggle menu.");
             GUILayout.Label("\nPlayer Coords: ");
             GUILayout.Label(_player.transform.position.ToString());
             if (CrabFile.current.GetBool("WasSentPearl") == true)
@@ -833,9 +831,9 @@ namespace ACTAP
         {
             if (debugMode == true && _player != null)
             {
-                GUILayout.BeginHorizontal(GUILayout.Height(200));
+                GUILayout.BeginHorizontal(GUILayout.Height(375));
                 GUILayout.BeginVertical(GUILayout.Width(160));
-                GUILayout.Label("Press [Insert] to toggle menu.");
+                GUILayout.Label("Press [F8] to toggle menu.");
                 GUILayout.Label(_player.transform.position.ToString());
 
                 if (CrabFile.current.progressData.scuttleportBools[CrabFile.current.progressData.GetProgressIndex(ProgressData.ScuttleportProgress.RolandDefeated)].unlocked == true)
